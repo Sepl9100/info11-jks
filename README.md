@@ -9,6 +9,9 @@ Informatik Projekt 11/2 2022 GN - Jan, Konstantin, Sebastian
   - Konsti: Tetris, Snake
   - Sebi: Sudoku, Türme von Hanoi
 
+
+##### Der Fokus liegt auf den fertigen Spielen.
+
 ---
 
 ### Software:
