@@ -16,7 +16,7 @@ Informatik Projekt 11/2 2022 GN - Jan, Konstantin, Sebastian
 
 ### Software:
 Programmierung:
-- Java (IDE: IntelliJ)
+- Java (IDE: IntelliJ, BlueJ)
 - GitHub
 
 Kommunikation:
