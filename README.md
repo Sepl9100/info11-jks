@@ -20,6 +20,6 @@ Programmierung:
 - GitHub
 
 Kommunikation:
-- Discord 
-- Nextcloud
+- Discord
 - Taiga.io (Aufgabenverteilung)
+- Nextcloud (Nach Bedarf)
