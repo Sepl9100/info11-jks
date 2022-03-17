@@ -24,7 +24,7 @@ public abstract class Game {
 
         surface = new JPanel();
         window.add(surface);
-        surface.setBackground(Color.green);
+        surface.setBackground(Color.black);
         surface.setPreferredSize(new Dimension(PANELWIDTH, PANELHEIGHT));
         window.pack();
 
