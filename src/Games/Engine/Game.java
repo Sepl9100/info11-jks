@@ -15,7 +15,7 @@ public abstract class Game extends JPanel {
     public final int PANELWIDTH = 700;
     public final int PANELHEIGHT = 500;
 
-    public Sprite[] spritelist;
+    public Sprite[] spritelist; // muss zu linked list umgebaut werden
 
     public Game(Window window, String name){
         super();
@@ -24,7 +24,7 @@ public abstract class Game extends JPanel {
 
         spritelist = new Sprite[1000];
 
-        window.update_title(name); // display game name on titlebar
+        window.update_title(name); // displays game name on titlebar
 
         window.add(this);
         this.setBackground(Color.black);
