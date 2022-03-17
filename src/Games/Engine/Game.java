@@ -1,8 +1,8 @@
 package Games.Engine;
 
 public abstract class Game {
-
-    public Game(){
+    Window window;
+    public Game(Window window){
 
     }
 }

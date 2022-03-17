@@ -1,3 +1,5 @@
+package Games.Engine;
+
 import Games.Engine.Sprite;
 
 import javax.swing.*;
@@ -11,5 +13,7 @@ public class Window extends JFrame {
     }
 
 
-    public void draw(Sprite sprite)
+    public void draw(Sprite sprite){
+
+    }
 }
