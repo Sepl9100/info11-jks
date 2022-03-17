@@ -1,18 +1,24 @@
 package Games.Engine;
 
 import Games.Engine.Sprite;
+import Games.MainMenu;
 
 import javax.swing.*;
 
 public class Window extends JFrame {
 
+    private final String TITLE = "JKS Spielesammlung";
+
     public Window(){
-        super("JKS Spielesammlung");
+        super();
         this.setVisible(true);
-        this.setSize(700, 500);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
+    public void update_title(String text){
+        this.setTitle(TITLE + " - " + text);
+    }
 
     public void draw(Sprite sprite){
 
