@@ -3,8 +3,8 @@ import javax.swing.*;
 public class Window extends JFrame {
 
     public Window(){
-        super("Informatik Projekt");
+        super("JKS Spielesammlung");
         this.setVisible(true);
-        this.pack();
+        this.setSize(700, 500);
     }
 }
