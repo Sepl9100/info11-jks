@@ -17,7 +17,5 @@ public class MainMenu {
         b.setVisible(true);
         surface.add(b);
 
-        JPanel upper_half = new JPanel();
-
     }
 }
