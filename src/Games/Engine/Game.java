@@ -2,14 +2,29 @@ package Games.Engine;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public abstract class Game {
-    private Window window;
-    private JPanel surface;
+    protected Window window;
+    protected JPanel surface;
     public Game(Window window){
         this.window = window;
-        this.surface = new JPanel();
-        this.surface.setBackground(Color.green);
-        window.add(this.surface);
+
+        surface = new JPanel();
+
+        window.add(surface);
+
+        surface.setBackground(Color.green);
+        surface.setPreferredSize(new Dimension(700, 500));
+
+        window.pack();
+
+    }
+
+    public void exit(){
+        window.remove(surface);
+        window.repaint();
+        window.open_main_menu();
     }
 }

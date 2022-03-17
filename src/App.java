@@ -1,4 +1,6 @@
 import Games.Engine.Window;
+import Games.MainMenu;
+import Games.Snake;
 
 public class App {
     Window window;
@@ -6,6 +8,8 @@ public class App {
     public App(){
         window = new Window();
 
-        MainMenu menu = new MainMenu(window);
+        new MainMenu(window);
+
+        //new Snake(window);
     }
 }
