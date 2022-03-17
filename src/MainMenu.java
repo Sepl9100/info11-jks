@@ -27,7 +27,5 @@ public class MainMenu {
         });
         surface.add(b);
 
-        JPanel upper_half = new JPanel();
-
     }
 }
