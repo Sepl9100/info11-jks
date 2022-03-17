@@ -1,4 +1,8 @@
 package Games.Engine;
 
-public class Game {
+public abstract class Game {
+
+    public Game(){
+
+    }
 }
