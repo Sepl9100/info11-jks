@@ -10,6 +10,7 @@ public class Window extends JFrame {
         super("JKS Spielesammlung");
         this.setVisible(true);
         this.setSize(700, 500);
+        this.setResizable(false);
     }
 
 

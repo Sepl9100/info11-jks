@@ -9,7 +9,7 @@ public class MainMenu {
     public MainMenu(Window window){
         this.window = window;
         surface = new JPanel();
-        surface.setSize(600, 600);
+        surface.setSize(100, 100);
         window.add(surface);
         surface.setBackground(Color.green);
         JButton b = new JButton();
