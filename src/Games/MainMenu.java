@@ -13,12 +13,11 @@ public class MainMenu extends Game {
     public MainMenu(Window window){
         super(window, "Hauptmenü");
 
-        surface.setBackground(Color.red);
+        this.setBackground(Color.red);
 
         JButton b = new JButton();
         b.setText("Open snake game");
         b.setVisible(true);
-
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -26,14 +25,25 @@ public class MainMenu extends Game {
                 new Snake(window);
             }
         });
+        this.add(b);
 
-        surface.add(b);
+        JButton e = new JButton();
+        e.setText("Open demo game");
+        e.setVisible(true);
+        e.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                new DemoGame(window);
+            }
+        });
+        this.add(e);
 
         window.pack();
     }
 
     public void exit(){
-        window.remove(surface);
+        window.remove(this);
         window.repaint();
     }
 }

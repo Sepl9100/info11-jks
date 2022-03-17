@@ -8,14 +8,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Snake extends Game {
+public class DemoGame extends Game {
 
-    public Snake(Window window){
-        super(window, "Snake");
-        this.setBackground(Color.green);
+    public DemoGame(Window window){
+        super(window, "DemoGame");
+        this.setBackground(Color.orange);
 
         JButton b = new JButton();
-        b.setText("SNAKE GAME EXIT");
+        b.setText("DEMO GAME EXIT");
         b.setVisible(true);
 
         b.addActionListener(new ActionListener() {
@@ -32,7 +32,7 @@ public class Snake extends Game {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawRect(230,80,10,10);
-        g.setColor(Color.BLUE);
+        g.setColor(Color.RED);
         g.fillRect(230,80,10,10);
 
         for (int i = 0; i < 20; i++){
