@@ -5,6 +5,8 @@ public class Sprite {
     public int y;
 
 
-    public delete()
+    public void delete(){
+
+    }
 
 }

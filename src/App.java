@@ -1,4 +1,3 @@
-import EngineUtils.Sprite;
 import Games.Engine.Window;
 
 public class App {
@@ -6,5 +5,7 @@ public class App {
 
     public App(){
         window = new Window();
+
+        MainMenu menu = new MainMenu(window);
     }
 }
