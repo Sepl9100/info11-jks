@@ -9,12 +9,15 @@ public class MainMenu {
     public MainMenu(Window window){
         this.window = window;
         surface = new JPanel();
-        surface.setSize(700, 500);
         window.add(surface);
+        surface.setSize(700, 500);
+        
         surface.setBackground(Color.green);
+
         JButton b = new JButton();
         b.setText("TestKnopfFürLevelAuswahl");
         b.setVisible(true);
+
         surface.add(b);
 
     }
