@@ -15,10 +15,14 @@ public abstract class Game extends JPanel {
     public final int PANELWIDTH = 700;
     public final int PANELHEIGHT = 500;
 
+    public Sprite[] spritelist;
+
     public Game(Window window, String name){
         super();
         this.window = window;
         this.name = name;
+
+        spritelist = new Sprite[1000];
 
         window.update_title(name); // display game name on titlebar
 
