@@ -13,7 +13,6 @@ public class MainMenu {
 
         surface = new JPanel();
         window.add(surface);
-        surface.setSize(700, 500);
         
         surface.setBackground(Color.green);
 
