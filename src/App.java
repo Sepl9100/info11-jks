@@ -7,9 +7,6 @@ public class App {
 
     public App(){
         window = new Window();
-
         new MainMenu(window);
-
-        //new Snake(window);
     }
 }

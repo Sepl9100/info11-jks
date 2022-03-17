@@ -15,11 +15,6 @@ public class Window extends JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public void open_main_menu(){
-        new MainMenu(this);
-    }
-
-
     public void draw(Sprite sprite){
 
     }

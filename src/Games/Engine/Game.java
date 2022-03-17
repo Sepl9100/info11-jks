@@ -1,5 +1,7 @@
 package Games.Engine;
 
+import Games.MainMenu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +27,6 @@ public abstract class Game {
     public void exit(){
         window.remove(surface);
         window.repaint();
-        window.open_main_menu();
+        new MainMenu(window);
     }
 }
