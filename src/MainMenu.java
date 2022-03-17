@@ -12,10 +12,11 @@ public class MainMenu {
         this.window = window;
 
         surface = new JPanel();
-        surface.setSize(700, 500);
         window.add(surface);
-
+        surface.setSize(700, 500);
+        
         surface.setBackground(Color.green);
+
         JButton b = new JButton();
         b.setText("TestKnopfFürLevelAuswahl");
         b.setVisible(true);
@@ -23,9 +24,10 @@ public class MainMenu {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                b.setVisible(false);
+                surface.remove(b);
             }
         });
+
         surface.add(b);
 
     }
