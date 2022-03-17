@@ -15,6 +15,21 @@ public class MainMenu extends Game {
 
         this.setBackground(Color.red);
 
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+
+        JPanel line1 = new JPanel();
+        line1.setBackground(Color.BLACK);
+        this.add(line1, gbc);
+
+        gbc.gridy++;
+        JPanel line2 = new JPanel();
+        line2.setBackground(Color.BLUE);
+        this.add(line2, gbc);
+
         JButton b = new JButton();
         b.setText("Open snake game");
         b.setVisible(true);
@@ -25,7 +40,7 @@ public class MainMenu extends Game {
                 new Snake(window);
             }
         });
-        this.add(b);
+        line1.add(b);
 
         JButton e = new JButton();
         e.setText("Open demo game");
@@ -37,7 +52,21 @@ public class MainMenu extends Game {
                 new DemoGame(window);
             }
         });
-        this.add(e);
+        line1.add(e);
+
+        JButton r = new JButton();
+        r.setText("Open demo game");
+        r.setVisible(true);
+        r.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                new DemoGame(window);
+            }
+        });
+        line2.add(r);
+
+
 
         window.pack();
     }
