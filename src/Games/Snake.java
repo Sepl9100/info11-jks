@@ -38,6 +38,8 @@ public class Snake extends Game {
         for (int i = 0; i < 20; i++){
             g.fillRect(i*22, 10, 20, 20);
         }
+
+        g.fillRoundRect(50, 50, 100, 100, 20, 20);
     }
 
 }

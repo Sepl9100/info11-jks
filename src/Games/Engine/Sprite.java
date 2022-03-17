@@ -1,5 +1,7 @@
 package Games.Engine;
 
+import java.awt.*;
+
 public class Sprite {
     public int x;
     public int y;
@@ -8,6 +10,10 @@ public class Sprite {
 
     public Sprite(Game game) {
         this.game = game;
+
+    }
+
+    public void draw(Graphics g){
 
     }
 
