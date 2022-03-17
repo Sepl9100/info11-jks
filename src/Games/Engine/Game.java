@@ -10,16 +10,22 @@ import java.awt.event.ActionListener;
 public abstract class Game {
     protected Window window;
     protected JPanel surface;
-    public Game(Window window){
+
+    public String name;
+    public final int PANELWIDTH = 700;
+    public final int PANELHEIGHT = 500;
+
+
+    public Game(Window window, String name){
         this.window = window;
+        this.name = name;
+
+        window.update_title(name); // display game name on titlebar
 
         surface = new JPanel();
-
         window.add(surface);
-
         surface.setBackground(Color.green);
-        surface.setPreferredSize(new Dimension(700, 500));
-
+        surface.setPreferredSize(new Dimension(PANELWIDTH, PANELHEIGHT));
         window.pack();
 
     }

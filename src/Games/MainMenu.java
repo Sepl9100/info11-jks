@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 public class MainMenu extends Game {
 
     public MainMenu(Window window){
-        super(window);
+        super(window, "Hauptmenü");
 
         surface.setBackground(Color.red);
 
         JButton b = new JButton();
-        b.setText("MAIN MENU");
+        b.setText("Open snake game");
         b.setVisible(true);
 
         b.addActionListener(new ActionListener() {

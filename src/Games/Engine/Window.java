@@ -7,12 +7,18 @@ import javax.swing.*;
 
 public class Window extends JFrame {
 
+    private final String TITLE = "JKS Spielesammlung";
+
     public Window(){
-        super("JKS Spielesammlung");
+        super();
         this.setVisible(true);
         this.setResizable(false);
         //this.pack();
         this.setLocationRelativeTo(null);
+    }
+
+    public void update_title(String text){
+        this.setTitle(TITLE + " - " + text);
     }
 
     public void draw(Sprite sprite){

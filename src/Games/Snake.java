@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class Snake extends Game {
 
     public Snake(Window window){
-        super(window);
+        super(window, "Snake");
         surface.setBackground(Color.green);
 
         JButton b = new JButton();
