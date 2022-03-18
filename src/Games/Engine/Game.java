@@ -11,11 +11,11 @@ public abstract class Game extends JPanel {
 
     protected Window window;
 
-    public String name;
+    public String name; // Game title
     public final int PANELWIDTH = 700;
     public final int PANELHEIGHT = 500;
 
-    public Sprite[] spritelist; // muss zu linked list umgebaut werden
+    public Sprite[] spritelist; // muss zu 2D linked list umgebaut werden
 
     public Game(Window window, String name){
         super();

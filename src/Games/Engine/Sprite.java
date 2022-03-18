@@ -13,14 +13,15 @@ public class Sprite {
     public Sprite(Game game) {
         this.game = game;
 
+        //
+
     }
 
     public void draw(Graphics g){
-        g.drawRect(x,y,10,10);
+        g.drawRect(x,y,width,height);
     }
 
     public void delete(){
 
     }
-
 }
