@@ -5,6 +5,8 @@ import java.awt.*;
 public class Sprite {
     public int x;
     public int y;
+    public int width;
+    public int height;
 
     private final Game game;
 
@@ -14,7 +16,7 @@ public class Sprite {
     }
 
     public void draw(Graphics g){
-
+        g.drawRect(x,y,10,10);
     }
 
     public void delete(){
