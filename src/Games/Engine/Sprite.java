@@ -12,9 +12,6 @@ public class Sprite {
 
     public Sprite(Game game) {
         this.game = game;
-
-        //
-
     }
 
     public void draw(Graphics g){
