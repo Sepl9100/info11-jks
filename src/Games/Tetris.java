@@ -27,7 +27,6 @@ public class Tetris extends Game {
         }
 
         g.fillRoundRect(50, 50, 100, 100, 20, 20);
-        g.
     }
 
 }
