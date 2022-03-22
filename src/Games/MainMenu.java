@@ -66,8 +66,6 @@ public class MainMenu extends Game {
         });
         line2.add(r);
 
-
-
         window.pack();
     }
 
