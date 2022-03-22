@@ -19,21 +19,14 @@ public class Sprite {
 
     private final Game game;
 
-    public Sprite(Game game, int layer, String image_file) {
+    public Sprite(Game game, int layer, BufferedImage buffered_image) {
         this.game = game;
         game.spritelist.add_sprite(this, layer);
 
-        if (image_file == null){
-            is_image = false;
-        }
+        image = buffered_image;
 
-        if (is_image){
-            try {
-                image = load_image("/" + image_file);
-            }
-            catch(Exception e){
-                System.out.println("Problem opening file");
-            }
+        if (image == null){
+            is_image = false;
         }
 
 
@@ -56,15 +49,6 @@ public class Sprite {
 
     }
 
-    private BufferedImage load_image(String filename) {
-        try {
-            InputStream in = getClass().getResourceAsStream(filename);
-            return ImageIO.read(in);
-        } catch (IOException e) {
-            System.out.println("Error loading image.");
-        }
-        return null;
-    }
 
     public void delete(){
 

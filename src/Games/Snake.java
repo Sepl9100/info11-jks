@@ -22,12 +22,14 @@ public class Snake extends Game {
         super(window, "Snake");
         this.setBackground(Color.green);
 
-        Sprite test = new Sprite(this, 5, "img.png");
+        BufferedImage test_texture = load_image("/img.png");
+
+        Sprite test = new Sprite(this, 5, test_texture);
         test_ = test;
         test.x = 10;
         test.y = 20;
         test.width = 200;
-        Sprite test2 = new Sprite(this, 4, "img.png");
+        Sprite test2 = new Sprite(this, 4, test_texture);
 
 
         JButton b = new JButton();

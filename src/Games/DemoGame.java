@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class DemoGame extends Game {
@@ -35,9 +36,11 @@ public class DemoGame extends Game {
         this.add(b);
         window.pack();
 
+        BufferedImage test_texture = load_image("/img.png");
+
         sprites = new Sprite[5000];
         for (int i = 0; i < 4500; i++){
-            sprites[i] = new Sprite(this, 0, "img.png");
+            sprites[i] = new Sprite(this, 0, test_texture);
             sprites[i].x = 200;
             sprites[i].y = 200;
         }
@@ -48,8 +51,8 @@ public class DemoGame extends Game {
     public void update_loop() {
         for (Sprite element : sprites){
             if (element != null) {
-                element.x += random.nextInt(-1, 2);
-                element.y += random.nextInt(-1, 2);
+                element.x += random.nextInt(3)-1;
+                element.y += random.nextInt(3)-1;
             }
         }
     }
