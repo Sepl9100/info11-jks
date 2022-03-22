@@ -60,6 +60,7 @@ public abstract class Game extends JPanel {
     public void exit(){
         window.remove(this);
         window.repaint();
+        this.spritelist = null;
         new MainMenu(window);
     }
 }
