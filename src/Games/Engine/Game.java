@@ -76,9 +76,7 @@ public abstract class Game extends JPanel {
         }
     }
 
-    public void update_loop(){
-
-    }
+    abstract public void update_loop();
 
     public BufferedImage load_image(String filename) {
         try {
