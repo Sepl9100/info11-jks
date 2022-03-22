@@ -37,7 +37,7 @@ public class DemoGame extends Game {
 
         sprites = new Sprite[1000];
         for (int i = 0; i < 500; i++){
-            sprites[i] = new Sprite(this, 0, null);
+            sprites[i] = new Sprite(this, 0, "img.png");
             sprites[i].x = 200;
             sprites[i].y = 200;
         }
