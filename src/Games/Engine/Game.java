@@ -15,14 +15,16 @@ public abstract class Game extends JPanel {
     public final int PANELWIDTH = 700;
     public final int PANELHEIGHT = 500;
 
-    public Sprite[] spritelist; // muss zu 2D linked list umgebaut werden
+    public SpriteList spritelist; // muss zu 2D linked list umgebaut werden
 
     public Game(Window window, String name){
         super();
         this.window = window;
         this.name = name;
 
-        spritelist = new Sprite[1000];
+        spritelist = new SpriteList();
+        Sprite test = new Sprite(this);
+        spritelist.add_sprite(test, 1);
 
         window.update_title(name); // displays game name on titlebar
 
