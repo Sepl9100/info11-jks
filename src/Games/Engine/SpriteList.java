@@ -4,7 +4,7 @@ public class SpriteList {
     public Sprite[][] list;
     public int filled_until;
     public SpriteList(){
-        list = new Sprite[30][200]; //Sprite[layer][place]
+        list = new Sprite[30][500]; //Sprite[layer][place]
     }
 
     public void add_sprite(Sprite sprite, int layer){
