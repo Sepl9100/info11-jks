@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public abstract class Game extends JPanel {
 
@@ -16,6 +17,8 @@ public abstract class Game extends JPanel {
     public final int PANELHEIGHT = 500;
 
     protected int tick;
+    protected double fps;
+    private long last_fps_check_time;
 
     public SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
 
@@ -36,6 +39,15 @@ public abstract class Game extends JPanel {
     }
 
     public void render(Graphics g){
+        if (tick % 100 == 0) {
+            Date date = new Date();
+            System.out.println(fps);
+            long difference = date.getTime() - last_fps_check_time;
+            double fps_ = 1000 * 100 / difference;
+            fps = fps_;
+            last_fps_check_time = date.getTime();
+        }
+
         for (Sprite[] layer : spritelist.list) {
             for (Sprite element : layer) {
                 if (element != null) {
