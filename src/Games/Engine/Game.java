@@ -21,8 +21,10 @@ public abstract class Game extends JPanel {
     private final int PANELHEIGHT = 500;
 
     protected int tick;
+    private long last_tick_time;
     protected int fps;
     private long last_fps_check_time;
+
 
     protected SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
 
@@ -30,6 +32,8 @@ public abstract class Game extends JPanel {
         super();
         this.window = window;
         this.name = name;
+
+
 
         spritelist = new SpriteList();
 
@@ -43,13 +47,26 @@ public abstract class Game extends JPanel {
     }
 
     public void render(Graphics g){
-        if (tick % 100 == 0) {
-            Date date = new Date();
+        Date date = new Date();
+        if (tick % 100 == 0) {                          // Measure FPS every 100th tick
             long difference = date.getTime() - last_fps_check_time;
-            long fps_ = 1000 * 100 / difference;
-            fps = (int)fps_;
+            if (difference != 0) {
+                long fps_ = 1000 * 100 / difference;
+                fps = (int)fps_;
+            }
+
             last_fps_check_time = date.getTime();
         }
+
+        if (date.getTime() - last_tick_time < 9){       // Cap FPS to about 150 - 200
+            try {
+                System.out.println();
+                Thread.sleep(8);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        last_tick_time = date.getTime();
 
         for (Sprite[] layer : spritelist.list) {
             for (Sprite element : layer) {
