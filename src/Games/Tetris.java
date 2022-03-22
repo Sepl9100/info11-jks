@@ -16,17 +16,8 @@ public class Tetris extends Game {
         window.pack();
     }
 
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawRect(230,80,10,10);
-        g.setColor(Color.BLUE);
-        g.fillRect(230,80,10,10);
+    @Override
+    public void update_loop() {
 
-        for (int i = 0; i < 20; i++){
-            g.fillRect(i*22, 10, 20, 20);
-        }
-
-        g.fillRoundRect(50, 50, 100, 100, 20, 20);
     }
-
 }

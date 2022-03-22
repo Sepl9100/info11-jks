@@ -48,7 +48,7 @@ public class Snake extends Game {
     }
 
 
-
+    @Override
     public void update_loop(){
         test_.x++;
     }

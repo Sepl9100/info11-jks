@@ -69,6 +69,11 @@ public class MainMenu extends Game {
         window.pack();
     }
 
+    @Override
+    public void update_loop() {
+
+    }
+
     public void exit(){
         window.remove(this);
         window.repaint();
