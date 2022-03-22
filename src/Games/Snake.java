@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Snake extends Game {
 
@@ -21,9 +22,9 @@ public class Snake extends Game {
         this.setBackground(Color.green);
 
         try {
-            image = ImageIO.read(new File("Z:\\Programming\\Programming-Java\\Projects\\Q11\\info11-jks\\src\\img.png"));
+            image = load_image("/img.png");
         }
-        catch(IOException ex){
+        catch(Exception e){
             System.out.println("Problem opening file");
         }
 
@@ -41,6 +42,21 @@ public class Snake extends Game {
 
         this.add(b);
         window.pack();
+    }
+
+    private BufferedImage load_image(String filename) {
+        // This time, you can use an InputStream to load
+        try {
+            // Grab the InputStream for the image.
+            InputStream in = getClass().getResourceAsStream(filename);
+
+            // Then read it.
+            return ImageIO.read(in);
+        } catch (IOException e) {
+            System.out.println("The image was not loaded.");
+            //System.exit(1);
+        }
+        return null;
     }
 
     protected void paintComponent(Graphics g) {
