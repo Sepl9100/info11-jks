@@ -1,6 +1,7 @@
 package Games;
 
 import Games.Engine.Game;
+import Games.Engine.Sprite;
 import Games.Engine.Window;
 
 import javax.imageio.ImageIO;
@@ -15,18 +16,18 @@ import java.io.InputStream;
 
 public class Snake extends Game {
 
-    private BufferedImage image = null;
+    private Sprite test_;
 
     public Snake(Window window){
         super(window, "Snake");
         this.setBackground(Color.green);
 
-        try {
-            image = load_image("/img.png");
-        }
-        catch(Exception e){
-            System.out.println("Problem opening file");
-        }
+        Sprite test = new Sprite(this, 5, "img.png");
+        test_ = test;
+        test.x = 10;
+        test.y = 20;
+        test.width = 200;
+        Sprite test2 = new Sprite(this, 4, "img.png");
 
 
         JButton b = new JButton();
@@ -44,33 +45,10 @@ public class Snake extends Game {
         window.pack();
     }
 
-    private BufferedImage load_image(String filename) {
-        // This time, you can use an InputStream to load
-        try {
-            // Grab the InputStream for the image.
-            InputStream in = getClass().getResourceAsStream(filename);
 
-            // Then read it.
-            return ImageIO.read(in);
-        } catch (IOException e) {
-            System.out.println("The image was not loaded.");
-            //System.exit(1);
-        }
-        return null;
-    }
 
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawRect(230,80,10,10);
-        g.setColor(Color.BLUE);
-        g.fillRect(230,80,10,10);
-
-        for (int i = 0; i < 20; i++){
-            g.fillRect(i*22, 10, 20, 20);
-        }
-
-        g.fillRoundRect(50, 50, 100, 100, 20, 20);
-        g.drawImage(image, 20, 20, null);
+    public void update_loop(){
+        test_.x++;
     }
 
 }

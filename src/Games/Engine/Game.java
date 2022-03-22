@@ -15,7 +15,9 @@ public abstract class Game extends JPanel {
     public final int PANELWIDTH = 700;
     public final int PANELHEIGHT = 500;
 
-    public SpriteList spritelist; // muss zu 2D linked list umgebaut werden
+    protected int tick;
+
+    public SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
 
     public Game(Window window, String name){
         super();
@@ -23,10 +25,6 @@ public abstract class Game extends JPanel {
         this.name = name;
 
         spritelist = new SpriteList();
-        Sprite test = new Sprite(this);
-        test.x = 3;
-        spritelist.add_sprite(test, 5);
-        spritelist.print();
 
         window.update_title(name); // displays game name on titlebar
 
@@ -35,6 +33,28 @@ public abstract class Game extends JPanel {
         this.setPreferredSize(new Dimension(PANELWIDTH, PANELHEIGHT));
 
         window.pack();
+    }
+
+    public void render(Graphics g){
+        for (Sprite[] layer : spritelist.list) {
+            for (Sprite element : layer) {
+                if (element != null) {
+                    element.draw(g);
+                }
+            }
+        }
+    }
+
+    public void update_loop(){
+
+    }
+
+    protected void paintComponent(Graphics g) {
+        this.update_loop();
+        super.paintComponent(g);
+        this.render(g);
+        this.repaint();
+        this.tick++;
     }
 
     public void exit(){
