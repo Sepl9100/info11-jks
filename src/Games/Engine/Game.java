@@ -24,7 +24,9 @@ public abstract class Game extends JPanel {
 
         spritelist = new SpriteList();
         Sprite test = new Sprite(this);
-        spritelist.add_sprite(test, 1);
+        test.x = 3;
+        spritelist.add_sprite(test, 5);
+        spritelist.print();
 
         window.update_title(name); // displays game name on titlebar
 

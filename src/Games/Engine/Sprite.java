@@ -21,4 +21,11 @@ public class Sprite {
     public void delete(){
 
     }
+
+    public void print(){
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(width);
+        System.out.println(height);
+    }
 }

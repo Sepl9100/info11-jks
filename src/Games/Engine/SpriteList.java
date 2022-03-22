@@ -8,7 +8,17 @@ public class SpriteList {
 
     public void add_sprite(Sprite sprite, int layer){
         int layer_lenght = list[layer].length;
-        list[layer][layer_lenght] = sprite;
+        list[layer][layer_lenght-1] = sprite;
+    }
+
+    public void print(){
+        for (Sprite[] layer : list) {
+            for (Sprite element : layer) {
+                if (element != null){
+                    element.print();
+                }
+            }
+        }
     }
 
 }
