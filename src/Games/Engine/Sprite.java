@@ -39,14 +39,9 @@ public class Sprite {
 
     }
 
-    private BufferedImage load_image(String filename) {
-        try {
-            InputStream in = getClass().getResourceAsStream(filename);
-            return ImageIO.read(in);
-        } catch (IOException e) {
-            System.out.println("Error loading image.");
-        }
-        return null;
+    public void set_pos(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     public void draw(Graphics g){
@@ -59,6 +54,16 @@ public class Sprite {
             g.fillRect(x,y,width,height);
         }
 
+    }
+
+    private BufferedImage load_image(String filename) {
+        try {
+            InputStream in = getClass().getResourceAsStream(filename);
+            return ImageIO.read(in);
+        } catch (IOException e) {
+            System.out.println("Error loading image.");
+        }
+        return null;
     }
 
     public void delete(){
