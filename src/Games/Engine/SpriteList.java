@@ -20,7 +20,7 @@ public class SpriteList {
                 if (element == sprite){
                     for (int index2 = index; index2 < filled_until-1; index2++)
                     {
-                        Sprite next_element = layer[index2+1];
+                        Sprite next_element = layer[index2+1]; // sprite list elemente alle 1 richtung anfang bewegen
                         layer[index2] = next_element;
                     }
                 }
