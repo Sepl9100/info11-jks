@@ -58,9 +58,9 @@ public abstract class Game extends JPanel {
             last_fps_check_time = date.getTime();
         }
 
-        if (date.getTime() - last_tick_time < 9){       // Cap FPS to about 150 - 200
+        if (date.getTime() - last_tick_time < 8){       // Cap FPS to about 150 - 200
             try {
-                Thread.sleep(8);
+                Thread.sleep(9);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
