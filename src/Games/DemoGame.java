@@ -39,7 +39,7 @@ public class DemoGame extends Game {
         BufferedImage test_texture = load_image("/img.png");
 
         sprites = new Sprite[5000];
-        for (int i = 0; i < 4500; i++){
+        for (int i = 0; i < 400; i++){
             sprites[i] = new Sprite(this, 0, test_texture);
             sprites[i].x = 200;
             sprites[i].y = 200;
