@@ -70,3 +70,27 @@ public class DemoGame extends Game {
 }
 
 ```
+
+# Sprite Klasse
+## Konstruktor
+```java
+BufferedImage buffered_image = load_image(dateipfad)
+Sprite sprite = new Sprite(Game game, int layer, BufferedImage buffered_image)
+```
+wenn man als buffered_image null mitgibt zeichnet die Engine ein Rechteck mit der Farbe sprite.color
+## Attribute
+```java
+public int x
+public int y
+public int width
+public int height
+public Color color
+```
+
+## Methoden
+```java
+public void set_pos(int x, int y)
+public void draw(Graphics g)      // wird von Game Engine jeden tick ausgeführt, um Sprite zu zeichnen
+public void delete()
+public void print()
+```
