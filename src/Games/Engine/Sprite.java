@@ -22,14 +22,10 @@ public class Sprite {
     public Sprite(Game game, int layer, BufferedImage buffered_image) {
         this.game = game;
         game.spritelist.add_sprite(this, layer);
-
         image = buffered_image;
-
         if (image == null){
             is_image = false;
         }
-
-
     }
 
     public void set_pos(int x, int y){
@@ -38,7 +34,6 @@ public class Sprite {
     }
 
     public void draw(Graphics g){
-
         if (is_image){
             g.drawImage(image, x, y,width, height, null);
         }
@@ -46,12 +41,11 @@ public class Sprite {
             g.setColor(color);
             g.fillRect(x,y,width,height);
         }
-
     }
 
 
     public void delete(){
-
+        game.spritelist.remove_sprite(this);
     }
 
     public void print(){
