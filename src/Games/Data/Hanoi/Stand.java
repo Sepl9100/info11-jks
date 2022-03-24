@@ -19,12 +19,12 @@ public class Stand {
 
         rec_bottom = new Sprite(this.game, 5, null);
         rec_bottom.set_pos(x, y);
-        rec_bottom.resize(150, 20);
+        rec_bottom.resize(240, 20);
         rec_bottom.color = Color.white;
 
         rec_top = new Sprite(this.game, 5, null);
-        rec_top.set_pos(x+100, y+100);
-        rec_top.resize(20, 150);
+        rec_top.set_pos(x+75, y);
+        rec_top.resize(20, 240);
         rec_top.color = Color.white;
 
     }
