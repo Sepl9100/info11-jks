@@ -43,6 +43,11 @@ public class Sprite {
         }
     }
 
+    public void resize(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
 
     public void delete(){
         game.spritelist.remove_sprite(this);

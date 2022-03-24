@@ -44,6 +44,7 @@ public abstract class Game extends JPanel {
         this.setPreferredSize(new Dimension(PANELWIDTH, PANELHEIGHT));
 
         window.pack();
+        window.setLocationRelativeTo(null);
     }
 
     public void render(Graphics g){
