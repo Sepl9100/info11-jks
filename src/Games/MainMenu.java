@@ -66,6 +66,18 @@ public class MainMenu extends Game {
         });
         line2.add(r);
 
+        JButton hanoi = new JButton();
+        hanoi.setText("Hanoi Game");
+        hanoi.setVisible(true);
+        hanoi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                new Hanoi(window);
+            }
+        });
+        line2.add(hanoi);
+
         window.pack();
     }
 
