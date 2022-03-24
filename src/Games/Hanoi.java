@@ -11,7 +11,7 @@ public class Hanoi extends Game {
         super(window, "Hanoi");
         this.setBackground(Color.black);
 
-
+        
     }
 
     @Override
