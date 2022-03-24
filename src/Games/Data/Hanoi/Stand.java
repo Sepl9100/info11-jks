@@ -23,7 +23,7 @@ public class Stand {
         rec_bottom.color = Color.white;
 
         rec_top = new Sprite(this.game, 5, null);
-        rec_top.set_pos(x+75, y);
+        rec_top.set_pos(x+110, y-240);
         rec_top.resize(20, 240);
         rec_top.color = Color.white;
 
