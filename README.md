@@ -28,7 +28,7 @@ Kommunikation:
 # Game Engine Dokumentation
 
 # Spiel erstellen
-```python
+```java
 package Games;
 
 import Games.Engine.Game;
