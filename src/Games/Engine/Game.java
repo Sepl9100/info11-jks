@@ -56,7 +56,7 @@ public abstract class Game extends JPanel {
                     exit();
                 }
             });
-
+            this.setLayout(new FlowLayout(FlowLayout.LEFT));
             this.add(back_btn, BorderLayout.LINE_START);
         }
 
@@ -114,7 +114,7 @@ public abstract class Game extends JPanel {
         this.render(g);
         this.repaint();
         this.tick++;
-        g.drawString(Double.toString(fps) + "FPS", 10, 20);
+        g.drawString(Double.toString(fps) + "FPS", 100, 20);
     }
 
     public void exit(){
