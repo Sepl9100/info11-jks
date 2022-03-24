@@ -59,6 +59,7 @@ public abstract class Game extends JPanel {
 
 
         window.pack();
+        window.setLocationRelativeTo(null);
     }
 
     public void render(Graphics g){
