@@ -77,6 +77,7 @@ public class DemoGame extends Game {
 BufferedImage buffered_image = load_image(dateipfad)
 Sprite sprite = new Sprite(Game game, int layer, BufferedImage buffered_image)
 ```
+wenn man als buffered_image null mitgibt zeichnet die Engine ein Rechteck mit der Farbe sprite.color
 ## Attribute
 ```java
 public int x
