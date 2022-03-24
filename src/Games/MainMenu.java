@@ -30,6 +30,11 @@ public class MainMenu extends Game {
         line2.setBackground(Color.BLUE);
         this.add(line2, gbc);
 
+        gbc.gridy++;
+        JPanel line3 = new JPanel();
+        line3.setBackground(Color.BLACK);
+        this.add(line3, gbc);
+
         JButton b = new JButton();
         b.setText("Open snake game");
         b.setVisible(true);
@@ -77,6 +82,17 @@ public class MainMenu extends Game {
             }
         });
         line2.add(hanoi);
+
+        JButton tictactoe = new JButton();
+        tictactoe.setText("Tic-Tac-Toe Game");
+        tictactoe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+                new TicTacToe(window);
+            }
+        });
+        line3.add(tictactoe);
 
         window.pack();
     }
