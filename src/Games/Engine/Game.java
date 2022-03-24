@@ -43,6 +43,21 @@ public abstract class Game extends JPanel {
         this.setBackground(Color.black);
         this.setPreferredSize(new Dimension(PANELWIDTH, PANELHEIGHT));
 
+        JButton back_btn = new JButton();
+        back_btn.setText("<");
+        back_btn.setVisible(true);
+        back_btn.setBounds(10, 10, 10, 10);
+
+        back_btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+            }
+        });
+
+        this.add(back_btn, BorderLayout.LINE_START);
+
+
         window.pack();
     }
 

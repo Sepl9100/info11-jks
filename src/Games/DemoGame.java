@@ -21,19 +21,6 @@ public class DemoGame extends Game {
         this.setBackground(Color.orange);
 
         random = new Random();
-
-        JButton b = new JButton();
-        b.setText("DEMO GAME EXIT");
-        b.setVisible(true);
-
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exit();
-            }
-        });
-
-        this.add(b);
         window.pack();
 
         BufferedImage test_texture = load_image("/img.png");
