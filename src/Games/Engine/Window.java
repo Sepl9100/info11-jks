@@ -13,7 +13,6 @@ public class Window extends JFrame {
         super();
         this.setVisible(true);
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
