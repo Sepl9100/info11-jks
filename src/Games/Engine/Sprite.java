@@ -38,7 +38,6 @@ public class Sprite {
     }
 
     public void draw(Graphics g){
-
         if (is_image){
             g.drawImage(image, x, y,width, height, null);
         }
@@ -46,7 +45,6 @@ public class Sprite {
             g.setColor(color);
             g.fillRect(x,y,width,height);
         }
-
     }
 
 
