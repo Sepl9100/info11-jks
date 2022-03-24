@@ -30,20 +30,6 @@ public class Snake extends Game {
         test.y = 20;
         test.width = 200;
         Sprite test2 = new Sprite(this, 4, test_texture);
-
-
-        JButton b = new JButton();
-        b.setText("SNAKE GAME EXIT");
-        b.setVisible(true);
-
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exit();
-            }
-        });
-
-        this.add(b);
         window.pack();
     }
 
