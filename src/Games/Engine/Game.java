@@ -48,7 +48,6 @@ public abstract class Game extends JPanel {
             JButton back_btn = new JButton();
             back_btn.setText("<");
             back_btn.setVisible(true);
-            back_btn.setBounds(10, 10, 10, 10);
 
             back_btn.addActionListener(new ActionListener() {
                 @Override
