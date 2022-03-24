@@ -1,18 +1,36 @@
 package Games;
 
 import Games.Engine.Game;
+import Games.Engine.Sprite;
 import Games.Engine.Window;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Snake extends Game {
+
+    private Sprite test_;
 
     public Snake(Window window){
         super(window, "Snake");
         this.setBackground(Color.green);
+
+        BufferedImage test_texture = load_image("/img.png");
+
+        Sprite test = new Sprite(this, 5, test_texture);
+        test_ = test;
+        test.x = 10;
+        test.y = 20;
+        test.width = 200;
+        Sprite test2 = new Sprite(this, 4, test_texture);
+
 
         JButton b = new JButton();
         b.setText("SNAKE GAME EXIT");
@@ -29,15 +47,10 @@ public class Snake extends Game {
         window.pack();
     }
 
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawRect(230,80,10,10);
-        g.setColor(Color.BLUE);
-        g.fillRect(230,80,10,10);
 
-        for (int i = 0; i < 20; i++){
-            g.fillRect(i*22, 10, 20, 20);
-        }
+    @Override
+    public void update_loop(){
+        test_.x++;
     }
 
 }

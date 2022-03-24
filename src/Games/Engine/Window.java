@@ -20,8 +20,4 @@ public class Window extends JFrame {
     public void update_title(String text){
         this.setTitle(TITLE + " - " + text);
     }
-
-    public void draw(Sprite sprite){
-
-    }
 }
