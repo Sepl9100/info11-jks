@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Sprite {
-    public int x;
-    public int y;
+    public double x;
+    public double y;
     public int width = 100;
     public int height = 100;
     public Color color = Color.red;
@@ -35,11 +35,11 @@ public class Sprite {
 
     public void draw(Graphics g){
         if (is_image){
-            g.drawImage(image, x, y,width, height, null);
+            g.drawImage(image, (int)x, (int)y,width, height, null);
         }
         else{
             g.setColor(color);
-            g.fillRect(x,y,width,height);
+            g.fillRect((int)x, (int)y,width,height);
         }
     }
 

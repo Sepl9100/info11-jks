@@ -39,8 +39,21 @@ public class Snake extends Game {
 
     @Override
     public void update_loop(){
-        test_.x++;
-        System.out.println(Keyboard.isKeyPressed(KeyEvent.VK_E));
+
+        double steps = 1.9;
+
+        if (Keyboard.isKeyPressed(KeyEvent.VK_D)){
+            test_.x += steps;
+        }
+        if (Keyboard.isKeyPressed(KeyEvent.VK_A)){
+            test_.x -= steps;
+        }
+        if (Keyboard.isKeyPressed(KeyEvent.VK_W)){
+            test_.y -= steps;
+        }
+        if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
+            test_.y += steps;
+        }
     }
 
 }
