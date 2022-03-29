@@ -97,7 +97,7 @@ public class MainMenu extends Game {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exit();
+                System.exit(0);
             }
         });
         this.add(exit, gbc);
