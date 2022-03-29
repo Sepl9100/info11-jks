@@ -22,21 +22,24 @@ public class Snake extends Game {
 
     private Sprite test_;
     private int[][] gamearray;
-    public int tilesize = 10;
+    public int tilesize = 30;
 
     public Snake(Window window){
         super(window, "Snake");
         this.setBackground(Color.green);
 
-        BufferedImage test_texture = load_image("/img.png");
+        BufferedImage apple_texture = load_image("/apple.png");
 
         gamearray = new int[100][100];
 
-        SnakeGameSprite tp = new SnakeGameSprite(this, 5, null);
-        tp.set_pos(5, 5);
+
+        for (int i = 0; i < 5; i++){
+            SnakeGameSprite tp = new SnakeGameSprite(this, 5, apple_texture);
+            tp.set_pos(i, 5);
+        }
 
 
-        Sprite test = new Sprite(this, 5, test_texture);
+        Sprite test = new Sprite(this, 5, apple_texture);
         test_ = test;
         test.x = 10;
         test.y = 20;
