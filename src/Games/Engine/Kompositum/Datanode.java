@@ -19,7 +19,12 @@ public class Datanode extends Listelement{
         return next;
     }
 
+    public Datanode insert(Dataelement in) {
+        next = next.insert(in);
+        return this;
+    }
 
+    /** search remove. not needed yet
     public Listelement remove(Dataelement search) {
         if(content.equals(search)){
             return next;
@@ -29,10 +34,5 @@ public class Datanode extends Listelement{
             return this;
         }
     }
-
-
-    public Datanode insert(Dataelement in) {
-        next = next.insert(in);
-        return this;
-    }
+    **/
 }

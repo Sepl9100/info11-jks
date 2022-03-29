@@ -10,7 +10,13 @@ public class Queue {
     public void insert(Dataelement content){
         first=first.insert(content);
     }
-    
+
+    public Listelement remove(){
+        Listelement oldFirst = first;
+        first = first.get_next();
+        return oldFirst;
+    }
+
     public int count_nodes() {
         return first.count_nodes();
     }
