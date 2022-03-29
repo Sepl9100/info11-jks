@@ -8,14 +8,15 @@ import java.awt.*;
 
 public class Hanoi extends Game {
 
-    private Stand test_stand, test_stand2;
+    private Stand stand1, stand2, stand3;
 
     public Hanoi(Window window) {
         super(window, "Hanoi");
         this.setBackground(Color.black);
 
-        test_stand = new Stand(this, 50, 300);
-        test_stand2 = new Stand(this, 300, 300);
+        stand1 = new Stand(this, 50, 300,10);
+        stand2 = new Stand(this, 300, 300, 10);
+        stand3 = new Stand(this, 550, 300, 10);
     }
 
     @Override
