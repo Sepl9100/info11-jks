@@ -22,4 +22,8 @@ public class SnakeGameSprite extends Sprite {
         y = y * game.tilesize;
         super.set_pos(x, y);
     }
+
+    public void move(int x, int y){
+        super.set_pos((int)this.x + x*game.tilesize, (int)this.y + y*game.tilesize);
+    }
 }

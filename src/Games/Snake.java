@@ -20,30 +20,27 @@ import java.security.Key;
 
 public class Snake extends Game {
 
-    private Sprite test_;
+    private SnakeGameSprite player;
     private int[][] gamearray;
-    public int tilesize = 30;
+    public int tilesize = 40;
+
+
 
     public Snake(Window window){
         super(window, "Snake");
-        this.setBackground(Color.green);
+        this.setBackground(Color.black);
 
         BufferedImage apple_texture = load_image("/apple.png");
 
         gamearray = new int[100][100];
+
+        player = new SnakeGameSprite(this, 6, null);
 
 
         for (int i = 0; i < 5; i++){
             SnakeGameSprite tp = new SnakeGameSprite(this, 5, apple_texture);
             tp.set_pos(i, 5);
         }
-
-
-        Sprite test = new Sprite(this, 5, apple_texture);
-        test_ = test;
-        test.x = 10;
-        test.y = 20;
-        test.width = 200;
         window.pack();
     }
 
@@ -54,16 +51,16 @@ public class Snake extends Game {
         double steps = 1.9;
 
         if (Keyboard.isKeyPressed(KeyEvent.VK_D)){
-            test_.x += steps;
+            player.move(1, 0);
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_A)){
-            test_.x -= steps;
+            player.move(-1, 0);
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_W)){
-            test_.y -= steps;
+            player.move(0, -1);
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
-            test_.y += steps;
+            player.move(0, 1);
         }
     }
 
