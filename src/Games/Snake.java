@@ -1,5 +1,6 @@
 package Games;
 
+import Games.Data.Snake.SnakeGameSprite;
 import Games.Engine.Game;
 import Games.Engine.Keyboard;
 import Games.Engine.Sprite;
@@ -20,6 +21,8 @@ import java.security.Key;
 public class Snake extends Game {
 
     private Sprite test_;
+    private int[][] gamearray;
+    public int tilesize = 10;
 
     public Snake(Window window){
         super(window, "Snake");
@@ -27,12 +30,17 @@ public class Snake extends Game {
 
         BufferedImage test_texture = load_image("/img.png");
 
+        gamearray = new int[100][100];
+
+        SnakeGameSprite tp = new SnakeGameSprite(this, 5, null);
+        tp.set_pos(5, 5);
+
+
         Sprite test = new Sprite(this, 5, test_texture);
         test_ = test;
         test.x = 10;
         test.y = 20;
         test.width = 200;
-        Sprite test2 = new Sprite(this, 4, test_texture);
         window.pack();
     }
 

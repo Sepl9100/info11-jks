@@ -4,6 +4,7 @@ import Games.Engine.Game;
 import Games.Engine.Window;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,24 +18,12 @@ public class MainMenu extends Game {
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL; //Jeder Button füllt eigene Breite aus
+
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-
-        JPanel line1 = new JPanel();
-        line1.setBackground(Color.BLACK);
-        this.add(line1, gbc);
-
-        gbc.gridy++;
-        JPanel line2 = new JPanel();
-        line2.setBackground(Color.BLUE);
-        this.add(line2, gbc);
-
-        gbc.gridy++;
-        JPanel line3 = new JPanel();
-        line3.setBackground(Color.BLACK);
-        this.add(line3, gbc);
-
         JButton b = new JButton();
         b.setText("Open snake game");
         b.setVisible(true);
@@ -45,8 +34,10 @@ public class MainMenu extends Game {
                 new Snake(window);
             }
         });
-        line1.add(b);
+        this.add(b, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 0;
         JButton e = new JButton();
         e.setText("Open demo game");
         e.setVisible(true);
@@ -57,8 +48,10 @@ public class MainMenu extends Game {
                 new DemoGame(window);
             }
         });
-        line1.add(e);
+        this.add(e, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JButton r = new JButton();
         r.setText("Open demo game");
         r.setVisible(true);
@@ -69,8 +62,9 @@ public class MainMenu extends Game {
                 new DemoGame(window);
             }
         });
-        line2.add(r);
+        this.add(r, gbc);
 
+        gbc.gridx++;
         JButton hanoi = new JButton();
         hanoi.setText("Hanoi Game");
         hanoi.setVisible(true);
@@ -81,8 +75,10 @@ public class MainMenu extends Game {
                 new Hanoi(window);
             }
         });
-        line2.add(hanoi);
+        this.add(hanoi, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JButton tictactoe = new JButton();
         tictactoe.setText("Tic-Tac-Toe Game");
         tictactoe.addActionListener(new ActionListener() {
@@ -92,7 +88,19 @@ public class MainMenu extends Game {
                 new TicTacToe(window);
             }
         });
-        line3.add(tictactoe);
+        this.add(tictactoe, gbc);
+
+        gbc.gridy++;
+        gbc.gridwidth = 2; //ButtonBreite = 2
+        JButton exit = new JButton();
+        exit.setText("Exit");
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        this.add(exit, gbc);
 
         window.pack();
     }
