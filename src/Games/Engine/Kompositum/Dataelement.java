@@ -1,7 +1,7 @@
 package Games.Engine.Kompositum;
 
 public abstract class Dataelement {
-    private int number;
+    public int number;
 
     public Dataelement(int number){
         this.number = number;

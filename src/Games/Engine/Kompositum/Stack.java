@@ -16,4 +16,8 @@ public class Stack {
         first = first.get_next();
         return oldFirst;
     }
+
+    public int count_nodes() {
+        return first.count_nodes();
+    }
 }

@@ -1,6 +1,7 @@
 package Games.Data.Hanoi;
 
 import Games.Engine.Game;
+import Games.Engine.Kompositum.Stack;
 import Games.Engine.Sprite;
 import Games.Engine.Window;
 
@@ -11,6 +12,7 @@ public class Stand {
     public int x, y, size;
     private Game game;
     private Sprite rec_bottom, rec_top;
+    private Stack stack;
 
     public Stand(Game game, int x, int y, int size){
         this.x = x;         // cords of the top left corner
@@ -28,5 +30,6 @@ public class Stand {
         rec_top.resize(2*size, 24*size);
         rec_top.color = Color.white;
 
+        stack = new Stack();
     }
 }
