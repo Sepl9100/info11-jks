@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Ring extends Dataelement {
     // A Ring is dumb! He does NOT know anything about the game. controlled by stand.
-    // Size Number. 1-7. 7 = smallest
+    // Size Number. 1-6. 6 = smallest
 
     public int x, y, size, number;
     private Game game;
@@ -24,9 +24,16 @@ public class Ring extends Dataelement {
         this.size = size;
 
         ring_entity = new Entity(game, 6, null);
-        ring_entity.place(x, y);
-        ring_entity.sprite.resize(24*size-number*size*4,2*size);
-        ring_entity.sprite.color = Color.green;
+        ring_entity.place(x+(number*size), y-2*size);
+        ring_entity.sprite.resize(24*size-number*size*2,2*size);
+
+        if(number == 1) {ring_entity.sprite.color = Color.green;}
+        else if(number == 2) {ring_entity.sprite.color = Color.red;}
+        else if(number == 3) {ring_entity.sprite.color = Color.blue;}
+        else if(number == 4) {ring_entity.sprite.color = Color.yellow;}
+        else if(number == 5) {ring_entity.sprite.color = Color.magenta;}
+        else if(number == 6) {ring_entity.sprite.color = Color.cyan;}
+        else{ring_entity.sprite.color = Color.PINK;}
     }
 
     public boolean equals(Dataelement de) {

@@ -19,6 +19,10 @@ public class End extends Listelement{
         return new Datanode(this, in);
     }
 
+    public Dataelement get_content() {
+        return null;
+    }
+
     /**
     public Listelement remove(Dataelement search) {
         System.out.println("Cant remove the searched element");

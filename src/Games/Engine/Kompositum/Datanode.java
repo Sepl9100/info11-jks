@@ -24,6 +24,10 @@ public class Datanode extends Listelement{
         return this;
     }
 
+    public Dataelement get_content() {
+        return this.content;
+    }
+
     /** search remove. not needed yet
     public Listelement remove(Dataelement search) {
         if(content.equals(search)){

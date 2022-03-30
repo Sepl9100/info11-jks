@@ -115,6 +115,7 @@ public abstract class Game extends JPanel {
         this.render(g);
         this.repaint();
         this.tick++;
+        g.setColor(Color.white);
         g.drawString(Double.toString(fps) + "FPS", 100, 20);
     }
 
