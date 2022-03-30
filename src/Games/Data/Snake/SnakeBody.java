@@ -15,6 +15,7 @@ public class SnakeBody extends SnakeGameSprite{
     public void add_body(){
         if (next_body == null){
             next_body = new SnakeBody(game, image);
+            next_body.set_pos(tile_x, tile_y);
         }
         else {
             next_body.add_body();

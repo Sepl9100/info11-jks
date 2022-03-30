@@ -43,9 +43,6 @@ public class Snake extends Game {
 
         player = new SnakeHead(this, null);
         player.set_pos(3, 3);
-        for (int i = 0; i<30; i++){
-            player.add_body();
-        }
 
         for (int i = 0; i < 5; i++){
             Apple tp = new Apple(this, apple_texture);
