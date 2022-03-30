@@ -26,7 +26,7 @@ public class Snake extends Game {
     private SnakeHead player;
     private int[][] gamearray;
     private AppleList apples;
-    public int tilesize = 30;
+    public int tilesize = 20;
     public char direction = 'D';
 
 
@@ -43,8 +43,9 @@ public class Snake extends Game {
 
         player = new SnakeHead(this, null);
         player.set_pos(3, 3);
-        //player.add_body();
-
+        for (int i = 0; i<30; i++){
+            player.add_body();
+        }
 
         for (int i = 0; i < 5; i++){
             Apple tp = new Apple(this, apple_texture);
@@ -53,7 +54,18 @@ public class Snake extends Game {
         }
         window.pack();
 
-        apples.print();
+    }
+
+    public void check_apple(int tilex, int tiley){
+        for (Apple apple : apples.list){
+            if (apple != null) {
+                if (apple.tile_x == tilex && apple.tile_y == tiley) {
+                    player.add_body();
+                    apple.delete();
+                    apples.remove_sprite(apple);
+                }
+            }
+        }
     }
 
 

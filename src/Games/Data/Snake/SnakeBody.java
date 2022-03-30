@@ -10,8 +10,6 @@ public class SnakeBody extends SnakeGameSprite{
 
     public SnakeBody(Snake game, BufferedImage image){
         super(game, 6, image);
-        next_body = new SnakeBody(game, image);
-
     }
 
     public void add_body(){
@@ -23,10 +21,20 @@ public class SnakeBody extends SnakeGameSprite{
         }
     }
 
-    public void move(int x, int y) {
-        if (next_body != null) {
-            next_body.set_pos((int) this.x, (int) this.y);
+    public boolean check_collision(int tilex, int tiley){
+        if (tilex == tile_x && tiley == tile_y){
+            return true;
         }
-        super.move(x, y);
+        else {
+            if (next_body == null) return false;
+            return next_body.check_collision(tilex, tiley);
+        }
+    }
+
+    public void follow_snake(int x, int y){
+        if (next_body != null) {
+            next_body.follow_snake((int) tile_x, (int) tile_y);
+        }
+        super.set_pos(x, y);
     }
 }
