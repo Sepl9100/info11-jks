@@ -15,9 +15,9 @@ public class Sprite {
 
     private boolean is_image = true;
 
-    private BufferedImage image = null;
+    protected BufferedImage image = null;
 
-    private final Game game;
+    protected final Game game;
 
     public Sprite(Game game, int layer, BufferedImage buffered_image) {
         this.game = game;

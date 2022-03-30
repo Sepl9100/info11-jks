@@ -7,7 +7,7 @@ import Games.Snake;
 import java.awt.image.BufferedImage;
 
 public class SnakeGameSprite extends Sprite {
-    private Snake game;
+    protected Snake game;
 
     public SnakeGameSprite(Snake game, int layer, BufferedImage image){
         super(game, layer, image);

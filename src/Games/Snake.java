@@ -1,6 +1,9 @@
 package Games;
 
+import Games.Data.Snake.Apple;
+import Games.Data.Snake.AppleList;
 import Games.Data.Snake.SnakeGameSprite;
+import Games.Data.Snake.SnakeHead;
 import Games.Engine.Game;
 import Games.Engine.Keyboard;
 import Games.Engine.Sprite;
@@ -20,9 +23,11 @@ import java.security.Key;
 
 public class Snake extends Game {
 
-    private SnakeGameSprite player;
+    private SnakeHead player;
     private int[][] gamearray;
-    public int tilesize = 40;
+    private AppleList apples;
+    public int tilesize = 30;
+    public char direction = 'D';
 
 
 
@@ -32,35 +37,54 @@ public class Snake extends Game {
 
         BufferedImage apple_texture = load_image("/apple.png");
 
+        apples = new AppleList();
+
         gamearray = new int[100][100];
 
-        player = new SnakeGameSprite(this, 6, null);
+        player = new SnakeHead(this, null);
+        player.set_pos(3, 3);
+        //player.add_body();
 
 
         for (int i = 0; i < 5; i++){
-            SnakeGameSprite tp = new SnakeGameSprite(this, 5, apple_texture);
+            Apple tp = new Apple(this, apple_texture);
             tp.set_pos(i, 5);
+            apples.add_sprite(tp);
         }
         window.pack();
+
+        apples.print();
     }
 
 
     @Override
-    public void update_loop(){
+    public void update_loop() {
 
         double steps = 1.9;
 
-        if (Keyboard.isKeyPressed(KeyEvent.VK_D)){
-            player.move(1, 0);
+        if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
+            direction = 'R';
         }
-        if (Keyboard.isKeyPressed(KeyEvent.VK_A)){
-            player.move(-1, 0);
+        if (Keyboard.isKeyPressed(KeyEvent.VK_A)) {
+            direction = 'L';
         }
-        if (Keyboard.isKeyPressed(KeyEvent.VK_W)){
-            player.move(0, -1);
+        if (Keyboard.isKeyPressed(KeyEvent.VK_W)) {
+            direction = 'U';
         }
-        if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
-            player.move(0, 1);
+        if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {
+            direction = 'D';
+        }
+
+        if (tick % 20 == 0) {
+            if (direction == 'R') {
+                player.move(1, 0);
+            } else if (direction == 'L') {
+                player.move(-1, 0);
+            } else if (direction == 'U') {
+                player.move(0, -1);
+            } else if (direction == 'D') {
+                player.move(0, 1);
+            }
         }
     }
 

@@ -9,7 +9,6 @@ public class SpriteList {
 
     public void add_sprite(Sprite sprite, int layer){
         filled_until++;
-        int layer_lenght = list[layer].length;
         list[layer][filled_until-1] = sprite;
     }
 
