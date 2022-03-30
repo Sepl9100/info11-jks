@@ -17,6 +17,8 @@ public class Hanoi extends Game {
         stand1 = new Stand(this, 50, 300,10);
         stand2 = new Stand(this, 300, 300, 10);
         stand3 = new Stand(this, 550, 300, 10);
+
+        stand1.init_rings();
     }
 
     @Override

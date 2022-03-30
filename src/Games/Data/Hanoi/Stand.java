@@ -1,6 +1,7 @@
 package Games.Data.Hanoi;
 
 import Games.Engine.Game;
+import Games.Engine.Kompositum.Listelement;
 import Games.Engine.Kompositum.Stack;
 import Games.Engine.Sprite;
 import Games.Engine.Window;
@@ -26,10 +27,15 @@ public class Stand {
         rec_bottom.color = Color.white;
 
         rec_top = new Sprite(this.game, 5, null);
-        rec_top.set_pos(x+110, y-240);
-        rec_top.resize(2*size, 24*size);
+        rec_top.set_pos(x+11*size, y-18*size);
+        rec_top.resize(2*size, 18*size);
         rec_top.color = Color.white;
 
         stack = new Stack();
+
     }
+
+    public void init_rings() {for(int i = 0; i < 6; i++){stack.insert(new Ring(game, x, y-2*size*i, size, i+1));}}
+
+
 }
