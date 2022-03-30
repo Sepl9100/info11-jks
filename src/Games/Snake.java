@@ -23,7 +23,7 @@ import java.security.Key;
 
 public class Snake extends Game {
 
-    private SnakeGameSprite player;
+    private SnakeHead player;
     private int[][] gamearray;
     private AppleList apples;
     public int tilesize = 30;
@@ -43,6 +43,7 @@ public class Snake extends Game {
 
         player = new SnakeHead(this, null);
         player.set_pos(3, 3);
+        //player.add_body();
 
 
         for (int i = 0; i < 5; i++){

@@ -18,6 +18,9 @@ public class SnakeBody extends SnakeGameSprite{
         if (next_body == null){
             next_body = new SnakeBody(game, image);
         }
+        else {
+            next_body.add_body();
+        }
     }
 
     public void move(int x, int y) {

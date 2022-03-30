@@ -11,11 +11,7 @@ public class SnakeHead extends SnakeGameSprite{
 
     public SnakeHead(Snake game, BufferedImage image){
         super(game, 6, image);
-
-
-
     }
-
     public void add_body(){
         if (next_body == null){
             next_body = new SnakeBody(game, image);
