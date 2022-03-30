@@ -72,16 +72,16 @@ public class Snake extends Game {
         double steps = 1.9;
 
         if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
-            direction = 'R';
+            if (direction != 'L') direction = 'R';
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_A)) {
-            direction = 'L';
+            if (direction != 'R') direction = 'L';
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_W)) {
-            direction = 'U';
+            if (direction != 'D') direction = 'U';
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {
-            direction = 'D';
+            if (direction != 'U') direction = 'D';
         }
 
         if (tick % 20 == 0) {
