@@ -87,11 +87,12 @@ public abstract class Game extends JPanel {
         }
         last_tick_time = date.getTime();
 
-
-        for (Sprite[] layer : spritelist.list) {
-            for (Sprite element : layer) {
-                if (element != null) {
-                    element.draw(g);
+        if (spritelist != null) {
+            for (Sprite[] layer : spritelist.list) {
+                for (Sprite element : layer) {
+                    if (element != null) {
+                        element.draw(g);
+                    }
                 }
             }
         }
