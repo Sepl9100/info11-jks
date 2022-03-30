@@ -31,5 +31,6 @@ public class Stand {
         rec_top.color = Color.white;
 
         stack = new Stack();
+        stack.insert(new Ring(game, x, y, size, 1));
     }
 }
