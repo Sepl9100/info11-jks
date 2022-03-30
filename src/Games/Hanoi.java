@@ -14,9 +14,9 @@ public class Hanoi extends Game {
         super(window, "Hanoi");
         this.setBackground(Color.black);
 
-        stand1 = new Stand(this, 50, 300,10);
-        stand2 = new Stand(this, 300, 300, 10);
-        stand3 = new Stand(this, 550, 300, 10);
+        stand1 = new Stand(this, 60, 350,12);
+        stand2 = new Stand(this, stand1.x + stand1.rec_bottom.width+60, 350, 12);
+        stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+60, 350, 12);
 
         stand1.init_rings();
     }

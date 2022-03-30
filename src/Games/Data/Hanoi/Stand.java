@@ -12,7 +12,7 @@ public class Stand {
 
     public int x, y, size;
     private Game game;
-    private Sprite rec_bottom, rec_top;
+    public Sprite rec_bottom, rec_top;
     private Stack stack;
 
     public Stand(Game game, int x, int y, int size){
@@ -36,6 +36,5 @@ public class Stand {
     }
 
     public void init_rings() {for(int i = 0; i < 6; i++){stack.insert(new Ring(game, x, y-2*size*i, size, i+1));}}
-
 
 }
