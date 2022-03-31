@@ -29,8 +29,8 @@ public class Snake extends Game {
     private char direction = 'D';
     private char last_direction = 'D';
     private Random random;
-    private final int border_x = 50;
-    private final int border_y = 20;
+    private final int border_x = 54;
+    private final int border_y = 29;
 
     private BufferedImage apple_texture;
     private BufferedImage snake_body;
@@ -67,7 +67,7 @@ public class Snake extends Game {
         player = new SnakeHead(this, snake_head, snake_body);
         player.set_pos(3, 3);
 
-        for (int i = 0; i < 400; i++){
+        for (int i = 0; i < 15; i++){
             place_apple();
         }
     }
@@ -87,6 +87,7 @@ public class Snake extends Game {
                     player.add_body();
                     apple.delete();
                     apples.remove_sprite(apple);
+                    place_apple();
                 }
             }
         }
@@ -97,7 +98,6 @@ public class Snake extends Game {
     public void update_loop() {
 
         // Snake auf andere seite am rand plazieren
-
         if (player.tile_x < 0){
             player.set_pos(border_x, player.tile_y);
         }
@@ -112,7 +112,6 @@ public class Snake extends Game {
         }
 
         // KEY INPUTS
-
         if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
             if (last_direction != 'L') direction = 'R';
         }
@@ -126,7 +125,8 @@ public class Snake extends Game {
             if (last_direction != 'U') direction = 'D';
         }
 
-        if (tick % 20 == 0) {
+        //snake bewegen
+        if (tick % 13 == 0) {
             if (direction == 'R') {
                 player.move(1, 0);
             } else if (direction == 'L') {
