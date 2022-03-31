@@ -14,11 +14,11 @@ public class Entity {
         this.sprite = new Sprite(game, layer, bufferedImage);
     }
 
-    public void move_to(int xdest, int ydest, int tick_delay) {
+    public void move_to(int xdest, int ydest, int tick_delay, double speed) {
         int[][] route = line(x, y, xdest, ydest);
         for(int i = 0; i < route.length; i++) {
             final int temp = i;
-            new QueueTask(tick_delay, e -> this.place(route[temp][0], route[temp][1]));
+            new QueueTask(game, (int)((tick_delay*i)/speed), e -> this.place(route[temp][0], route[temp][1]));
         }
     }
 
