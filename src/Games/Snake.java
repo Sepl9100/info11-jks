@@ -44,7 +44,6 @@ public class Snake extends Game {
         apple_texture = load_image("/apple.png");
 
         apples = new AppleList();
-        QueueTask door_open = new QueueTask(this, 100, e -> System.out.println("lel"));
 
         gamearray = new int[100][100];
 
