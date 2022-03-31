@@ -19,9 +19,7 @@ public class Hanoi extends Game {
         stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+60, 350, 12);
 
         stand1.init_rings();
-
-        stand1.get_top_ring();
-        stand2.get_top_ring();
+        stand1.get_top_ring().move_to(0, 0);
     }
 
     @Override
