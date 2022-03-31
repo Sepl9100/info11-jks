@@ -4,9 +4,7 @@ import Games.Data.Snake.Apple;
 import Games.Data.Snake.AppleList;
 import Games.Data.Snake.SnakeGameSprite;
 import Games.Data.Snake.SnakeHead;
-import Games.Engine.Game;
-import Games.Engine.Keyboard;
-import Games.Engine.Sprite;
+import Games.Engine.*;
 import Games.Engine.Window;
 
 import javax.imageio.ImageIO;
@@ -28,6 +26,7 @@ public class Snake extends Game {
     private AppleList apples;
     public int tilesize = 20;
     public char direction = 'D';
+    public char last_direction = 'D';
 
 
 
@@ -38,6 +37,7 @@ public class Snake extends Game {
         BufferedImage apple_texture = load_image("/apple.png");
 
         apples = new AppleList();
+        QueueTask door_open = new QueueTask(100, e -> System.out.println("lel"));
 
         gamearray = new int[100][100];
 
@@ -69,19 +69,17 @@ public class Snake extends Game {
     @Override
     public void update_loop() {
 
-        double steps = 1.9;
-
         if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
-            if (direction != 'L') direction = 'R';
+            if (last_direction != 'L') direction = 'R';
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_A)) {
-            if (direction != 'R') direction = 'L';
+            if (last_direction != 'R') direction = 'L';
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_W)) {
-            if (direction != 'D') direction = 'U';
+            if (last_direction != 'D') direction = 'U';
         }
         if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {
-            if (direction != 'U') direction = 'D';
+            if (last_direction != 'U') direction = 'D';
         }
 
         if (tick % 20 == 0) {
@@ -94,6 +92,7 @@ public class Snake extends Game {
             } else if (direction == 'D') {
                 player.move(0, 1);
             }
+            last_direction = direction;
         }
     }
 
