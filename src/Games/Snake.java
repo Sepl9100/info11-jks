@@ -2,38 +2,32 @@ package Games;
 
 import Games.Data.Snake.Apple;
 import Games.Data.Snake.AppleList;
-import Games.Data.Snake.SnakeGameSprite;
 import Games.Data.Snake.SnakeHead;
 import Games.Engine.*;
 import Games.Engine.Window;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.Key;
 import java.util.Random;
 
 public class Snake extends Game {
 
     private SnakeHead player;
-    private int[][] gamearray;
-    private AppleList apples;
+    private final AppleList apples;
     public int tilesize = 20;
     private char direction = 'D';
     private char last_direction = 'D';
-    private Random random;
+    private final Random random;
     private final int border_x = 54;
     private final int border_y = 29;
 
+    public int score;
+
     private boolean started = false;
-    private JPanel start_screen;
+    private final JPanel start_screen;
+    private final JCheckBox mode_many_apples;
 
     private BufferedImage apple_texture;
     private BufferedImage snake_body;
@@ -57,6 +51,10 @@ public class Snake extends Game {
         int height = 500;
         start_screen.setLocation(PANELWIDTH/2-width/2, PANELHEIGHT/2-height/2);
         start_screen.setSize(width, height);
+        start_screen.setLayout(new BoxLayout(start_screen, BoxLayout.Y_AXIS));
+
+        mode_many_apples = new JCheckBox("Viele Äpfel Modus");
+        start_screen.add(mode_many_apples);
 
         setLayout(null);
         this.add(start_screen);
@@ -75,8 +73,9 @@ public class Snake extends Game {
 
         player = new SnakeHead(this, snake_head, snake_body);
         player.set_pos(3, 3);
-
-        for (int i = 0; i < 15; i++){
+        int apple_amount = 15;
+        if (mode_many_apples.isSelected()) apple_amount = 400;
+        for (int i = 0; i < apple_amount; i++){
             place_apple();
         }
     }
@@ -94,6 +93,7 @@ public class Snake extends Game {
             if (apple != null) {
                 if (apple.tile_x == tilex && apple.tile_y == tiley) {
                     player.add_body();
+                    score += 1;
                     apple.delete();
                     apples.remove_sprite(apple);
                     place_apple();
@@ -105,20 +105,22 @@ public class Snake extends Game {
     public void game_over_screen(){
         started = false;
         JPanel screen = new JPanel();
-        int width = 400;
-        int height = 500;
+        int width = 200;
+        int height = 300;
         screen.setLocation(PANELWIDTH/2-width/2, PANELHEIGHT/2-height/2);
         screen.setSize(width, height);
         this.add(screen);
         JLabel label = new JLabel("Du hast Verloren!");
         screen.add(label);
 
+        label = new JLabel("Dein Score: " + score);
+        screen.add(label);
+
         JButton btn = new JButton("Neustarten");
         screen.add(btn);
         btn.addActionListener(e -> {
             exit_to_empty();
-            Snake sn = new Snake(this.window);
-            sn.start_game();
+            new Snake(this.window);
         });
 
         window.pack();
