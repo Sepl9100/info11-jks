@@ -34,6 +34,7 @@ public class Snake extends Game {
 
     private BufferedImage apple_texture;
     private BufferedImage snake_body;
+    private BufferedImage snake_head;
 
 
     public Snake(Window window){
@@ -44,6 +45,7 @@ public class Snake extends Game {
 
         apple_texture = load_image("/apple.png");
         snake_body = load_image("/snake_body.png");
+        snake_head = load_image("/snake_head.png");
 
         apples = new AppleList();
 
@@ -62,7 +64,7 @@ public class Snake extends Game {
     }
 
     public void start_game(){
-        player = new SnakeHead(this, null, snake_body);
+        player = new SnakeHead(this, snake_head, snake_body);
         player.set_pos(3, 3);
 
         for (int i = 0; i < 400; i++){
@@ -71,8 +73,8 @@ public class Snake extends Game {
     }
 
     public void place_apple(){
-        int x = random.nextInt(border_x-1);
-        int y = random.nextInt(border_y-1);
+        int x = random.nextInt(border_x+1);
+        int y = random.nextInt(border_y+1);
         Apple apple = new Apple(this, apple_texture);
         apple.set_pos(x, y);
         apples.add_sprite(apple);
@@ -104,6 +106,9 @@ public class Snake extends Game {
         }
         if (player.tile_x > border_x){
             player.set_pos(0, player.tile_y);
+        }
+        if (player.tile_y > border_y){
+            player.set_pos(player.tile_x, 0);
         }
 
         // KEY INPUTS
