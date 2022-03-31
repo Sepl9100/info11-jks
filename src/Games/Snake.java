@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Key;
+import java.util.Random;
 
 public class Snake extends Game {
 
@@ -25,32 +26,44 @@ public class Snake extends Game {
     private int[][] gamearray;
     private AppleList apples;
     public int tilesize = 20;
-    public char direction = 'D';
-    public char last_direction = 'D';
+    private char direction = 'D';
+    private char last_direction = 'D';
+    private Random random;
+    private final int border_x = 50;
+    private final int border_y = 20;
 
+    private BufferedImage apple_texture;
 
 
     public Snake(Window window){
         super(window, "Snake");
         this.setBackground(Color.black);
 
-        BufferedImage apple_texture = load_image("/apple.png");
+        random = new Random();
+
+        apple_texture = load_image("/apple.png");
 
         apples = new AppleList();
-        QueueTask door_open = new QueueTask(100, e -> System.out.println("lel"));
+        QueueTask door_open = new QueueTask(this, 100, e -> System.out.println("lel"));
 
         gamearray = new int[100][100];
 
         player = new SnakeHead(this, null);
         player.set_pos(3, 3);
 
-        for (int i = 0; i < 5; i++){
-            Apple tp = new Apple(this, apple_texture);
-            tp.set_pos(i, 5);
-            apples.add_sprite(tp);
+        for (int i = 0; i < 50; i++){
+            place_apple();
         }
         window.pack();
 
+    }
+
+    public void place_apple(){
+        int x = random.nextInt(border_x-1);
+        int y = random.nextInt(border_y-1);
+        Apple apple = new Apple(this, apple_texture);
+        apple.set_pos(x, y);
+        apples.add_sprite(apple);
     }
 
     public void check_apple(int tilex, int tiley){
@@ -68,6 +81,17 @@ public class Snake extends Game {
 
     @Override
     public void update_loop() {
+
+        // Snake auf andere seite am rand plazieren
+
+        if (player.tile_x < 0){
+            player.set_pos(border_x, player.tile_y);
+        }
+        if (player.tile_y < 0){
+            player.set_pos(player.tile_x, border_y);
+        }
+
+        // KEY INPUTS
 
         if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
             if (last_direction != 'L') direction = 'R';

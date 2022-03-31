@@ -27,13 +27,14 @@ public abstract class Game extends JPanel {
 
 
     protected SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
+    protected TaskQueue task_queue;
 
     public Game(Window window, String name){
         super();
         this.window = window;
         this.name = name;
 
-
+        task_queue = new TaskQueue();
 
         spritelist = new SpriteList();
 
@@ -65,6 +66,13 @@ public abstract class Game extends JPanel {
     }
 
     public void render(Graphics g){
+        // run queue tasks
+        for (QueueTask task : task_queue.list){
+            if (task != null) {
+                task.update();
+            }
+        }
+
         Date date = new Date();
         if (tick % 100 == 0) {                          // Measure FPS every 100th tick
             long difference = date.getTime() - last_fps_check_time;
