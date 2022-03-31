@@ -37,7 +37,7 @@ public class SnakeHead extends SnakeGameSprite{
             super.move(x, y);
 
         }
-        else game.exit();
+        else game.game_over_screen();
 
     }
 

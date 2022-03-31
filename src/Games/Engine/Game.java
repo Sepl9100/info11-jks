@@ -17,8 +17,8 @@ public abstract class Game extends JPanel {
     protected Window window;
 
     protected String name; // Game title
-    private final int PANELWIDTH = 1100;
-    private final int PANELHEIGHT = 600;
+    protected final int PANELWIDTH = 1100;
+    protected final int PANELHEIGHT = 600;
 
     protected int tick;
     private long last_tick_time;
@@ -133,5 +133,11 @@ public abstract class Game extends JPanel {
         window.repaint();
         this.spritelist = null;
         new MainMenu(window);
+    }
+
+    public void exit_to_empty(){
+        window.remove(this);
+        window.repaint();
+        this.spritelist = null;
     }
 }
