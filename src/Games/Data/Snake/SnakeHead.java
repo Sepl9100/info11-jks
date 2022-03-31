@@ -10,14 +10,17 @@ public class SnakeHead extends SnakeGameSprite{
 
     private SnakeBody next_body;
 
-    public SnakeHead(Snake game, BufferedImage image){
-        super(game, 6, image);
+    private BufferedImage image_body;
+
+    public SnakeHead(Snake game, BufferedImage image_head, BufferedImage image_body){
+        super(game, 6, image_head);
         this.color = Color.GREEN;
+        this.image_body = image_body;
     }
 
     public void add_body(){
         if (next_body == null){
-            next_body = new SnakeBody(game, image);
+            next_body = new SnakeBody(game, image_body);
             next_body.set_pos((int)this.x, (int)this.y);
         }
         else {
