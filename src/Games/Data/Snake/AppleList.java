@@ -6,7 +6,7 @@ public class AppleList {
     public Apple[] list;
     public int filled_until;
     public AppleList(){
-        list = new Apple[100]; //Sprite[layer][place]
+        list = new Apple[1000]; //Sprite[layer][place]
     }
 
     public void add_sprite(Apple sprite){

@@ -47,16 +47,27 @@ public class Snake extends Game {
 
         apples = new AppleList();
 
-        gamearray = new int[100][100];
+        JPanel panel = new JPanel();
 
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        panel.setAlignmentX(RIGHT_ALIGNMENT);
+        //this.add(panel, new FlowLayout());
+
+        JButton btn = new JButton("test");
+        panel.add(btn);
+
+        start_game();
+
+        window.pack();
+    }
+
+    public void start_game(){
         player = new SnakeHead(this, null, snake_body);
         player.set_pos(3, 3);
 
-        for (int i = 0; i < 50; i++){
+        for (int i = 0; i < 400; i++){
             place_apple();
         }
-        window.pack();
-
     }
 
     public void place_apple(){
