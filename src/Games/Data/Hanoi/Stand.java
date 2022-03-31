@@ -37,15 +37,15 @@ public class Stand {
 
     }
 
-    public void init_rings() {for(int i = 0; i < 6; i++){stack.insert(new Ring(game, x, y-2*size*i, size, i+1));}}
+    public void init_rings() {for(int i = 0; i < 6; i++) {stack.insert(new Ring(game, x, y-2*size*i, size, i+1));}}
 
-    public void get_top_ring(){
+    public Ring get_top_ring(){
         Listelement topelement = stack.remove();
         if((!(topelement instanceof End)) && topelement.get_content() instanceof Ring) {
-            System.out.println("ring");
+            return (Ring) topelement.get_content();      // return ring from datanode Ring
         }
         else {
-            System.out.println("no ring");
+            return null;            // returns null if End or Datanode without Ring
         }
     }
 
