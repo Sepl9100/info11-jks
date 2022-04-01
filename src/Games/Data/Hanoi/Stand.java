@@ -15,7 +15,7 @@ public class Stand {
     public int x, y, size;
     private Game game;
     public Sprite rec_bottom, rec_top;
-    private Stack stack;
+    public Stack stack;
 
     public Stand(Game game, int x, int y, int size){
         this.x = x;         // cords of the top left corner
@@ -39,14 +39,30 @@ public class Stand {
 
     public void init_rings() {for(int i = 0; i < 6; i++) {stack.insert(new Ring(game, x, y-2*size*i, size, i+1));}}
 
-    public Ring get_top_ring(){
-        Listelement topelement = stack.remove();
+    public Ring get_top_ring(boolean remove){
+        Listelement topelement;
+
+        if(remove) {topelement = stack.remove();}
+        else {topelement = stack.get_first();}
+
         if((!(topelement instanceof End)) && topelement.get_content() instanceof Ring) {
-            return (Ring) topelement.get_content();      // return ring from datanode Ring
+            return (Ring) topelement.get_content();      // return Ring from Datanode content
         }
         else {
             return null;            // returns null if End or Datanode without Ring
         }
     }
 
+    public int get_height() {
+        Ring ring = get_top_ring(false);
+        if(ring instanceof Ring) {return ring.y;}
+        else {return this.y;}
+    }
+
+    public void add_ring(Ring newRing) {
+        newRing.move_to(newRing.x, 10);
+        newRing.move_to(this.x, 10);
+        newRing.move_to(this.x, get_height());
+        stack.insert(newRing);
+    }
 }
