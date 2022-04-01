@@ -4,9 +4,9 @@ import Games.Snake;
 
 import java.awt.image.BufferedImage;
 
-public class Apple extends SnakeGameSprite{
+public class Bomb extends SnakeGameSprite{
 
-    public Apple(Snake game, BufferedImage image){
+    public Bomb(Snake game, BufferedImage image){
         super(game, 1, image);
 
     }

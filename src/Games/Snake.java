@@ -1,8 +1,6 @@
 package Games;
 
-import Games.Data.Snake.Apple;
-import Games.Data.Snake.AppleList;
-import Games.Data.Snake.SnakeHead;
+import Games.Data.Snake.*;
 import Games.Engine.*;
 import Games.Engine.Window;
 
@@ -15,13 +13,16 @@ import java.util.Random;
 public class Snake extends Game {
 
     private SnakeHead player;
-    private final AppleList apples;
+    private final SnakeSpriteList apples;
+    private final SnakeSpriteList drugs;
     public int tilesize = 20;
     private char direction = 'D';
     private char last_direction = 'D';
     private final Random random;
     private final int border_x = 54;
     private final int border_y = 29;
+
+    private int tickdelay = 10;
 
     public int score;
 
@@ -44,7 +45,8 @@ public class Snake extends Game {
         snake_body = load_image("/snake_body.png");
         snake_head = load_image("/snake_head.png");
 
-        apples = new AppleList();
+        apples = new SnakeSpriteList();
+        drugs = new SnakeSpriteList();
 
         start_screen = new JPanel();
         int width = 400;
@@ -78,6 +80,9 @@ public class Snake extends Game {
         for (int i = 0; i < apple_amount; i++){
             place_apple();
         }
+        for (int i = 0; i < 5; i++){
+            place_drug();
+        }
     }
 
     public void place_apple(){
@@ -88,8 +93,17 @@ public class Snake extends Game {
         apples.add_sprite(apple);
     }
 
+    public void place_drug(){
+        int x = random.nextInt(border_x+1);
+        int y = random.nextInt(border_y+1);
+        Drug drug = new Drug(this, null);
+        drug.color = Color.blue;
+        drug.set_pos(x, y);
+        drugs.add_sprite(drug);
+    }
+
     public void check_apple(int tilex, int tiley){
-        for (Apple apple : apples.list){
+        for (SnakeGameSprite apple : apples.list){
             if (apple != null) {
                 if (apple.tile_x == tilex && apple.tile_y == tiley) {
                     player.add_body();
@@ -97,6 +111,22 @@ public class Snake extends Game {
                     apple.delete();
                     apples.remove_sprite(apple);
                     place_apple();
+                }
+            }
+        }
+    }
+
+    public void check_drug(int tilex, int tiley){
+        for (SnakeGameSprite drug : drugs.list){
+            if (drug != null) {
+                if (drug.tile_x == tilex && drug.tile_y == tiley) {
+                    player.add_body();
+                    score += 1;
+                    drug.delete();
+                    apples.remove_sprite(drug);
+                    place_drug();
+                    player.on_drugs = true;
+                    new QueueTask(this, 200, e -> player.on_drugs = false);
                 }
             }
         }
@@ -124,12 +154,11 @@ public class Snake extends Game {
         });
 
         window.pack();
-
-
     }
 
     @Override
     public void update_loop() {
+
         if (started) {
 
             // Snake auf andere seite am rand plazieren
@@ -161,7 +190,9 @@ public class Snake extends Game {
             }
 
             //snake bewegen
-            if (tick % 13 == 0) {
+            int tick_delay = tickdelay;
+            if (player.on_drugs) tick_delay = 3;
+            if (tick % tick_delay == 0 ) {
                 if (direction == 'R') {
                     player.move(1, 0);
                 } else if (direction == 'L') {

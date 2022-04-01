@@ -10,6 +10,8 @@ public class SnakeHead extends SnakeGameSprite{
 
     private SnakeBody next_body;
 
+    public boolean on_drugs;
+
     private BufferedImage image_body;
 
     public SnakeHead(Snake game, BufferedImage image_head, BufferedImage image_body){
@@ -34,6 +36,7 @@ public class SnakeHead extends SnakeGameSprite{
                 next_body.follow_snake((int) tile_x, (int) tile_y);
             }
             game.check_apple(tile_x + x, tile_y + y);
+            game.check_drug(tile_x + x, tile_y + y);
             super.move(x, y);
 
         }
