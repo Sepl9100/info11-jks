@@ -22,7 +22,7 @@ public class Snake extends Game {
     private final int border_x = 54;
     private final int border_y = 29;
 
-    private int tickdelay = 10;
+    private int tickdelay = 15;
 
     public int score;
 
