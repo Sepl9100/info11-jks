@@ -8,6 +8,7 @@ public class Entity {
     public Sprite sprite;
 
     public int x, y = 0;
+    public boolean destination_reached = true;
 
     public Entity(Game game, int layer, BufferedImage bufferedImage){
         this.game = game;
@@ -15,11 +16,17 @@ public class Entity {
     }
 
     public void move_to(int xdest, int ydest, int tick_delay, double speed) {
+        destination_reached = false;
+
         int[][] route = line(x, y, xdest, ydest);
         for(int i = 0; i < route.length; i++) {
             final int temp = i;
             new QueueTask(game, (int)((tick_delay*i)/speed), e -> this.place(route[temp][0], route[temp][1]));
         }
+
+        new Thread(() -> {while(xdest != this.x) {;}
+            {destination_reached = true;}
+        }).start();
     }
 
 

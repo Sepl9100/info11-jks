@@ -17,6 +17,10 @@ public class Stack {
         return oldFirst;
     }
 
+    public Listelement get_first(){
+        return first;
+    }
+
     public int count_nodes() {
         return first.count_nodes();
     }
