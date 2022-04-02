@@ -33,6 +33,7 @@ public class Snake extends Game {
     private BufferedImage apple_texture;
     private BufferedImage snake_body;
     private BufferedImage snake_head;
+    private BufferedImage pill;
 
 
     public Snake(Window window){
@@ -44,6 +45,7 @@ public class Snake extends Game {
         apple_texture = load_image("/apple.png");
         snake_body = load_image("/snake_body.png");
         snake_head = load_image("/snake_head.png");
+        pill = load_image("/pill.png");
 
         apples = new SnakeSpriteList();
         drugs = new SnakeSpriteList();
@@ -96,7 +98,7 @@ public class Snake extends Game {
     public void place_drug(){
         int x = random.nextInt(border_x+1);
         int y = random.nextInt(border_y+1);
-        Drug drug = new Drug(this, null);
+        Drug drug = new Drug(this, pill);
         drug.color = Color.blue;
         drug.set_pos(x, y);
         drugs.add_sprite(drug);
