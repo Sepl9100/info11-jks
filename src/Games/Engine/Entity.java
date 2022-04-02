@@ -16,17 +16,20 @@ public class Entity {
     }
 
     public void move_to(int xdest, int ydest, int tick_delay, double speed) {
-        destination_reached = false;
+        this.destination_reached = false;
+
+        new Thread(() -> {
+            while((xdest != this.x) || (ydest != this.y)) {
+                game.pass();
+            }
+            this.destination_reached = true;
+        }).start();
 
         int[][] route = line(x, y, xdest, ydest);
         for(int i = 0; i < route.length; i++) {
             final int temp = i;
             new QueueTask(game, (int)((tick_delay*i)/speed), e -> this.place(route[temp][0], route[temp][1]));
         }
-
-        new Thread(() -> {while(xdest != this.x) {;}
-            {destination_reached = true;}
-        }).start();
     }
 
 

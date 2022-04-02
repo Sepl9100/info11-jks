@@ -37,7 +37,11 @@ public class Stand {
 
     }
 
-    public void init_rings() {for(int i = 0; i < 6; i++) {stack.insert(new Ring(game, x, y-2*size*i, size, i+1));}}
+    public void init_rings() {
+        for(int i = 0; i < 6; i++) {
+            stack.insert(new Ring(game, x+(size*(i+1)), y-2*size*i-2*size, size, i+1));
+        }
+    }
 
     public Ring get_top_ring(boolean remove){
         Listelement topelement;
@@ -49,7 +53,7 @@ public class Stand {
             return (Ring) topelement.get_content();      // return Ring from Datanode content
         }
         else {
-            return null;            // returns null if End or Datanode without Ring
+        return null;                                    // returns null if End or Datanode without Ring
         }
     }
 
@@ -59,10 +63,18 @@ public class Stand {
         else {return this.y;}
     }
 
-    public void add_ring(Ring newRing) {
+    public void add_ring(Ring newRing) {new Thread(() -> {add_ring_thread(newRing);}).start();}
+
+    private void add_ring_thread(Ring newRing) {
         newRing.move_to(newRing.x, 10);
+        while(!newRing.ring_entity.destination_reached) {game.pass();}
+
         newRing.move_to(this.x, 10);
+        while(!newRing.ring_entity.destination_reached) {game.pass();}
+
         newRing.move_to(this.x, get_height());
+        while(!newRing.ring_entity.destination_reached) {game.pass();}
+
         stack.insert(newRing);
     }
 }

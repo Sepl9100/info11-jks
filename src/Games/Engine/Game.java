@@ -140,4 +140,12 @@ public abstract class Game extends JPanel {
         window.repaint();
         this.spritelist = null;
     }
+
+    public void pass(){
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
