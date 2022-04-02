@@ -123,9 +123,9 @@ public class Snake extends Game {
             if (drug != null) {
                 if (drug.tile_x == tilex && drug.tile_y == tiley) {
                     player.add_body();
-                    score += 1;
+                    score += 10;
                     drug.delete();
-                    apples.remove_sprite(drug);
+                    drugs.remove_sprite(drug);
                     place_drug();
                     player.on_drugs = true;
                     new QueueTask(this, 200, e -> player.on_drugs = false);
