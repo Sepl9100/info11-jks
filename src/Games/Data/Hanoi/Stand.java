@@ -16,6 +16,7 @@ public class Stand {
     private Game game;
     public Sprite rec_bottom, rec_top;
     public Stack stack;
+    public boolean moving_ring = false;
 
     public Stand(Game game, int x, int y, int size){
         this.x = x;         // cords of the top left corner
@@ -66,15 +67,17 @@ public class Stand {
     public void add_ring(Ring newRing) {new Thread(() -> {add_ring_thread(newRing);}).start();}
 
     private void add_ring_thread(Ring newRing) {
+        moving_ring = true;
         newRing.move_to(newRing.x, 10);
         while(!newRing.ring_entity.destination_reached) {game.pass();}
 
-        newRing.move_to(this.x, 10);
+        newRing.move_to(this.x+(size*newRing.number), 10);
         while(!newRing.ring_entity.destination_reached) {game.pass();}
 
-        newRing.move_to(this.x, get_height());
+        newRing.move_to(this.x+(size*newRing.number), get_height()-2*size);
         while(!newRing.ring_entity.destination_reached) {game.pass();}
 
         stack.insert(newRing);
+        moving_ring = false;
     }
 }
