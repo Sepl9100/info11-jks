@@ -33,6 +33,8 @@ public class Hanoi extends Game {
 
         rule_screen.setVisible(false);
 
+
+        // Buttons
         // Regel Button
         JButton rules_btn = new JButton("Regeln");
         rules_btn.setVisible(true);
@@ -41,11 +43,37 @@ public class Hanoi extends Game {
         rules_btn.addActionListener(e -> rule_screen.setVisible(true));
         this.add(rules_btn);
 
+        // Select Buttons
+        JButton stand1_btn = new JButton("Stand 1");
+        stand1_btn.setVisible(true);
+        stand1_btn.setLocation(150, 500);
+        stand1_btn.setSize(100, 35);
+        this.add(stand1_btn);
+
+        JButton stand2_btn = new JButton("Stand 2");
+        stand2_btn.setVisible(true);
+        stand2_btn.setLocation(500, 500);
+        stand2_btn.setSize(100, 35);
+        this.add(stand2_btn);
+
+        JButton stand3_btn = new JButton("Stand 3");
+        stand3_btn.setVisible(true);
+        stand3_btn.setLocation(850, 500);
+        stand3_btn.setSize(100, 35);
+        this.add(stand3_btn);
 
 
-        stand1 = new Stand(this, 60, 350,12);
-        stand2 = new Stand(this, stand1.x + stand1.rec_bottom.width+60, 350, 12);
-        stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+60, 350, 12);
+        JButton solve_btn = new JButton("Lösen");
+        solve_btn.setVisible(true);
+        solve_btn.setLocation(700, 10);
+        solve_btn.setSize(100, 35);
+        this.add(solve_btn);
+
+
+        // Stand objects
+        stand1 = new Stand(this, 40, 450,13);
+        stand2 = new Stand(this, stand1.x + stand1.rec_bottom.width+40, 450, 13);
+        stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+40, 450, 13);
 
         stand1.init_rings();
 
@@ -61,21 +89,12 @@ public class Hanoi extends Game {
     }
 
     public void demo() {
-        stand2.add_ring(stand1.get_top_ring(true));
-        pass();
-        while (stand2.moving_ring) {pass();}
-        stand2.add_ring(stand1.get_top_ring(true));
-        pass();
-        while (stand2.moving_ring) {pass();}
-        stand2.add_ring(stand1.get_top_ring(true));
-        pass();
-        while (stand2.moving_ring) {pass();}
-        stand2.add_ring(stand1.get_top_ring(true));
-        pass();
-        while (stand2.moving_ring) {pass();}
-        stand2.add_ring(stand1.get_top_ring(true));
-        pass();
-        while (stand2.moving_ring) {pass();}
-        stand2.add_ring(stand1.get_top_ring(true));
+        for(int i = 0; i < 6; i++) {
+            stand2.add_ring(stand1.get_top_ring(true));
+            pass();
+            while (stand2.moving_ring) {
+                pass();
+            }
+        }
     }
 }
