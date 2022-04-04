@@ -30,6 +30,7 @@ public class TaskQueue {
         if (removed){
             list[filled_until+1] = null;
         }
+        filled_until -= 1;
 
     }
 }
