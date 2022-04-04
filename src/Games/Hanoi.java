@@ -13,7 +13,7 @@ public class Hanoi extends Game {
 
     private Stand stand1, stand2, stand3;
     private boolean dest_select;
-    private Stand start_stand, dest_stand;
+    private Stand select_stand;
 
 
     public Hanoi(Window window) {
@@ -43,13 +43,6 @@ public class Hanoi extends Game {
 
 
         // Buttons
-        // Regel Button
-        JButton rules_btn = new JButton("Regeln");
-        rules_btn.setVisible(true);
-        rules_btn.setLocation(990, 10);
-        rules_btn.setSize(100, 35);
-        rules_btn.addActionListener(e -> rule_screen.setVisible(true));
-        this.add(rules_btn);
 
         // Select Buttons
         JButton stand1_btn = new JButton("Stand 1");
@@ -73,15 +66,32 @@ public class Hanoi extends Game {
         stand3_btn.addActionListener(e -> button_click(stand3));
         this.add(stand3_btn);
 
+        // reset Button
+        JButton reset_btn = new JButton("Reset");
+        reset_btn.setVisible(true);
+        reset_btn.setLocation(680, 10);
+        reset_btn.setSize(100, 35);
+        reset_btn.addActionListener(e -> dest_select=false);
+        this.add(reset_btn);
 
+
+        // solve Button
         JButton solve_btn = new JButton("Lösen");
         solve_btn.setVisible(true);
-        solve_btn.setLocation(700, 10);
+        solve_btn.setLocation(830, 10);
         solve_btn.setSize(100, 35);
         solve_btn.addActionListener(e -> System.out.println(task_queue.filled_until));
         this.add(solve_btn);
 
+        // Regel Button
+        JButton rules_btn = new JButton("Regeln");
+        rules_btn.setVisible(true);
+        rules_btn.setLocation(980, 10);
+        rules_btn.setSize(100, 35);
+        rules_btn.addActionListener(e -> rule_screen.setVisible(true));
+        this.add(rules_btn);
 
+        
         // Stand objects
         stand1 = new Stand(this, 40, 450,13);
         stand2 = new Stand(this, stand1.x + stand1.rec_bottom.width+40, 450, 13);
@@ -90,10 +100,7 @@ public class Hanoi extends Game {
         stand1.init_rings();
 
         dest_select = false;
-        start_stand = stand1;
-        dest_stand = stand2;
-
-        //new Thread(() -> {demo();}).start();
+        select_stand = stand1;
 
         setLayout(null);
         window.pack();
@@ -101,7 +108,7 @@ public class Hanoi extends Game {
 
     @Override
     public void update_loop() {
-        this.pass();
+
     }
 
     public void button_click(Stand stand) {
@@ -109,23 +116,16 @@ public class Hanoi extends Game {
             System.out.println("MOVE BLOCKED");
         } else {
             if (dest_select) {
-                dest_stand = stand;
-                stand.add_ring(start_stand.get_top_ring(true));
+                stand.add_ring(select_stand.get_top_ring(true));
                 dest_select = false;
             } else {
-                start_stand = stand;
+                select_stand = stand;
                 dest_select = true;
             }
         }
     }
 
-    public void demo() {
-        for(int i = 0; i < 6; i++) {
-            stand2.add_ring(stand1.get_top_ring(true));
-            pass();
-            while (stand2.moving_ring) {
-                pass();
-            }
-        }
+    public void solve() {
+
     }
 }
