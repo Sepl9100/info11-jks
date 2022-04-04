@@ -12,6 +12,8 @@ public class Hanoi extends Game {
     private JPanel rule_screen;
 
     private Stand stand1, stand2, stand3;
+    private boolean dest_select;
+    private Stand start_stand, dest_stand;
 
 
     public Hanoi(Window window) {
@@ -54,18 +56,21 @@ public class Hanoi extends Game {
         stand1_btn.setVisible(true);
         stand1_btn.setLocation(150, 500);
         stand1_btn.setSize(100, 35);
+        stand1_btn.addActionListener(e -> button_click(stand1));
         this.add(stand1_btn);
 
         JButton stand2_btn = new JButton("Stand 2");
         stand2_btn.setVisible(true);
         stand2_btn.setLocation(500, 500);
         stand2_btn.setSize(100, 35);
+        stand2_btn.addActionListener(e -> button_click(stand2));
         this.add(stand2_btn);
 
         JButton stand3_btn = new JButton("Stand 3");
         stand3_btn.setVisible(true);
         stand3_btn.setLocation(850, 500);
         stand3_btn.setSize(100, 35);
+        stand3_btn.addActionListener(e -> button_click(stand3));
         this.add(stand3_btn);
 
 
@@ -83,7 +88,11 @@ public class Hanoi extends Game {
 
         stand1.init_rings();
 
-        new Thread(() -> {demo();}).start();
+        dest_select = false;
+        start_stand = stand1;
+        dest_stand = stand2;
+
+        //new Thread(() -> {demo();}).start();
 
         setLayout(null);
         window.pack();
@@ -91,7 +100,22 @@ public class Hanoi extends Game {
 
     @Override
     public void update_loop() {
+        this.pass();
+    }
 
+    public void button_click(Stand stand) {
+        if(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
+            System.out.println("MOVE BLOCKED");
+        } else {
+            if (dest_select) {
+                dest_stand = stand;
+                stand.add_ring(start_stand.get_top_ring(true));
+                dest_select = false;
+            } else {
+                start_stand = stand;
+                dest_select = true;
+            }
+        }
     }
 
     public void demo() {
