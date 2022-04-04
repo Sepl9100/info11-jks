@@ -20,8 +20,8 @@ public class Hanoi extends Game {
 
         // Regeleinblendung
         rule_screen = new JPanel();
-        int width = 400;
-        int height = 500;
+        int width = 300;
+        int height = 250;
         rule_screen.setLocation(PANELWIDTH/2-width/2, PANELHEIGHT/2-height/2);
         rule_screen.setSize(width, height);
         rule_screen.setLayout(new BoxLayout(rule_screen, BoxLayout.Y_AXIS));
@@ -30,6 +30,12 @@ public class Hanoi extends Game {
         JButton rule_back_btn = new JButton("<");
         rule_back_btn.addActionListener(e -> rule_screen.setVisible(false));
         rule_screen.add(rule_back_btn);
+
+        JLabel rule_1 = new JLabel("<html><br>1. Der linke Ringturm muss nach Rechts<br><br>" +
+                "2. Es darf nur der oberste Ring des Turms bewegt werden<br><br>" +
+                "3. Ein größerer Ring darf nicht auf einem kleineren liegen</html>");
+        rule_screen.add(rule_1);
+
 
         rule_screen.setVisible(false);
 
