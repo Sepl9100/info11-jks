@@ -70,18 +70,19 @@ public abstract class Game extends JPanel {
 
     public void render(Graphics g){
         // run queue tasks
-        for (int i = 0; i <= task_queue.filled_until; i++){
-            QueueTask task = task_queue.list[i];
-            if (task != null) {
-                task.update();
-            }
-        }
-        for (int i = 0; i <= task_queue.filled_until; i++){
+        for (int i = 0; i <= task_queue.filled_until+2; i++){
             QueueTask task = task_queue.list[i];
             if (task != null && task.isDead) {
                 task.kill();
             }
         }
+        for (int i = 0; i <= task_queue.filled_until+1; i++){
+            QueueTask task = task_queue.list[i];
+            if (task != null && !task.isDead) {
+                task.update();
+            }
+        }
+
 
 
 
