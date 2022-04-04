@@ -25,6 +25,7 @@ public abstract class Game extends JPanel {
     protected int fps;
     private long last_fps_check_time;
 
+    protected Font font1;
 
     protected SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
     protected TaskQueue task_queue;
@@ -37,6 +38,8 @@ public abstract class Game extends JPanel {
         task_queue = new TaskQueue();
 
         spritelist = new SpriteList();
+
+        font1 = new Font("Arial", Font.PLAIN, 16);
 
         window.update_title(name); // displays game name on titlebar
 

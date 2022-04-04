@@ -33,11 +33,11 @@ public class Hanoi extends Game {
         rule_back_btn.addActionListener(e -> rule_screen.setVisible(false));
         rule_screen.add(rule_back_btn);
 
-        JLabel rule_1 = new JLabel("<html><br>1. Der linke Ringturm muss nach Rechts<br><br>" +
+        JLabel rule_1 = new JLabel("<html><br><br>1. Der linke Ringturm muss nach Rechts<br><br>" +
                 "2. Es darf nur der oberste Ring des Turms bewegt werden<br><br>" +
                 "3. Ein größerer Ring darf nicht auf einem kleineren liegen</html>");
+        rule_1.setFont(font1);
         rule_screen.add(rule_1);
-
 
         rule_screen.setVisible(false);
 
@@ -47,7 +47,7 @@ public class Hanoi extends Game {
         JButton rules_btn = new JButton("Regeln");
         rules_btn.setVisible(true);
         rules_btn.setLocation(990, 10);
-        rules_btn.setSize(100, 40);
+        rules_btn.setSize(100, 35);
         rules_btn.addActionListener(e -> rule_screen.setVisible(true));
         this.add(rules_btn);
 
@@ -78,6 +78,7 @@ public class Hanoi extends Game {
         solve_btn.setVisible(true);
         solve_btn.setLocation(700, 10);
         solve_btn.setSize(100, 35);
+        solve_btn.addActionListener(e -> System.out.println(task_queue.filled_until));
         this.add(solve_btn);
 
 
