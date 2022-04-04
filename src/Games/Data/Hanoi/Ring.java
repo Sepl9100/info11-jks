@@ -47,6 +47,6 @@ public class Ring extends Dataelement {
     public void move_to(int xdest, int ydest) {
         this.x = xdest;
         this.y = ydest;
-        this.ring_entity.move_to(xdest, ydest, 1, 8);
+        this.ring_entity.move_to(xdest, ydest, 1, 17);
     }
 }

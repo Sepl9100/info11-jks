@@ -162,7 +162,6 @@ public class Snake extends Game {
     @Override
     public void update_loop() {
         if (started) {
-
             // Snake auf andere seite am rand plazieren
             if (player.tile_x < 0) {
                 player.set_pos(border_x, player.tile_y);

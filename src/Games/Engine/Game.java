@@ -39,7 +39,7 @@ public abstract class Game extends JPanel {
 
         spritelist = new SpriteList();
 
-        font1 = new Font("Arial", Font.PLAIN, 16);
+        font1 = new Font("SegoeUI", Font.PLAIN, 16);
 
         window.update_title(name); // displays game name on titlebar
 
