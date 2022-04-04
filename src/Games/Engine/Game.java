@@ -70,14 +70,20 @@ public abstract class Game extends JPanel {
 
     public void render(Graphics g){
         // run queue tasks
-        for (QueueTask task : task_queue.list){
-            if (task != null && task.isDead) {
-                task.kill();
-            }
+        for (int i = 0; i <= task_queue.filled_until+10; i++){
+            QueueTask task = task_queue.list[i];
             if (task != null) {
                 task.update();
             }
         }
+        for (int i = 0; i <= task_queue.filled_until+10; i++){
+            QueueTask task = task_queue.list[i];
+            if (task != null && task.isDead) {
+                task.kill();
+            }
+        }
+
+
 
         Date date = new Date();
         if (tick % 100 == 0) {                          // Measure FPS every 100th tick
