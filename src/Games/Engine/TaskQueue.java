@@ -27,10 +27,11 @@ public class TaskQueue {
                 removed = true;
             }
         }
+        filled_until --;
         if (removed){
             list[filled_until+1] = null;
         }
-        filled_until -= 1;
+
 
     }
 }
