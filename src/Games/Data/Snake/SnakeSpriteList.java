@@ -27,6 +27,7 @@ public class SnakeSpriteList {
             if (removed){
                 list[filled_until+1] = null;
             }
+            filled_until--;
 
     }
 

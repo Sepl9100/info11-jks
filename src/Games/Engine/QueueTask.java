@@ -9,6 +9,7 @@ public class QueueTask {
     private final int run_at_tick;
     private Game game;
     private ActionListener listener;
+    public boolean isDead = false;
 
     public QueueTask(Game game, int in_ticks, ActionListener listener){
         created_on_tick = game.tick;
@@ -20,7 +21,7 @@ public class QueueTask {
     }
 
     public void update(){
-        if (run_at_tick == game.tick){
+        if (run_at_tick <= game.tick){
             run();
         }
     }
@@ -30,7 +31,7 @@ public class QueueTask {
     }
 
     public void run(){
+        this.isDead = true;
         listener.actionPerformed(new ActionEvent(this, 0, "RUN"));
-        this.kill();
     }
 }

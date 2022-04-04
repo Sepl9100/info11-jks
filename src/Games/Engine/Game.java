@@ -75,6 +75,11 @@ public abstract class Game extends JPanel {
                 task.update();
             }
         }
+        for (QueueTask task : task_queue.list){
+            if (task != null && task.isDead) {
+                task.kill();
+            }
+        }
 
         Date date = new Date();
         if (tick % 100 == 0) {                          // Measure FPS every 100th tick

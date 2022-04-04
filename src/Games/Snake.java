@@ -42,6 +42,7 @@ public class Snake extends Game {
 
         random = new Random();
 
+
         apple_texture = load_image("/apple.png");
         snake_body = load_image("/snake_body.png");
         snake_head = load_image("/snake_head.png");
@@ -160,7 +161,6 @@ public class Snake extends Game {
 
     @Override
     public void update_loop() {
-
         if (started) {
 
             // Snake auf andere seite am rand plazieren
