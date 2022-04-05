@@ -1,5 +1,6 @@
 package Games;
 
+import Games.Data.Hanoi.Ring;
 import Games.Data.Hanoi.Stand;
 import Games.Engine.Game;
 import Games.Engine.Window;
@@ -80,7 +81,7 @@ public class Hanoi extends Game {
         solve_btn.setVisible(true);
         solve_btn.setLocation(830, 10);
         solve_btn.setSize(100, 35);
-        solve_btn.addActionListener(e -> System.out.println(task_queue.filled_until));
+        solve_btn.addActionListener(e -> solve(stand1.stack.count_nodes(), stand1, stand2, stand3));
         this.add(solve_btn);
 
         // Regel Button
@@ -125,7 +126,24 @@ public class Hanoi extends Game {
         }
     }
 
-    public void solve() {
+    public void solve(int n, Stand start, Stand helper, Stand dest) {
+        new Thread(() -> {solve_thread(n, start, helper, dest);}).start();
+    }
 
+    public void solve_thread(int n, Stand start, Stand helper, Stand dest) {
+        if(n == 0) {return;}
+        else {
+            pass();
+            while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+            solve(n-1, start, dest, helper);
+            pass();
+            
+            while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+            dest.add_ring(start.get_top_ring(true));
+            pass();
+
+            while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+            solve(n-1, helper, start, dest);
+        }
     }
 }
