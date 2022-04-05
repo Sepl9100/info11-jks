@@ -114,11 +114,18 @@ public class Hanoi extends Game {
 
     public void button_click(Stand stand) {
         if(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
-            System.out.println("MOVE BLOCKED");
+            System.out.println("MOVE BLOCKED-resetting");
+            dest_select = false;
         } else {
             if (dest_select) {
-                stand.add_ring(select_stand.get_top_ring(true));
-                dest_select = false;
+                Ring select = select_stand.get_top_ring(false);
+                if(select == null){
+                    System.out.println("MOVE BLOCKED-resetting");
+                    dest_select = false;
+                }else{
+                    stand.add_ring(select_stand.get_top_ring(true));
+                    dest_select = false;
+                }
             } else {
                 select_stand = stand;
                 dest_select = true;
@@ -135,15 +142,16 @@ public class Hanoi extends Game {
         else {
             pass();
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
-            solve(n-1, start, dest, helper);
+            solve_thread(n-1, start, dest, helper);
             pass();
-            
+
+
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
             dest.add_ring(start.get_top_ring(true));
             pass();
 
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
-            solve(n-1, helper, start, dest);
+            solve_thread(n-1, helper, start, dest);
         }
     }
 }
