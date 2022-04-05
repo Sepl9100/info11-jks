@@ -12,17 +12,18 @@ import java.awt.*;
 
 public class Stand {
 
-    public int x, y, size;
+    public int x, y, size, number;
     private Game game;
     public Sprite rec_bottom, rec_top;
     public Stack stack;
     public boolean moving_ring = false;
 
-    public Stand(Game game, int x, int y, int size){
+    public Stand(Game game, int x, int y, int size, int number){
         this.x = x;         // cords of the top left corner
         this.y = y;         // from the bottom rectangle
         this.size = size;
         this.game = game;
+        this.number = number;
 
         rec_bottom = new Sprite(this.game, 5, null);
         rec_bottom.set_pos(x, y);
@@ -38,8 +39,8 @@ public class Stand {
 
     }
 
-    public void init_rings() {
-        for(int i = 0; i < 6; i++) {
+    public void init_rings(int rings) {
+        for(int i = 0; i < rings; i++) {
             stack.insert(new Ring(game, x+(size*(i+1)), y-2*size*i-2*size, size, i+1));
         }
     }
@@ -79,5 +80,11 @@ public class Stand {
 
         stack.insert(newRing);
         moving_ring = false;
+    }
+
+    public void clear() {
+        while(stack.count_nodes() > 0) {
+            get_top_ring(true).ring_entity.sprite.delete();
+        }
     }
 }

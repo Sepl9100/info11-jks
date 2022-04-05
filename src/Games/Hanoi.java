@@ -13,9 +13,10 @@ public class Hanoi extends Game {
     private JPanel rule_screen;
 
     private Stand stand1, stand2, stand3;
-    private boolean dest_select;
+    private boolean dest_select, solved;
     private Stand select_stand;
     private JLabel info_label;
+    private int ring_quantity;
 
     public Hanoi(Window window) {
         super(window, "Hanoi");
@@ -24,7 +25,7 @@ public class Hanoi extends Game {
         // Regeleinblendung
         rule_screen = new JPanel();
         int width = 300;
-        int height = 250;
+        int height = 300;
         rule_screen.setLocation(PANELWIDTH/2-width/2, PANELHEIGHT/2-height/2);
         rule_screen.setSize(width, height);
         rule_screen.setLayout(new BoxLayout(rule_screen, BoxLayout.Y_AXIS));
@@ -36,7 +37,8 @@ public class Hanoi extends Game {
 
         JLabel rule_1 = new JLabel("<html><br><br>1. Der linke Ringturm muss nach Rechts<br><br>" +
                 "2. Es darf nur der oberste Ring des Turms bewegt werden<br><br>" +
-                "3. Ein größerer Ring darf nicht auf einem kleineren liegen</html>");
+                "3. Ein größerer Ring darf nicht auf einem kleineren liegen<br><br>" +
+                "4. Der Reset Button setzt die Auswahl zurück</html>");
         rule_1.setFont(font1);
         rule_screen.add(rule_1);
 
@@ -72,7 +74,9 @@ public class Hanoi extends Game {
         reset_btn.setVisible(true);
         reset_btn.setLocation(680, 10);
         reset_btn.setSize(100, 35);
-        reset_btn.addActionListener(e -> dest_select=false);
+        reset_btn.addActionListener(e -> {
+            if(solved) {reset(); solved=false;}
+            else {dest_select=false;}});
         this.add(reset_btn);
 
 
@@ -97,17 +101,19 @@ public class Hanoi extends Game {
         info_label.setFont(font2);
         info_label.setForeground(Color.white);
         info_label.setSize(info_label.getPreferredSize());
-        info_label.setLocation(150, 10);
+        info_label.setLocation(160, 10);
         this.add(info_label);
         
         // Stand objects
-        stand1 = new Stand(this, 40, 450,13);
-        stand2 = new Stand(this, stand1.x + stand1.rec_bottom.width+40, 450, 13);
-        stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+40, 450, 13);
+        stand1 = new Stand(this, 40, 450,13, 1);
+        stand2 = new Stand(this, stand1.x + stand1.rec_bottom.width+40, 450, 13,2);
+        stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+40, 450, 13, 3);
 
-        stand1.init_rings();
+        ring_quantity = 6;
+        stand1.init_rings(6);
 
         dest_select = false;
+        solved = false;
         select_stand = stand1;
 
         setLayout(null);
@@ -116,13 +122,27 @@ public class Hanoi extends Game {
 
     @Override
     public void update_loop() {
-        if(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
-            info_label.setText("Auswahl blockiert");
-            info_label.setForeground(Color.red);
-            info_label.setSize(info_label.getPreferredSize());
-        } else if(true) {
-
-        } else {}
+        if(tick%10 == 0) {      // every 10 ticks.
+            if (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
+                info_label.setText("Auswahl blockiert");
+                info_label.setForeground(Color.red);
+                info_label.setSize(info_label.getPreferredSize());
+            } else if (dest_select) {
+                info_label.setText("Start: Stand" + select_stand.number + " - Bitte Ziel wählen");
+                info_label.setForeground(Color.white);
+                info_label.setSize(info_label.getPreferredSize());
+            } else {
+                info_label.setText("Bitte Start wählen");
+                info_label.setForeground(Color.white);
+                info_label.setSize(info_label.getPreferredSize());
+            }
+            if(stand3.stack.count_nodes() == ring_quantity) {
+                info_label.setText("Gelöst! Reset zum Neustarten ->");
+                info_label.setForeground(Color.green);
+                info_label.setSize(info_label.getPreferredSize());
+                solved = true;
+            }
+        }
     }
 
     public void button_click(Stand stand) {
@@ -145,8 +165,9 @@ public class Hanoi extends Game {
         }
     }
 
-    public void solve(int n, Stand start, Stand helper, Stand dest) {
-        new Thread(() -> {solve_thread(n, start, helper, dest);}).start();
+    public void solve() {
+        if(stand2.stack.count_nodes() > 0 || stand3.stack.count_nodes() > 0) {reset();}
+        new Thread(() -> {solve_thread(stand1.stack.count_nodes(), stand1, stand2, stand3);}).start();
     }
 
     public void solve_thread(int n, Stand start, Stand helper, Stand dest) {
@@ -165,5 +186,12 @@ public class Hanoi extends Game {
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
             solve_thread(n-1, helper, start, dest);
         }
+    }
+
+    public void reset() {
+        stand1.clear();
+        stand2.clear();
+        stand3.clear();
+        stand1.init_rings(ring_quantity);
     }
 }
