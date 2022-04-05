@@ -1,5 +1,5 @@
 package Games.Engine.Kompositum;
-LOLOLOOLOL
+
 public abstract class Dataelement {
     public int number;
 
