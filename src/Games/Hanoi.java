@@ -13,7 +13,7 @@ public class Hanoi extends Game {
     private JPanel rule_screen;
 
     private Stand stand1, stand2, stand3;
-    private boolean dest_select, solved;
+    private boolean dest_select, solved, illegal_move;
     private Stand select_stand;
     private JLabel info_label;
     private int ring_quantity;
@@ -114,6 +114,7 @@ public class Hanoi extends Game {
 
         dest_select = false;
         solved = false;
+        illegal_move = false;
         select_stand = stand1;
 
         setLayout(null);
@@ -142,22 +143,31 @@ public class Hanoi extends Game {
                 info_label.setSize(info_label.getPreferredSize());
                 solved = true;
             }
+            if(illegal_move){
+                info_label.setText("Illegale Aktion");
+                info_label.setForeground(Color.red);
+                info_label.setSize(info_label.getPreferredSize());
+            }
         }
     }
 
     public void button_click(Stand stand) {
+        illegal_move = false;
         if(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
             dest_select = false;
         } else {
             if (dest_select) {
                 Ring select = select_stand.get_top_ring(false);
-                if(select == null){
-                    System.out.println("MOVE BLOCKED-resetting");
-                    dest_select = false;
-                }else{
+                if(select == null){illegal_move = true;}
+                else{
+                    Ring select_ring = select_stand.get_top_ring(false);
+                    Ring dest_ring = stand.get_top_ring(false);
+
+                    if(dest_ring == null) {}
+                    else if(select_ring.number < dest_ring.number){illegal_move = true;return;}
                     stand.add_ring(select_stand.get_top_ring(true));
-                    dest_select = false;
                 }
+                dest_select = false;
             } else {
                 select_stand = stand;
                 dest_select = true;
