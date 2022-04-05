@@ -36,33 +36,7 @@ public class MainMenu extends Game {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        JButton e = new JButton();
-        e.setText("Open demo game");
-        e.setVisible(true);
-        e.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exit();
-                new DemoGame(window);
-            }
-        });
-        this.add(e, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        JButton r = new JButton();
-        r.setText("Open demo game");
-        r.setVisible(true);
-        r.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exit();
-                new DemoGame(window);
-            }
-        });
-        this.add(r, gbc);
-
-        gbc.gridx++;
         JButton hanoi = new JButton();
         hanoi.setText("Hanoi Game");
         hanoi.setVisible(true);
