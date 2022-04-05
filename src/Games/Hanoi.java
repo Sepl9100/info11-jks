@@ -15,7 +15,7 @@ public class Hanoi extends Game {
     private Stand stand1, stand2, stand3;
     private boolean dest_select;
     private Stand select_stand;
-
+    private JLabel info_label;
 
     public Hanoi(Window window) {
         super(window, "Hanoi");
@@ -81,7 +81,7 @@ public class Hanoi extends Game {
         solve_btn.setVisible(true);
         solve_btn.setLocation(830, 10);
         solve_btn.setSize(100, 35);
-        solve_btn.addActionListener(e -> solve(stand1.stack.count_nodes(), stand1, stand2, stand3));
+        solve_btn.addActionListener(e -> solve());
         this.add(solve_btn);
 
         // Regel Button
@@ -92,6 +92,13 @@ public class Hanoi extends Game {
         rules_btn.addActionListener(e -> rule_screen.setVisible(true));
         this.add(rules_btn);
 
+        // info Label
+        info_label = new JLabel("INFO TEXT-----------------");
+        info_label.setFont(font2);
+        info_label.setForeground(Color.white);
+        info_label.setSize(info_label.getPreferredSize());
+        info_label.setLocation(150, 10);
+        this.add(info_label);
         
         // Stand objects
         stand1 = new Stand(this, 40, 450,13);
@@ -109,12 +116,17 @@ public class Hanoi extends Game {
 
     @Override
     public void update_loop() {
+        if(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
+            info_label.setText("Auswahl blockiert");
+            info_label.setForeground(Color.red);
+            info_label.setSize(info_label.getPreferredSize());
+        } else if(true) {
 
+        } else {}
     }
 
     public void button_click(Stand stand) {
         if(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
-            System.out.println("MOVE BLOCKED-resetting");
             dest_select = false;
         } else {
             if (dest_select) {
