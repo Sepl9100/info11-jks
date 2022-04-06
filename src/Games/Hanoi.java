@@ -110,7 +110,7 @@ public class Hanoi extends Game {
         stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+40, 450, 13, 3);
 
         ring_quantity = 6;
-        stand1.init_rings(6);
+        stand1.init_rings(ring_quantity);
 
         dest_select = false;
         solved = false;
@@ -164,7 +164,7 @@ public class Hanoi extends Game {
                     Ring dest_ring = stand.get_top_ring(false);
 
                     if(dest_ring == null) {}
-                    else if(select_ring.number < dest_ring.number){illegal_move = true;return;}
+                    else if(select_ring.number < dest_ring.number){illegal_move = true; dest_select = false; return;}
                     stand.add_ring(select_stand.get_top_ring(true));
                 }
                 dest_select = false;
