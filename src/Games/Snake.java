@@ -43,10 +43,10 @@ public class Snake extends Game {
         random = new Random();
 
 
-        apple_texture = load_image("/apple.png");
-        snake_body = load_image("/snake_body.png");
-        snake_head = load_image("/snake_head.png");
-        pill = load_image("/pill.png");
+        apple_texture = load_image("/Games/Data/Snake/images/apple.png");
+        snake_body = load_image("/Games/Data/Snake/images/snake_body.png");
+        snake_head = load_image("/Games/Data/Snake/images/snake_head.png");
+        pill = load_image("/Games/Data/Snake/images/pill.png");
 
         apples = new SnakeSpriteList();
         drugs = new SnakeSpriteList();
