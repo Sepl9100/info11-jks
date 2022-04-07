@@ -1,7 +1,6 @@
 package Games;
 
 import Games.Engine.Game;
-import Games.Engine.Sprite;
 import Games.Engine.Window;
 
 import javax.swing.*;
@@ -15,6 +14,7 @@ public class TicTacToe extends Game {
     private final int[] gameTable = new int[9];
     private final JButton[] gameButtons;
     private final JLabel topText;
+    private boolean gameActive;
 
     public TicTacToe(Window window){
         super(window, "Tic-Tac-Toe");
@@ -41,7 +41,7 @@ public class TicTacToe extends Game {
         gbc.ipady = 10;
         gbc.ipadx = 30;
         gameButtons = new JButton[9];
-        for(int i = 0; i < 9; i++){
+        for(int i = 0; i < 9; i++){// Spielfeld erstellen
             gameButtons[i] = new JButton();
             gameButtons[i].setFont(new Font(Font.DIALOG, Font.PLAIN, 50));
             gameButtons[i].setVisible(true);
@@ -71,55 +71,59 @@ public class TicTacToe extends Game {
             gameTable[i] = 0;
             gameButtons[i].setText("  ");
             setTopText();
+            gameActive = true;
         }
     }
 
     public void buttonClick(int button){
-        System.out.println(button);
-        if(gameTable[button]==0){
-            if(turns%2==0){
-                gameButtons[button].setText("x");
-                gameTable[button] = 1;
-                turns++;
-                setTopText();
-                System.out.println(turns);
-
-            }else{
-                    System.out.println(turns);
-                    gameButtons[button].setText("o");
-                    gameTable[button] = -1;
+        if(gameActive){
+            if(gameTable[button]==0){
+                if(turns%2==0){
+                    gameButtons[button].setText("x");
+                    gameTable[button] = 1;
                     turns++;
                     setTopText();
-                }
+                }else{
+                        System.out.println(turns);
+                        gameButtons[button].setText("o");
+                        gameTable[button] = -1;
+                        turns++;
+                        setTopText();
+                    }
+            }
         }
     }
 
     public void setTopText(){
-        if(checkWin()==0){
+        int test = checkWin();
+        if(test==0){
             if(turns % 2 == 0){
                 topText.setText("Spieler 1 (X) ist dran!");
             }else{
                 topText.setText("Spieler 2 (O) ist dran!");
             }
-        }else if(checkWin() > 0){
-            topText.setText("Herzlichen Glühstrumpf Spieler 1(x)!");
         }else{
-            topText.setText("Herzlichen Glühstrumpf Spieler 2 (O)!");
+            gameActive = false;
+            if(test > 0){
+                topText.setText("Herzlichen Glühstrumpf Spieler 1(x)!");
+            }else{
+                topText.setText("Herzlichen Glühstrumpf Spieler 2 (O)!");
+            }
         }
     }
 
     private int checkWin(){
         for(int i = 0; i<3; i++){
-            if(gameTable[3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i] == 3)return 1;
+            if(gameTable[3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i] == 3)return 1;//Waagrechte Reihen
             if(gameTable[3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i] == -3)return -1;
 
-            if(gameTable[i] + gameTable[3 + i] + gameTable[6 + i] == 3)return 1;
+            if(gameTable[i] + gameTable[3 + i] + gameTable[6 + i] == 3)return 1;//Sekrechte Reihen
             if(gameTable[i] + gameTable[3 + i] + gameTable[6 + i] ==-3)return -1;
         }
-        if(gameTable[0] + gameTable[4] + gameTable[8] == 3)return 1;
+        if(gameTable[0] + gameTable[4] + gameTable[8] == 3)return 1;//Diagonale r->l
         if(gameTable[0] + gameTable[4] + gameTable[8] ==-3)return -1;
 
-        if(gameTable[2]+gameTable[4]+gameTable[6]==3)return 1;
+        if(gameTable[2]+gameTable[4]+gameTable[6]==3)return 1;//Diagonale l->r
         if(gameTable[2]+gameTable[4]+gameTable[6]==-3)return -1;
         else return 0;
     }
