@@ -6,20 +6,15 @@ import Games.Engine.Window;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static java.awt.Font.*;
 
 public class TicTacToe extends Game {
 
     // JAN, BRING DAS SCHAWA ZUM FLOWEN!!!!
-    private Sprite[] sprites;
     //private Random random;
     private int turns = 0;
-    private int[] gameTable = new int[9];
-    private JButton[] gameButtons;
-    private JLabel topText;
+    private final int[] gameTable = new int[9];
+    private final JButton[] gameButtons;
+    private final JLabel topText;
 
     public TicTacToe(Window window){
         super(window, "Tic-Tac-Toe");
@@ -29,7 +24,7 @@ public class TicTacToe extends Game {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(3,3,3,3);
         gbc.ipadx = 125;
-        gbc.ipady = (int) 25;
+        gbc.ipady = 25;
 
 
         topText = new JLabel();
@@ -53,7 +48,7 @@ public class TicTacToe extends Game {
             final int temp = i;
             gameButtons[i].addActionListener(e -> buttonClick(temp));
             gbc.gridx = i % 3 + 1;
-            gbc.gridy = (int) i / 3 + 1;
+            gbc.gridy = i / 3 + 1;
 
             this.add(gameButtons[i], gbc);
         }
@@ -115,11 +110,11 @@ public class TicTacToe extends Game {
 
     private int checkWin(){
         for(int i = 0; i<3; i++){
-            if((gameTable[0 + 3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i]) == 3)return 1;
-            if((gameTable[0 + 3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i]) == -3)return -1;
+            if(gameTable[3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i] == 3)return 1;
+            if(gameTable[3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i] == -3)return -1;
 
-            if((gameTable[0 + i] + gameTable[3 + i] + gameTable[6 + i]) == 3)return 1;
-            if((gameTable[0 + i] + gameTable[3 + i] + gameTable[6 + i]) ==-3)return -1;
+            if(gameTable[i] + gameTable[3 + i] + gameTable[6 + i] == 3)return 1;
+            if(gameTable[i] + gameTable[3 + i] + gameTable[6 + i] ==-3)return -1;
         }
         if(gameTable[0] + gameTable[4] + gameTable[8] == 3)return 1;
         if(gameTable[0] + gameTable[4] + gameTable[8] ==-3)return -1;
