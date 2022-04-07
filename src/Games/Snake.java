@@ -192,7 +192,7 @@ public class Snake extends Game {
 
             //snake bewegen
             int tick_delay = tickdelay;
-            if (player.on_drugs) tick_delay = 3;
+            if (player.on_drugs) tick_delay = 2;
             if (tick % tick_delay == 0 ) {
                 if (direction == 'R') {
                     player.move(1, 0);
