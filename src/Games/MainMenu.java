@@ -4,8 +4,6 @@ import Games.Engine.Game;
 import Games.Engine.Window;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainMenu extends Game {
 
@@ -22,56 +20,57 @@ public class MainMenu extends Game {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
+        //Snake Button
         JButton b = new JButton();
         b.setText("Open snake game");
         b.setVisible(true);
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        b.addActionListener(e -> {
                 exit();
-                new Snake(window);
-            }
+        new Snake(window);
         });
         this.add(b, gbc);
 
-        gbc.gridx = 1;
+        gbc.gridx++;
         gbc.gridy = 0;
-
+        //Hanoi Button
         JButton hanoi = new JButton();
         hanoi.setText("Hanoi Game");
         hanoi.setVisible(true);
-        hanoi.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exit();
-                new Hanoi(window);
-            }
+        hanoi.addActionListener(e -> {
+            exit();
+            new Hanoi(window);
         });
         this.add(hanoi, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
+        //maze Button
+        JButton maze = new JButton();
+        maze.setText("Maze Game");
+        maze.setVisible(true);
+        maze.addActionListener(e -> {
+            exit();
+            new Maze(window);
+        });
+        this.add(maze, gbc);
+
+        gbc.gridx++;
+        //TicTacToe Button
         JButton tictactoe = new JButton();
         tictactoe.setText("Tic-Tac-Toe Game");
-        tictactoe.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exit();
-                new TicTacToe(window);
-            }
+        tictactoe.addActionListener(e -> {
+            exit();
+            new TicTacToe(window);
         });
         this.add(tictactoe, gbc);
 
+        gbc. gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = 2; //ButtonBreite = 2
+        //exit Button
         JButton exit = new JButton();
         exit.setText("Exit");
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exit.addActionListener(e -> System.exit(0));
         this.add(exit, gbc);
 
         window.pack();
