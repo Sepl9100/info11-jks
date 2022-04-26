@@ -18,6 +18,7 @@ public class TicTacToe extends Game {
 
     public TicTacToe(Window window){
         super(window, "Tic-Tac-Toe");
+        //grundsätzliche Layout Definitionen
         this.setBackground(Color.gray);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -26,7 +27,7 @@ public class TicTacToe extends Game {
         gbc.ipadx = 125;
         gbc.ipady = 25;
 
-
+        //Kopf der Spiele-GUI
         topText = new JLabel();
         setTopText();
         topText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -36,12 +37,13 @@ public class TicTacToe extends Game {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(topText, gbc);
 
+        //Spielfeld mit den Buttons erstellen
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.ipady = 10;
         gbc.ipadx = 30;
         gameButtons = new JButton[9];
-        for(int i = 0; i < 9; i++){// Spielfeld erstellen
+        for(int i = 0; i < 9; i++){
             gameButtons[i] = new JButton();
             gameButtons[i].setFont(new Font(Font.DIALOG, Font.PLAIN, 50));
             gameButtons[i].setVisible(true);
@@ -53,6 +55,7 @@ public class TicTacToe extends Game {
             this.add(gameButtons[i], gbc);
         }
 
+        //Reset Button hinzufügen
         gbc.gridy = 0;
         gbc.gridx = 5;
         gbc.ipady = 5;
@@ -62,6 +65,7 @@ public class TicTacToe extends Game {
         reset.setText("Reset");
         reset.addActionListener(e -> resetGame());
         this.add(reset, gbc);
+        //Spielfeld spielbereit machen
         resetGame();
         window.pack();
     }
@@ -78,13 +82,12 @@ public class TicTacToe extends Game {
     public void buttonClick(int button){
         if(gameActive){
             if(gameTable[button]==0){
-                if(turns%2==0){
+                if(turns%2==0){//Spieler X am Zug
                     gameButtons[button].setText("x");
                     gameTable[button] = 1;
                     turns++;
                     setTopText();
-                }else{
-                        System.out.println(turns);
+                }else{//Spieler O am Zug
                         gameButtons[button].setText("o");
                         gameTable[button] = -1;
                         turns++;

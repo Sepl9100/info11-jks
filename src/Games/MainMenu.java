@@ -30,8 +30,19 @@ public class MainMenu extends Game {
         });
         this.add(b, gbc);
 
-        gbc.gridx++;
-        gbc.gridy = 0;
+        gbc.gridx = 1;
+        //Tetris Button
+        JButton tetris = new JButton();
+        tetris.setText("Tetris Game");
+        tetris.setVisible(true);
+        tetris.addActionListener(e -> {
+            exit();
+            //new Tetris(window);
+        });
+        this.add(tetris, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
         //Hanoi Button
         JButton hanoi = new JButton();
         hanoi.setText("Hanoi Game");
@@ -41,6 +52,17 @@ public class MainMenu extends Game {
             new Hanoi(window);
         });
         this.add(hanoi, gbc);
+
+        gbc.gridx = 1;
+        //Sudoku Button
+        JButton sudoku = new JButton();
+        sudoku.setText("Sudoku Game");
+        sudoku.setVisible(true);
+        sudoku.addActionListener(e -> {
+            exit();
+            //new Sudoku(window);
+        });
+        this.add(sudoku, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
