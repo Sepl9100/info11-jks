@@ -6,7 +6,7 @@ public class TileArray {
     public TileArray(){
         array = new int[10][20];
         for (int i = 0; i < 10; i++){
-            array[i][0] = 1
+            array[i][0] = 1;
         }
 
     }
