@@ -17,7 +17,6 @@ public class Tile {
         int rnd = random.nextInt(TileArrays.arrays.length);
         array = TileArrays.arrays[rnd];
         arraysize = array.length;
-
         give_color();
     }
 

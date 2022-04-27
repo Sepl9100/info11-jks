@@ -7,7 +7,7 @@ public class TileArrays {
             {0, 1, 0, 0},
             {0, 1, 0, 0},
             {0, 1, 0, 0},
-            {0, 0, 0, 0},
+            {0, 1, 0, 0},
     };
     public static int[][] b2 = new int[][]{
             {0, 1, 0},
