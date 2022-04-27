@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +29,11 @@ public abstract class Game extends JPanel {
     protected double frame_delay = 0;
     private long last_fps_check_time;
 
+    protected boolean debug = false;
+
     protected Font font1, font2;
+
+    private KeyBind t_key_bind;
 
     protected SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
     protected TaskQueue task_queue;
@@ -44,6 +49,8 @@ public abstract class Game extends JPanel {
 
         font1 = new Font("SegoeUI", Font.PLAIN, 16);
         font2 = new Font("SegoeUI", Font.BOLD, 32);
+
+        t_key_bind = new KeyBind();
 
         window.update_title(name); // displays game name on titlebar
 
@@ -144,14 +151,20 @@ public abstract class Game extends JPanel {
     }
 
     protected void paintComponent(Graphics g) {
-        this.update_loop();
+
         super.paintComponent(g);
+        t_key_bind.update(KeyEvent.VK_T, e -> debug = !debug);
+        this.update_loop();
         this.render(g);
+        if (debug) {
+            g.setColor(Color.white);
+            g.drawString(Double.toString(fps) + " FPS ", 100, 20);
+            g.drawString(Double.toString(frame_delay) + " FRAME DELAY (MS)", 100, 30);
+        }
         this.repaint();
         this.tick++;
-        g.setColor(Color.white);
-        g.drawString(Double.toString(fps) + "FPS", 100, 20);
     }
+
 
     public void exit(){
         window.remove(this);
