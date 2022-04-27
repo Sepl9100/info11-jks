@@ -16,6 +16,7 @@ import java.util.Date;
 public abstract class Game extends JPanel {
 
     protected Window window;
+    protected Graphics g;
 
     protected String name; // Game title
     protected final int PANELWIDTH = 1100;
@@ -151,7 +152,7 @@ public abstract class Game extends JPanel {
     }
 
     protected void paintComponent(Graphics g) {
-
+        this.g = g;
         super.paintComponent(g);
         t_key_bind.update(KeyEvent.VK_T, e -> debug = !debug);
         this.update_loop();

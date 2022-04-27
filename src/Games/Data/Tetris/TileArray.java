@@ -11,10 +11,18 @@ public class TileArray {
 
     }
 
+    public void place_matrix(int x, int y, int[][] matrix){
+
+    }
+
+    public int get_tile(int x, int y){
+        return array[x][y];
+    }
+
     public void print(){
-        for (int[] line : array){
+        for (int[] column : array){
             StringBuilder linestr = new StringBuilder();
-            for (int i : line){
+            for (int i : column){
                 linestr.append(Integer.toString(i));
             }
             System.out.println(linestr);

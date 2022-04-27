@@ -37,7 +37,7 @@ public class MainMenu extends Game {
         tetris.setVisible(true);
         tetris.addActionListener(e -> {
             exit();
-            //new Tetris(window);
+            new Tetris(window);
         });
         this.add(tetris, gbc);
 
