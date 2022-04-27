@@ -39,6 +39,7 @@ public abstract class Game extends JPanel {
     protected final KeyBind a_key_bind = new KeyBind(KeyEvent.VK_A);
     protected final KeyBind d_key_bind = new KeyBind(KeyEvent.VK_D);
     protected final KeyBind q_key_bind = new KeyBind(KeyEvent.VK_Q);
+    protected final KeyBind e_key_bind = new KeyBind(KeyEvent.VK_E);
 
     protected SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
     protected TaskQueue task_queue;

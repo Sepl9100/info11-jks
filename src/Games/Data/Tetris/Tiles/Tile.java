@@ -20,12 +20,23 @@ public class Tile {
         give_color();
     }
 
-    public void rotate(){
+    public void rotateCW(){
         int[][] newarray = new int[arraysize][arraysize];
         for (int y = 0; y < array.length; y++){
             for (int x = 0; x < array.length; x++){
                 int item = array[x][y];
                 newarray[arraysize-1-y][x] = item;
+            }
+        }
+        array = newarray;
+    }
+
+    public void rotateCCW(){
+        int[][] newarray = new int[arraysize][arraysize];
+        for (int y = 0; y < array.length; y++){
+            for (int x = 0; x < array.length; x++){
+                int item = array[x][y];
+                newarray[y][arraysize-1-x] = item;
             }
         }
         array = newarray;
