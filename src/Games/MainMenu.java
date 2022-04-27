@@ -10,7 +10,7 @@ public class MainMenu extends Game {
     public MainMenu(Window window){
         super(window, "Hauptmenü");
 
-        this.setBackground(Color.red);
+        this.setBackground(Color.gray);
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

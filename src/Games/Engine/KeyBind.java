@@ -15,7 +15,7 @@ public class KeyBind {
 
     public boolean update(){
         boolean run = false;
-        if (Keyboard.isKeyPressed(KeyEvent.VK_T) && !pressed){
+        if (Keyboard.isKeyPressed(key) && !pressed){
             pressed = true;
             run = true;
         }

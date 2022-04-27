@@ -16,7 +16,6 @@ public class TileArray {
                 int block = tile.array[x_index][y_index];
                 if (block != 0){
                     array[tile.x + x_index][tile.y + y_index] = block;
-                    System.out.println("placed BLOCK at " + (tile.x + x_index) + ", " + (tile.y + y_index));
                 }
             }
         }
