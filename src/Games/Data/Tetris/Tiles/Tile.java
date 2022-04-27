@@ -6,7 +6,7 @@ public class Tile {
     public int[][] array;
 
     public int x, y;
-    public int arraysize = 4;
+    public int arraysize;
 
     private Random random;
 
@@ -14,16 +14,11 @@ public class Tile {
         this.x = x;
         this.y = y;
         random = new Random();
-
-        array = new int[][]{
-                {0, 0, 1, 1},
-                {0, 1, 1, 1},
-                {0, 0, 1, 1},
-                {1, 1, 1, 1}
-        };
+        int rnd = random.nextInt(TileArrays.arrays.length);
+        array = TileArrays.arrays[rnd];
+        arraysize = array.length;
 
         give_color();
-        System.out.println(array);
     }
 
     public void rotate(){
@@ -31,15 +26,14 @@ public class Tile {
         for (int y = 0; y < array.length; y++){
             for (int x = 0; x < array.length; x++){
                 int item = array[x][y];
-                newarray[y][x] = item;
+                newarray[arraysize-1-y][x] = item;
             }
         }
         array = newarray;
     }
 
     public void give_color(){
-        int color = random.nextInt(3)+1;
-        System.out.println(color);
+        int color = random.nextInt(Tilecolors.colorcount)+1;
         for (int y = 0; y < array.length; y++){
             for (int x = 0; x < array.length; x++){
                 int item = array[x][y];

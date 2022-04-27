@@ -4,6 +4,8 @@ import java.awt.*;
 
 public class Tilecolors {
 
+    public static int colorcount = 3;
+
     public static Color get(int colornumber){
         if (colornumber == 1){
             return Color.red;

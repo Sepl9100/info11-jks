@@ -22,7 +22,7 @@ public class Tetris extends Game {
 
     public Tetris(Window window){
         super(window, "Tetris");
-        this.setBackground(Color.gray);
+        this.setBackground(Color.black);
         window.pack();
         array = new TileArray();
 
@@ -31,17 +31,17 @@ public class Tetris extends Game {
 
     public void display_tile(Tile tile){
 
-        for (int y_index = 0; y_index < 3; y_index++){
-            for (int x_index = 0; x_index < 3; x_index++){
+        for (int y_index = 0; y_index < tile.arraysize; y_index++){
+            for (int x_index = 0; x_index < tile.arraysize; x_index++){
                 int block = tile.array[x_index][y_index];
                 if (block != 0){
                     g.setColor(Tilecolors.get(block));      // block is color value
-                    g.fillRect((tile.x+x_index)*tilesize, (tile.y+y_index)*tilesize, tilesize, tilesize);
+                    g.fillRect((tile.x+x_index)*tilesize + left_offset, (tile.y+y_index)*tilesize, tilesize, tilesize);
                 }
             }
         }
         g.setColor(Color.RED);
-        g.fillRect((tile.x)*tilesize, (tile.y)*tilesize, 10, 10);
+        g.fillRect((tile.x)*tilesize + left_offset, (tile.y)*tilesize, 10, 10);
     }
 
     public void display_array(){
@@ -50,7 +50,7 @@ public class Tetris extends Game {
                 int block = array.get_tile(x_index, y_index);
                 if (block != 0){
                     g.setColor(Tilecolors.get(block));      // block is color value
-                    g.fillRect((x_index)*tilesize, (y_index)*tilesize, tilesize, tilesize);
+                    g.fillRect((x_index)*tilesize + left_offset, (y_index)*tilesize, tilesize, tilesize);
                 }
             }
         }
@@ -58,19 +58,21 @@ public class Tetris extends Game {
 
     @Override
     public void update_loop() {
+        g.setColor(Color.darkGray);
+        g.fillRect(left_offset, 0, array.width*tilesize, array.height*tilesize);
         display_tile(activetile);
         display_array();
-        if (a_key_bind.update()){
+        if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)){
             activetile.move(-1, 0);
         }
-        if (d_key_bind.update()){
+        if (d_key_bind.update() && !array.check_collision(activetile, 1, 0)){
             activetile.move(1, 0);
         }
         if (q_key_bind.update()){
             activetile.rotate();
         }
         if (tick % 20 == 0){
-            if (activetile.y > 16 || array.check_collision(activetile, 0, 1)){
+            if (array.check_collision(activetile, 0, 1)){
                 array.place_matrix(activetile);
                 activetile = new Tile(4, 0);
             }
