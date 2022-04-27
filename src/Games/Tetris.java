@@ -40,8 +40,6 @@ public class Tetris extends Game {
                 }
             }
         }
-        g.setColor(Color.RED);
-        g.fillRect((tile.x)*tilesize + left_offset, (tile.y)*tilesize, 10, 10);
     }
 
     public void display_array(){
