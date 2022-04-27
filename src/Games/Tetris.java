@@ -30,7 +30,6 @@ public class Tetris extends Game {
     }
 
     public void display_tile(Tile tile){
-
         for (int y_index = 0; y_index < tile.arraysize; y_index++){
             for (int x_index = 0; x_index < tile.arraysize; x_index++){
                 int block = tile.array[x_index][y_index];

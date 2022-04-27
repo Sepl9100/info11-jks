@@ -5,7 +5,7 @@ import Games.Data.Tetris.Tiles.Tile;
 public class TileArray {
     private int[][] array;
     public int width = 10;
-    public int height = 20;
+    public int height = 21;
 
     public TileArray(){
         array = new int[width][height];
@@ -31,7 +31,7 @@ public class TileArray {
                     if (array[tile.x + x_index + x_move][tile.y + y_index + y_move] != 0){
                         return true;
                     }
-                    if (tile.y + y_index >= 18){
+                    if (tile.y + y_index >= 19){
                         return true;
                     }
                 }
