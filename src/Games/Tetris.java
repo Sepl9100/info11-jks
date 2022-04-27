@@ -5,12 +5,14 @@ import Games.Data.Tetris.TileArray;
 import Games.Data.Tetris.Tiles.Tile;
 import Games.Data.Tetris.Tiles.Tilecolors;
 import Games.Engine.Game;
+import Games.Engine.Keyboard;
 import Games.Engine.Window;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class Tetris extends Game {
 
@@ -66,7 +68,7 @@ public class Tetris extends Game {
             for (int x_index = 0; x_index < tile.arraysize; x_index++){
                 int block = tile.array[x_index][y_index];
                 if (block != 0){
-                    g.setColor(Tilecolors.get(block));      // block is color value
+                    g.setColor(Tilecolors.get(block, tick));      // block is color value
                     g.fillRect((tile.x+x_index)*tilesize + left_offset, (tile.y+y_index)*tilesize, tilesize, tilesize);
                     g.setColor(Color.black);
                     g.drawRect((tile.x+x_index)*tilesize + left_offset, (tile.y+y_index)*tilesize, tilesize, tilesize);
@@ -80,7 +82,7 @@ public class Tetris extends Game {
             for (int x_index = 0; x_index < array.width; x_index++){
                 int block = array.get_tile(x_index, y_index);
                 if (block != 0){
-                    g.setColor(Tilecolors.get(block));      // block is color value
+                    g.setColor(Tilecolors.get(block, tick));      // block is color value
                     g.fillRect((x_index)*tilesize + left_offset, (y_index)*tilesize, tilesize, tilesize);
                     g.setColor(Color.black);
                     g.drawRect((x_index)*tilesize + left_offset, (y_index)*tilesize, tilesize, tilesize);
@@ -91,7 +93,7 @@ public class Tetris extends Game {
 
     @Override
     public void update_loop() {
-        this.setBackground(ColorChangeManager.get_color(tick/10%255));
+        //this.setBackground(ColorChangeManager.get_color(tick/2%255));
         if (started) {
             g.setColor(Color.darkGray);
             g.fillRect(left_offset, 0, array.width * tilesize, array.height * tilesize);
@@ -111,7 +113,11 @@ public class Tetris extends Game {
                 activetile.rotateCCW();
                 if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();
             }
-            if (tick % 20 == 0) {
+            int tick_delay = 35;
+            if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
+                tick_delay = 2;
+            }
+            if (tick % tick_delay == 0) {
                 if (array.check_collision(activetile, 0, 1)) {
                     array.place_matrix(activetile);
                     activetile = new Tile(3, -1);
