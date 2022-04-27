@@ -22,7 +22,10 @@ public abstract class Game extends JPanel {
 
     protected int tick;
     private long last_tick_time;
-    protected int fps;
+    protected int fps = 90;
+    protected double accurate_fps;
+    protected int target_fps = fps;
+    protected double frame_delay = 0;
     private long last_fps_check_time;
 
     protected Font font1, font2;
@@ -85,29 +88,37 @@ public abstract class Game extends JPanel {
         }
 
 
-
-
         Date date = new Date();
-        if (tick % 100 == 0) {                          // Measure FPS every 100th tick
+        if (tick % 10 == 0) {                          // Measure FPS every 100th tick
             long difference = date.getTime() - last_fps_check_time;
             if (difference != 0) {
-                long fps_ = 1000 * 100 / difference;
-                fps = (int)fps_;
+                accurate_fps = 1000 * 10 / (double)difference;
+                fps = (int)accurate_fps;
             }
 
             last_fps_check_time = date.getTime();
         }
 
-        int min_time_per_frame = 17;
-
-        if (date.getTime() - last_tick_time < min_time_per_frame){       // Cap FPS to about 150 - 200
-            try {
-                Thread.sleep(min_time_per_frame-(date.getTime() - last_tick_time));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        // fps beschränken (neue methode)
+        if (fps > target_fps){
+            double difference = accurate_fps - target_fps;
+            frame_delay += 0.001*(difference);
         }
-        last_tick_time = date.getTime();
+        if (fps < target_fps && frame_delay > 0){
+            double difference = target_fps - accurate_fps;
+            frame_delay -= 0.001*(difference);
+        }
+        try {
+            if (frame_delay > 0){
+
+                Thread.sleep((long)frame_delay);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
 
         if (spritelist != null) {
             for (Sprite[] layer : spritelist.list) {
