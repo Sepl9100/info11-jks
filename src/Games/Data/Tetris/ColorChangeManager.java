@@ -10,7 +10,7 @@ public class ColorChangeManager {
 
     public static Color get_color(double value){
         double multiplicator = value/255;
-        value = multiplicator*40;
+        value = multiplicator*63;
         double frequency = 0.3;
 
 
