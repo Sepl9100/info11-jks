@@ -1,5 +1,6 @@
 package Games;
 
+import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.Game;
 import Games.Engine.Window;
 import javax.swing.*;
@@ -100,6 +101,7 @@ public class MainMenu extends Game {
 
     @Override
     public void update_loop() {
+        this.setBackground(ColorChangeManager.get_color(tick/2%255));
 
     }
 
