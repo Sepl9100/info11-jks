@@ -79,10 +79,14 @@ public class Snake extends Game {
         player = new SnakeHead(this, snake_head, snake_body);
         player.set_pos(3, 3);
         int apple_amount = 15;
-        if (mode_many_apples.isSelected()) apple_amount = 400;
+        if (mode_many_apples.isSelected()) apple_amount = 400;      // Viele Äpfel Modus
+
+        // Anfänglich apple_amount viele Äpfel platzieren
         for (int i = 0; i < apple_amount; i++){
             place_apple();
         }
+
+        // Anfänglich Pillen platzieren
         for (int i = 0; i < 5; i++){
             place_drug();
         }
@@ -102,7 +106,7 @@ public class Snake extends Game {
         Drug drug = new Drug(this, pill);
         drug.color = Color.blue;
         drug.set_pos(x, y);
-        drugs.add_sprite(drug);
+        drugs.add_sprite(drug);     // Zur liste hinzufügen
     }
 
     public void check_apple(int tilex, int tiley){
@@ -176,7 +180,7 @@ public class Snake extends Game {
                 player.set_pos(player.tile_x, 0);
             }
 
-            // KEY INPUTS
+            // Tasten input
             if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
                 if (last_direction != 'L') direction = 'R';
             }

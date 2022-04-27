@@ -1,7 +1,7 @@
 package Games.Data.Tetris.Tiles;
 
 public class Tile {
-    int[][] array;
+    public int[][] array;
 
     public int x, y;
 
@@ -9,9 +9,9 @@ public class Tile {
         this.x = x;
         this.y = y;
         array = new int[][]{
-                {0, 1, 0},
-                {0, 1, 0},
-                {0, 1, 1}
+                {0, 0, 1},
+                {0, 1, 1},
+                {0, 0, 1}
         };
     }
 

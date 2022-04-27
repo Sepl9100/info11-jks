@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Key;
 import java.util.Date;
 
 public abstract class Game extends JPanel {
@@ -34,7 +35,8 @@ public abstract class Game extends JPanel {
 
     protected Font font1, font2;
 
-    private KeyBind t_key_bind;
+    private final KeyBind t_key_bind = new KeyBind(KeyEvent.VK_T);
+    private final KeyBind a_key_bind = new KeyBind(KeyEvent.VK_A);
 
     protected SpriteList spritelist; // 2D Array of all Sprites to be rendered spritelist.list[layer][sprite]
     protected TaskQueue task_queue;
@@ -51,7 +53,6 @@ public abstract class Game extends JPanel {
         font1 = new Font("SegoeUI", Font.PLAIN, 16);
         font2 = new Font("SegoeUI", Font.BOLD, 32);
 
-        t_key_bind = new KeyBind();
 
         window.update_title(name); // displays game name on titlebar
 
@@ -154,7 +155,9 @@ public abstract class Game extends JPanel {
     protected void paintComponent(Graphics g) {
         this.g = g;
         super.paintComponent(g);
-        t_key_bind.update(KeyEvent.VK_T, e -> debug = !debug);
+        if (t_key_bind.update()){
+            debug = !debug;
+        }
         this.update_loop();
         this.render(g);
         if (debug) {

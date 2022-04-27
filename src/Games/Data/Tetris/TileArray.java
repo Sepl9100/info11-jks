@@ -1,18 +1,39 @@
 package Games.Data.Tetris;
 
+import Games.Data.Tetris.Tiles.Tile;
+
 public class TileArray {
     private int[][] array;
 
     public TileArray(){
         array = new int[10][20];
-        for (int i = 0; i < 10; i++){
-            array[i][0] = 1;
-        }
 
     }
 
-    public void place_matrix(int x, int y, int[][] matrix){
+    public void place_matrix(Tile tile){
+        for (int y_index = 0; y_index < 3; y_index++){
+            for (int x_index = 0; x_index < 3; x_index++){
+                int block = tile.array[x_index][y_index];
+                if (block != 0){
+                    array[tile.x + x_index][tile.y + y_index] = block;
+                    System.out.println("placed BLOCK at " + (tile.x + x_index) + ", " + (tile.y + y_index));
+                }
+            }
+        }
+    }
 
+    public boolean check_collision(Tile tile, int x_move, int y_move){
+        for (int y_index = 0; y_index < 3; y_index++) {
+            for (int x_index = 0; x_index < 3; x_index++) {
+                int block = tile.array[x_index][y_index];
+                if (block != 0){        // Kästchen des Blocks hat kollision
+                    if (array[tile.x + x_index + x_move][tile.y + y_index + y_move] != 0){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public int get_tile(int x, int y){

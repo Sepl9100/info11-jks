@@ -9,19 +9,20 @@ public class KeyBind {
     private ActionListener listener;
     private int key;
 
-    public KeyBind(){
+    public KeyBind(int key){
+        this.key = key;
     }
 
-    public void update(int key, ActionListener listener){
-        this.listener = listener;
-        this.key = key;
+    public boolean update(){
+        boolean run = false;
         if (Keyboard.isKeyPressed(KeyEvent.VK_T) && !pressed){
             pressed = true;
-            run();
+            run = true;
         }
         if (!Keyboard.isKeyPressed(this.key)){
             pressed = false;
         }
+        return run;
     }
 
     public void run(){
