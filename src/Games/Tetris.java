@@ -91,6 +91,7 @@ public class Tetris extends Game {
 
     @Override
     public void update_loop() {
+        this.setBackground(ColorChangeManager.get_color(tick/2%255));
         if (started) {
             g.setColor(Color.darkGray);
             g.fillRect(left_offset, 0, array.width * tilesize, array.height * tilesize);

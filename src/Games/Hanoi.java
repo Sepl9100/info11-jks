@@ -2,6 +2,7 @@ package Games;
 
 import Games.Data.Hanoi.Ring;
 import Games.Data.Hanoi.Stand;
+import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.Game;
 import Games.Engine.Window;
 
@@ -123,6 +124,7 @@ public class Hanoi extends Game {
 
     @Override
     public void update_loop() {
+        this.setBackground(ColorChangeManager.get_color(tick/2%255));
         if(tick%10 == 0) {      // every 10 ticks.
             if (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
                 info_label.setText("Auswahl blockiert");
