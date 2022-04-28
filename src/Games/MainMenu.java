@@ -61,7 +61,7 @@ public class MainMenu extends Game {
         sudoku.setVisible(true);
         sudoku.addActionListener(e -> {
             exit();
-            //new Sudoku(window);
+            new Sudoku(window);
         });
         this.add(sudoku, gbc);
 
