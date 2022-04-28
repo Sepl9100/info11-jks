@@ -35,8 +35,10 @@ public class Grid {
             // Spalte mit 9 Buttons füllen
             for(int x = 0; x < 9; x++){
                 tmp_btn = new JButton();
-
+                tmp_btn.setFont(game.font1);
                 tmp_btn.setVisible(true);
+                tmp_btn.setText(""+x);
+                grid_buttons[y][x] = tmp_btn;
             }
         }
     }
