@@ -20,8 +20,8 @@ public abstract class Game extends JPanel {
     protected Graphics g;
 
     protected String name; // Game title
-    protected final int PANELWIDTH = 1100;
-    protected final int PANELHEIGHT = 600;
+    public static int PANELWIDTH = 1100;
+    public static int PANELHEIGHT = 600;
 
     protected int tick;
     private long last_tick_time;

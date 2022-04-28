@@ -17,12 +17,13 @@ public class TicTacToe extends Game {
     private final JLabel topText;
     private boolean gameActive;
 
+    public GridBagConstraints gbc;
     public TicTacToe(Window window){
         super(window, "Tic-Tac-Toe");
         //grundsätzliche Layout Definitionen
         this.setBackground(Color.gray);
         setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(3,3,3,3);
         gbc.ipadx = 125;

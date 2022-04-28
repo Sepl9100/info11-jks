@@ -16,8 +16,8 @@ public class MainMenu extends Game {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL; //Jeder Button füllt eigene Breite aus
+        gbc.insets = new Insets(5, 5, 5, 5); //Margins/Abstände um die Buttons
+        gbc.fill = GridBagConstraints.HORIZONTAL; //Jeder Button füllt eigene maximale Breite aus
 
         gbc.gridx = 0;
         gbc.gridy = 0;
