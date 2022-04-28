@@ -13,10 +13,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class Tetris extends Game {
 
     private TileArray array;
+    private Random random;
 
     private final JPanel start_screen;
     private final JCheckBox wide_mode;
@@ -34,6 +36,8 @@ public class Tetris extends Game {
         super(window, "Tetris");
         this.setBackground(Color.black);
 
+        random = new Random();
+
         // Start Screen UI
         start_screen = new JPanel();
         int width = 400;
@@ -50,13 +54,15 @@ public class Tetris extends Game {
         wide_mode = new JCheckBox("Breiter Modus");     // auswählbare optionen
         start_screen.add(wide_mode, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 0;
         special_mode_cb = new JCheckBox("Spezial Modus");
         start_screen.add(special_mode_cb, gbc);
 
         setLayout(null);
         this.add(start_screen);
 
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         JButton btn = new JButton("Spiel starten");
         start_screen.add(btn, gbc);
         btn.addActionListener(e -> start_game());
@@ -86,8 +92,13 @@ public class Tetris extends Game {
     }
 
     public void start_game(){
+        if (special_mode_cb.isSelected()){
+            special_mode = true;
+            wide_mode.setSelected(true);        // im spezialmodus wird der breite modus aktiviert
+        }
+
         if (wide_mode.isSelected()){
-            array = new TileArray(31, 20);
+            array = new TileArray(31, 20);    // im breiten Modus ist das TileArray größer als der standard
             left_offset = 75;
         }
         else{
@@ -95,13 +106,12 @@ public class Tetris extends Game {
         }
         started = true;
 
-
-
-        activetile = new Tile(3, -1);
-        this.remove(start_screen);
+        activetile = new Tile(3, -1);   // Erstes falledes Tile erstellen
+        this.remove(start_screen);          // Startbildschirm beenden
     }
 
     public void display_tile(Tile tile){
+        // Aktuell fallendes Tile anzeigen
         for (int y_index = 0; y_index < tile.arraysize; y_index++){
             for (int x_index = 0; x_index < tile.arraysize; x_index++){
                 int block = tile.array[x_index][y_index];
@@ -116,6 +126,7 @@ public class Tetris extends Game {
     }
 
     public void display_array(){
+        // Array aus gelandeten Tiles anzeigen
         for (int y_index = 0; y_index < array.height; y_index++){
             for (int x_index = 0; x_index < array.width; x_index++){
                 int block = array.get_tile(x_index, y_index);
@@ -131,16 +142,28 @@ public class Tetris extends Game {
 
     @Override
     public void update_loop() {
-        for (int y = 0; y < PANELHEIGHT; y++){
+        for (int y = 0; y < PANELHEIGHT; y++){          // Hintergrund Effekt
             g.setColor(ColorChangeManager.get_color(tick*200/(y+200)%255));
             g.fillRect(0, y, 2000, 1);
+            //this.setBackground(ColorChangeManager.get_color(tick/2%255));
         }
-        //this.setBackground(ColorChangeManager.get_color(tick/2%255));
+
+
         if (started) {
             g.setColor(Color.darkGray);
-            g.fillRect(left_offset, 0, array.width * tilesize, array.height * tilesize);
-            display_tile(activetile);
-            display_array();
+            g.fillRect(left_offset, 0, array.width * tilesize, array.height * tilesize);        // Spielfeld grau färben
+            display_tile(activetile);  // Aktuell fallendes Tile anzeigen
+            display_array();            // Array aus gelandeten Tiles anzeigen
+
+            // spezialmodus aktionen
+            if (special_mode){
+                if (tick % (random.nextInt(100)+4) == 0){
+                    activetile.rotateCCW();
+                    if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();
+                }
+            }
+
+            // automatische Bewegung
             int tick_delay = 35;
             if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
                 tick_delay = 3;
@@ -152,6 +175,8 @@ public class Tetris extends Game {
                 }
                 activetile.move(0, 1);
             }
+
+            // Key input Bewegung
             if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)) {
                 activetile.move(-1, 0);
             }
