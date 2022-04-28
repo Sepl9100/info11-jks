@@ -11,6 +11,7 @@ public class Tilecolors {
     public static Color get(int colornumber, int tick){
         if (colornumber == 1){
             return Color.decode("#e6be50");     // orange
+
         } else if (colornumber == 2){
             return Color.decode("#67e67c");     // green
         } else if (colornumber == 3){

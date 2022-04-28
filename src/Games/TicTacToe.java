@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class TicTacToe extends Game {
 
-    // JAN, BRING DAS SCHAWA ZUM FLOWEN!!!!
+    //JAN, BRING DAS SCHAWA ZUM FLOWEN!!!!
     //private Random random;
     private int turns = 0;
     private final int[] gameTable = new int[9];
@@ -134,6 +134,6 @@ public class TicTacToe extends Game {
 
     @Override
     public void update_loop() {
-        this.setBackground(ColorChangeManager.get_color(tick/2%255));
+
     }
 }
