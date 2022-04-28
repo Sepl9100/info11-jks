@@ -1,6 +1,7 @@
 package Games;
 
 import Games.Data.Snake.*;
+import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.*;
 import Games.Engine.Window;
 
@@ -165,6 +166,7 @@ public class Snake extends Game {
 
     @Override
     public void update_loop() {
+        //this.setBackground(ColorChangeManager.get_color(tick/2%255));
         if (started) {
             // Snake auf andere seite am rand plazieren
             if (player.tile_x < 0) {
