@@ -103,6 +103,17 @@ public class Tetris extends Game {
             g.fillRect(left_offset, 0, array.width * tilesize, array.height * tilesize);
             display_tile(activetile);
             display_array();
+            int tick_delay = 35;
+            if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
+                tick_delay = 3;
+            }
+            if (tick % tick_delay == 0) {
+                if (array.check_collision(activetile, 0, 1)) {
+                    array.place_matrix(activetile);
+                    activetile = new Tile(3, -1);
+                }
+                activetile.move(0, 1);
+            }
             if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)) {
                 activetile.move(-1, 0);
             }
@@ -117,18 +128,8 @@ public class Tetris extends Game {
                 activetile.rotateCCW();
                 if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();
             }
-            int tick_delay = 35;
-            if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
-                tick_delay = 2;
-            }
-            if (tick % tick_delay == 0) {
-                if (array.check_collision(activetile, 0, 1)) {
-                    array.place_matrix(activetile);
-                    activetile = new Tile(3, -1);
-                }
-                activetile.move(0, 1);
 
-            }
+
         }
     }
 }

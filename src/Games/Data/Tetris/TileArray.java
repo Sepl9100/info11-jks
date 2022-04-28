@@ -48,7 +48,7 @@ public class TileArray {
     }
 
     public void move_array_down(int startheight){
-        for (int y_index = height-2; y_index >= 1; y_index--) {
+        for (int y_index = startheight-1; y_index >= 1; y_index--) {
             for (int x_index = 0; x_index < width; x_index++) {
                 int block = array[x_index][y_index];
                 array[x_index][y_index+1] = block;
