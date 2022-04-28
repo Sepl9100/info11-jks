@@ -46,7 +46,7 @@ public class TicTacToe extends Game {
         gameButtons = new JButton[9];
         for(int i = 0; i < 9; i++){
             gameButtons[i] = new JButton();
-            gameButtons[i].setFont(new Font(Font.DIALOG, Font.PLAIN, 50));
+            gameButtons[i].setFont(font3);
             gameButtons[i].setVisible(true);
             final int temp = i;
             gameButtons[i].addActionListener(e -> buttonClick(temp));
