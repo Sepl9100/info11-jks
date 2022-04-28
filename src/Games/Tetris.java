@@ -20,9 +20,12 @@ public class Tetris extends Game {
 
     private final JPanel start_screen;
     private final JCheckBox wide_mode;
+    private final JCheckBox special_mode_cb;
 
     private Tile activetile;
     private boolean started = false;
+
+    private boolean special_mode;
 
     private int tilesize = 30;
     private int left_offset = 390;
@@ -30,6 +33,8 @@ public class Tetris extends Game {
     public Tetris(Window window){
         super(window, "Tetris");
         this.setBackground(Color.black);
+
+        // Start Screen UI
         start_screen = new JPanel();
         int width = 400;
         int height = 500;
@@ -41,8 +46,12 @@ public class Tetris extends Game {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        wide_mode = new JCheckBox("Breiter Modus");
+
+        wide_mode = new JCheckBox("Breiter Modus");     // auswählbare optionen
         start_screen.add(wide_mode, gbc);
+
+        special_mode_cb = new JCheckBox("Spezial Modus");
+        start_screen.add(special_mode_cb, gbc);
 
         setLayout(null);
         this.add(start_screen);
@@ -73,9 +82,7 @@ public class Tetris extends Game {
         lbl.setFont(font1);
         start_screen.add(lbl, gbc);
 
-
         window.pack();
-
     }
 
     public void start_game(){
@@ -87,6 +94,9 @@ public class Tetris extends Game {
             array = new TileArray();
         }
         started = true;
+
+
+
         activetile = new Tile(3, -1);
         this.remove(start_screen);
     }

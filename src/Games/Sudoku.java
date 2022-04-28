@@ -1,6 +1,7 @@
 package Games;
 
 import Games.Data.Sudoku.Grid;
+import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.Game;
 import Games.Engine.Window;
 
@@ -29,6 +30,6 @@ public class Sudoku extends Game {
 
     @Override
     public void update_loop() {
-
+        this.setBackground(ColorChangeManager.get_color(tick/2%255));
     }
 }
