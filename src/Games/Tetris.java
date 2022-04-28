@@ -35,16 +35,44 @@ public class Tetris extends Game {
         int height = 500;
         start_screen.setLocation(PANELWIDTH/2-width/2, PANELHEIGHT/2-height/2);
         start_screen.setSize(width, height);
-        start_screen.setLayout(new BoxLayout(start_screen, BoxLayout.Y_AXIS));
+        start_screen.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         wide_mode = new JCheckBox("Breiter Modus");
-        start_screen.add(wide_mode);
+        start_screen.add(wide_mode, gbc);
 
         setLayout(null);
         this.add(start_screen);
 
+        gbc.gridx = 1;
         JButton btn = new JButton("Spiel starten");
-        start_screen.add(btn);
+        start_screen.add(btn, gbc);
         btn.addActionListener(e -> start_game());
+
+        gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        JLabel lbl = new JLabel("Steuerung:");
+        lbl.setFont(font2);
+        start_screen.add(lbl, gbc);
+
+        gbc.gridy = 2;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        lbl = new JLabel("A/S/D Bewegen");
+        lbl.setFont(font1);
+        start_screen.add(lbl, gbc);
+
+        gbc.gridy = 3;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        lbl = new JLabel("Q/E Drehen");
+        lbl.setFont(font1);
+        start_screen.add(lbl, gbc);
+
 
         window.pack();
 
