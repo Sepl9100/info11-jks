@@ -33,11 +33,7 @@ public class TileArray {
             if (response != -1){
                 move_array_down(response);
             }
-
         }
-
-
-
     }
 
     public int check_for_full_line() {
