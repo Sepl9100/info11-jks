@@ -27,10 +27,17 @@ public class TileArray {
                 }
             }
         }
-        int response = check_for_full_line();
-        if (response != -1){
-            move_array_down(response);
-        };
+        int response = 0;
+        while (response != -1){
+            response = check_for_full_line();
+            if (response != -1){
+                move_array_down(response);
+            }
+
+        }
+
+
+
     }
 
     public int check_for_full_line() {
