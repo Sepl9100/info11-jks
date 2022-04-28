@@ -33,7 +33,7 @@ public abstract class Game extends JPanel {
 
     protected boolean debug = false;
 
-    protected Font font1, font2, font3;
+    public Font font1, font2, font3;
 
     protected final KeyBind t_key_bind = new KeyBind(KeyEvent.VK_T);
     protected final KeyBind a_key_bind = new KeyBind(KeyEvent.VK_A);
