@@ -16,6 +16,7 @@ public class Sudoku extends Game {
     public Sudoku(Window window){
         super(window, "Sudoku");
         this.setBackground(Color.gray);
+        this.setLayout(null);
 
         grid_panel = new JPanel();
         grid_panel.setBackground(Color.white);
@@ -26,6 +27,8 @@ public class Sudoku extends Game {
         this.add(grid_panel);
 
         grid = new Grid(this, 0, 0);
+
+
 
         window.pack();
     }
