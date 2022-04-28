@@ -55,7 +55,7 @@ public abstract class Game extends JPanel {
 
         font1 = new Font("SegoeUI", Font.PLAIN, 16);
         font2 = new Font("SegoeUI", Font.BOLD, 32);
-        font3 = new Font(Font.DIALOG, Font.PLAIN, 50)
+        font3 = new Font(Font.DIALOG, Font.PLAIN, 50);
 
 
         window.update_title(name); // displays game name on titlebar
