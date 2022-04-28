@@ -10,26 +10,31 @@ import java.awt.*;
 
 public class Sudoku extends Game {
 
-    public GridBagConstraints gbc;
-
     private Grid grid;
+    public JPanel grid_panel;
 
     public Sudoku(Window window){
         super(window, "Sudoku");
-
         this.setBackground(Color.gray);
-        this.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(1, 1, 1, 1);
-        gbc.ipadx = 125;
-        gbc.ipady = 25;
+        this.setLayout(null);
+
+        grid_panel = new JPanel();
+        grid_panel.setBackground(Color.white);
+        grid_panel.setLocation(25, 25);
+        grid_panel.setSize(550, 550);
+        grid_panel.setLayout(new GridBagLayout());
+        grid_panel.setVisible(true);
+        this.add(grid_panel);
 
         grid = new Grid(this, 0, 0);
+
+
+
+        window.pack();
     }
 
     @Override
     public void update_loop() {
-        this.setBackground(ColorChangeManager.get_color(tick/2%255));
+
     }
 }

@@ -20,8 +20,8 @@ public abstract class Game extends JPanel {
     protected Graphics g;
 
     protected String name; // Game title
-    protected final int PANELWIDTH = 1100;
-    protected final int PANELHEIGHT = 600;
+    public static int PANELWIDTH = 1100;
+    public static int PANELHEIGHT = 600;
 
     protected int tick;
     private long last_tick_time;
@@ -35,6 +35,7 @@ public abstract class Game extends JPanel {
 
     public Font font1, font2, font3;
 
+    protected JButton back_btn;
     protected final KeyBind t_key_bind = new KeyBind(KeyEvent.VK_T);
     protected final KeyBind a_key_bind = new KeyBind(KeyEvent.VK_A);
     protected final KeyBind d_key_bind = new KeyBind(KeyEvent.VK_D);
@@ -66,7 +67,7 @@ public abstract class Game extends JPanel {
 
 
         if (!name.equals("Hauptmenü")) {
-            JButton back_btn = new JButton();
+            back_btn = new JButton();
             back_btn.setText("<");
             back_btn.setVisible(true);
 
