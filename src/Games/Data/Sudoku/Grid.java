@@ -29,7 +29,7 @@ public class Grid {
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.ipady = 10;
-        gbc.ipadx = 30;
+        gbc.ipadx = 10;
 
         grid_buttons = new JButton[9][9];
 
