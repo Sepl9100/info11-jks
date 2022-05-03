@@ -20,16 +20,14 @@ public class Sudoku extends Game {
 
         grid_panel = new JPanel();
         grid_panel.setBackground(Color.white);
-        grid_panel.setLocation(25, 25);
+        grid_panel.setLocation(50, 25);
         grid_panel.setSize(550, 550);
-        grid_panel.setLayout(new GridBagLayout());
+        grid_panel.setLayout(null);
         grid_panel.setVisible(true);
+
+        grid = new Grid(this, grid_panel);
+
         this.add(grid_panel);
-
-        grid = new Grid(this, 0, 0);
-
-
-
         window.pack();
     }
 
