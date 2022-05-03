@@ -1,6 +1,7 @@
 package Games.Data.Sudoku;
 
 import Games.Engine.Game;
+import Games.Engine.Sprite;
 import Games.Sudoku;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class Grid {
 
     public JButton[][] grid_buttons;
 
-    private Game game;
+    public Game game;
     private JPanel panel;
 
 
@@ -20,7 +21,6 @@ public class Grid {
 
         grid_buttons = new JButton[9][9];                       // 9x9 Button Array
 
-
         JButton tmp_btn;                                        // temporärer button zum erstellen
         int tmp_btn_x = -45;                                      // tmp_button koordinaten
         int tmp_btn_y = -45;
@@ -28,8 +28,8 @@ public class Grid {
         // Für jede der 9 Spalten mit 9 Buttons füllen
         for(int y = 0; y < 9; y++){
             tmp_btn_y += 55;
-            if(y%3 == 0) {tmp_btn_y += 10;}
             tmp_btn_x = -45;
+            if(y%3 == 0) {tmp_btn_y += 10;}
 
             for(int x = 0; x < 9; x++){
                 tmp_btn_x += 55;
@@ -37,7 +37,7 @@ public class Grid {
 
                 tmp_btn = new JButton();
                 tmp_btn.setFont(game.font1);
-                tmp_btn.setText(""+x);
+                tmp_btn.setText("0");
                 tmp_btn.setVisible(true);
 
                 tmp_btn.setBounds(tmp_btn_x, tmp_btn_y, 50, 50);
