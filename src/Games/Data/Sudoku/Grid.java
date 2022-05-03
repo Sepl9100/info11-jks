@@ -22,17 +22,18 @@ public class Grid {
 
 
         JButton tmp_btn;                                        // temporärer button zum erstellen
-        int tmp_btn_x = 0;                                      // tmp_button koordinaten
-        int tmp_btn_y = 0;
+        int tmp_btn_x = -45;                                      // tmp_button koordinaten
+        int tmp_btn_y = -45;
 
-        // Für jede der 9 Spalten
+        // Für jede der 9 Spalten mit 9 Buttons füllen
         for(int y = 0; y < 9; y++){
             tmp_btn_y += 55;
+            if(y%3 == 0) {tmp_btn_y += 10;}
+            tmp_btn_x = -45;
 
-
-            // Spalte mit 9 Buttons füllen
             for(int x = 0; x < 9; x++){
-                tmp_btn_x = x*55+10;
+                tmp_btn_x += 55;
+                if(x%3 == 0) {tmp_btn_x += 10;}
 
                 tmp_btn = new JButton();
                 tmp_btn.setFont(game.font1);
