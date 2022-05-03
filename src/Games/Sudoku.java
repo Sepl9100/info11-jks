@@ -18,6 +18,7 @@ public class Sudoku extends Game {
         this.setBackground(Color.gray);
         this.setLayout(null);
 
+        // Button Raster
         grid_panel = new JPanel();
         grid_panel.setBackground(Color.white);
         grid_panel.setLocation(50, 25);
@@ -26,8 +27,22 @@ public class Sudoku extends Game {
         grid_panel.setVisible(true);
 
         grid = new Grid(this, grid_panel);
-
         this.add(grid_panel);
+
+        // Menü Buttons
+
+        // Generator
+
+        // Löser
+
+        // Eigenes Sudoku eintragen
+
+        // Überprüfen
+
+        // Reset
+
+        // Menü Buttons Ende
+
         window.pack();
     }
 
