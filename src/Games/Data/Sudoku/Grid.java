@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Grid {
 
-    public JButton[][] grid_buttons;
+    public SudokuButton[][] grid_buttons;
 
     public Game game;
     private JPanel panel;
@@ -19,9 +19,9 @@ public class Grid {
         this.game = game;
         this.panel = panel;
 
-        grid_buttons = new JButton[9][9];                       // 9x9 Button Array
+        grid_buttons = new SudokuButton[9][9];                       // 9x9 Button Array
 
-        JButton tmp_btn;                                        // temporärer button zum erstellen
+        SudokuButton tmp_btn;                                        // temporärer button zum erstellen
         int tmp_btn_x = -45;                                      // tmp_button koordinaten
         int tmp_btn_y = -45;
 
@@ -35,16 +35,13 @@ public class Grid {
                 tmp_btn_x += 55;
                 if(x%3 == 0) {tmp_btn_x += 10;}
 
-                tmp_btn = new JButton();
-                tmp_btn.setFont(game.font1);
-                tmp_btn.setText("0");
-                tmp_btn.setVisible(true);
-
-                tmp_btn.setBounds(tmp_btn_x, tmp_btn_y, 50, 50);
+                tmp_btn = new SudokuButton("0", tmp_btn_x, tmp_btn_y, 50, 50, 0, x, y);
+                tmp_btn.button.setFont(game.font1);
+                tmp_btn.button.setVisible(true);
 
 
                 grid_buttons[y][x] = tmp_btn;
-                panel.add(tmp_btn);
+                panel.add(tmp_btn.button);
             }
         }
     }
