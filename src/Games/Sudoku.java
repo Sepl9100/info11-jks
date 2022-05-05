@@ -60,7 +60,6 @@ public class Sudoku extends Game {
         // Reset
         reset_btn = new JButton("Sudoku zurücksetzten");
         reset_btn.setBounds(850, 220, 200, 25);
-        reset_btn.setBackground(Color.green);
         reset_btn.setVisible(true);
         this.add(reset_btn);
         // Menü Buttons Ende
