@@ -1,6 +1,7 @@
 package Games.Data.Sudoku;
 
 import Games.Engine.Game;
+import Games.Engine.Sprite;
 import Games.Sudoku;
 
 import javax.swing.*;
@@ -8,45 +9,42 @@ import java.awt.*;
 
 public class Grid {
 
-    public JButton[][] grid_buttons;
+    public SudokuButton[][] grid_buttons;
 
-    private Sudoku game;
-    private GridBagConstraints gbc;
-    public int x_cord, y_cord;
+    public Game game;
+    private JPanel panel;
+    private SudokuButton selected_button;
 
-    //  normalerweise wird die Oberklasse GAME als Parameter
-    //  verwendet. Da auf das spezielle Layout zugegriffen wird,
-    //  ist dies hier nicht möglich.
-    public Grid(Sudoku game, int x_cord, int y_cord) {
+
+    public Grid(Game game, JPanel panel) {
         this.game = game;
-        this.x_cord = x_cord;
-        this.y_cord = y_cord;
+        this.panel = panel;
 
-        gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(1, 1, 1, 1);
+        grid_buttons = new SudokuButton[9][9];                       // 9x9 Button Array
+        selected_button = null;
 
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.ipady = 10;
-        gbc.ipadx = 30;
+        // Grid Generation
+        SudokuButton tmp_btn;                                        // temporärer button zum erstellen
+        int tmp_btn_x;                                               // tmp_button koordinaten
+        int tmp_btn_y = -45;
 
-        grid_buttons = new JButton[9][9];
-
-        JButton tmp_btn;
-
-        // Für jede der 9 Spalten
+        // Für jede der 9 Spalten mit 9 Buttons füllen
         for(int y = 0; y < 9; y++){
-            gbc.gridy = y;
-            // Spalte mit 9 Buttons füllen
+            tmp_btn_y += 55;
+            tmp_btn_x = -45;
+            if(y%3 == 0) {tmp_btn_y += 10;}
+
             for(int x = 0; x < 9; x++){
-                gbc.gridx = x;
-                tmp_btn = new JButton();
-                tmp_btn.setFont(game.font1);
-                tmp_btn.setVisible(true);
-                tmp_btn.setText(""+x);
-                game.grid_panel.add(tmp_btn, gbc);
+                tmp_btn_x += 55;
+                if(x%3 == 0) {tmp_btn_x += 10;}
+
+                tmp_btn = new SudokuButton("0", tmp_btn_x, tmp_btn_y, 50, 50, 0, x, y);
+                tmp_btn.button.setFont(game.font1);
+                tmp_btn.button.setVisible(true);
+
+
                 grid_buttons[y][x] = tmp_btn;
+                panel.add(tmp_btn.button);
             }
         }
     }

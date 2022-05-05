@@ -177,8 +177,10 @@ public class Hanoi extends Game {
     }
 
     public void solve() {
-        if(stand2.stack.count_nodes() > 0 || stand3.stack.count_nodes() > 0) {reset();}
-        new Thread(() -> {solve_thread(stand1.stack.count_nodes(), stand1, stand2, stand3);}).start();
+        if(!(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring)) {
+            if(stand2.stack.count_nodes() > 0 || stand3.stack.count_nodes() > 0) {reset();}
+            new Thread(() -> {solve_thread(stand1.stack.count_nodes(), stand1, stand2, stand3);}).start();
+        }
     }
 
     public void solve_thread(int n, Stand start, Stand helper, Stand dest) {

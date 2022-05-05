@@ -12,22 +12,76 @@ public class Sudoku extends Game {
 
     private Grid grid;
     public JPanel grid_panel;
+    private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
+
+    private boolean selection_locked;
 
     public Sudoku(Window window){
         super(window, "Sudoku");
         this.setBackground(Color.gray);
         this.setLayout(null);
 
+        // Button Raster
         grid_panel = new JPanel();
         grid_panel.setBackground(Color.white);
-        grid_panel.setLocation(25, 25);
+        grid_panel.setLocation(70, 25);
         grid_panel.setSize(550, 550);
-        grid_panel.setLayout(new GridBagLayout());
+        grid_panel.setLayout(null);
         grid_panel.setVisible(true);
+
+        grid = new Grid(this, grid_panel);
         this.add(grid_panel);
 
-        grid = new Grid(this, 0, 0);
 
+        // -----------------
+        // Menü Buttons
+        // Auswahl zurücksetzten
+        clear_selection_btn = new JButton("Auswahl zurücksetzten");
+        clear_selection_btn.setBounds(640, 20, 200, 25);
+        clear_selection_btn.setVisible(true);
+        this.add(clear_selection_btn);
+        // Generator
+        generator_btn = new JButton("Sudoku generieren");
+        generator_btn.setBounds(850, 20, 200, 25);
+        generator_btn.setVisible(true);
+        this.add(generator_btn);
+        // Löser
+        solver_btn = new JButton("Sudoku lösen");
+        solver_btn.setBounds(850, 70, 200, 25);
+        solver_btn.setVisible(true);
+        this.add(solver_btn);
+        // Eigenes Sudoku eintragen
+        entry_sudoku_btn = new JButton("Eigenes Sudoku eintragen");
+        entry_sudoku_btn.setBounds(850, 120, 200, 25);
+        entry_sudoku_btn.setVisible(true);
+        this.add(entry_sudoku_btn);
+        // Überprüfen
+        check_btn = new JButton("Sudoku überprüfen");
+        check_btn.setBounds(850, 170, 200, 25);
+        check_btn.setVisible(true);
+        this.add(check_btn);
+        // Reset
+        reset_btn = new JButton("Sudoku zurücksetzten");
+        reset_btn.setBounds(850, 220, 200, 25);
+        reset_btn.setVisible(true);
+        this.add(reset_btn);
+
+        // Number Buttons
+        JButton tmp_number_btn;
+        int tmp_number;
+        for(int n_y = 0; n_y < 3; n_y++) {
+            for(int n_x = 0; n_x < 3; n_x++) {
+                tmp_number = n_y*3+n_x+1;
+                tmp_number_btn = new JButton(""+tmp_number);
+                tmp_number_btn.setFont(this.font1);
+                tmp_number_btn.setBounds(865+n_x*60, 400+n_y*60, 50, 50);
+                tmp_number_btn.setVisible(true);
+                this.add(tmp_number_btn);
+            }
+        }
+
+        // Menü Buttons Ende
+        // -----------------
 
 
         window.pack();
@@ -36,5 +90,17 @@ public class Sudoku extends Game {
     @Override
     public void update_loop() {
 
+    }
+
+    public void setClear_selection_btn() {
+        if(selection_locked) {
+            selection_locked = false;
+            selected_btn.setBackground(clear_selection_btn.getBackground());
+            selected_btn = null;
+        }
+    }
+
+    public void setGenerator_btn() {
+        
     }
 }
