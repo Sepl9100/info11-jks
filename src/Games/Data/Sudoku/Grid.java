@@ -13,6 +13,7 @@ public class Grid {
 
     public Game game;
     private JPanel panel;
+    private SudokuButton selected_button;
 
 
     public Grid(Game game, JPanel panel) {
@@ -20,9 +21,11 @@ public class Grid {
         this.panel = panel;
 
         grid_buttons = new SudokuButton[9][9];                       // 9x9 Button Array
+        selected_button = null;
 
+        // Grid Generation
         SudokuButton tmp_btn;                                        // temporärer button zum erstellen
-        int tmp_btn_x = -45;                                      // tmp_button koordinaten
+        int tmp_btn_x;                                               // tmp_button koordinaten
         int tmp_btn_y = -45;
 
         // Für jede der 9 Spalten mit 9 Buttons füllen
