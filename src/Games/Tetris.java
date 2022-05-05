@@ -183,7 +183,7 @@ public class Tetris extends Game {
                 activetile.move(0, 1);      // Block nach unten bewegen
             }
 
-            // Key input Bewegung
+            // Key input Bewegung, sheeesh
             if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)) {     // A Taste gedrückt und links kein Tetris block
                 activetile.move(-1, 0);
             }
