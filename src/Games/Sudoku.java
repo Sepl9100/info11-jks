@@ -39,31 +39,42 @@ public class Sudoku extends Game {
         clear_selection_btn = new JButton("Auswahl zurücksetzten");
         clear_selection_btn.setBounds(640, 20, 200, 25);
         clear_selection_btn.setVisible(true);
+        clear_selection_btn.addActionListener(e -> setClear_selection_btn());
         this.add(clear_selection_btn);
+
         // Generator
         generator_btn = new JButton("Sudoku generieren");
         generator_btn.setBounds(850, 20, 200, 25);
         generator_btn.setVisible(true);
+        generator_btn.addActionListener(e -> setGenerator_btn());
         this.add(generator_btn);
+
         // Löser
         solver_btn = new JButton("Sudoku lösen");
         solver_btn.setBounds(850, 70, 200, 25);
         solver_btn.setVisible(true);
+        solver_btn.addActionListener(e -> setSolver_btn());
         this.add(solver_btn);
+
         // Eigenes Sudoku eintragen
         entry_sudoku_btn = new JButton("Eigenes Sudoku eintragen");
         entry_sudoku_btn.setBounds(850, 120, 200, 25);
         entry_sudoku_btn.setVisible(true);
+        entry_sudoku_btn.addActionListener(e -> setEntry_sudoku_btn());
         this.add(entry_sudoku_btn);
+
         // Überprüfen
         check_btn = new JButton("Sudoku überprüfen");
         check_btn.setBounds(850, 170, 200, 25);
         check_btn.setVisible(true);
+        check_btn.addActionListener(e -> setCheck_btn());
         this.add(check_btn);
+
         // Reset
         reset_btn = new JButton("Sudoku zurücksetzten");
         reset_btn.setBounds(850, 220, 200, 25);
         reset_btn.setVisible(true);
+        reset_btn.addActionListener(e -> setReset_btn());
         this.add(reset_btn);
 
         // Number Buttons
@@ -92,6 +103,16 @@ public class Sudoku extends Game {
 
     }
 
+    public boolean selectButton(JButton button){
+        if(!selection_locked) {
+            selected_btn = button;
+            selected_btn.setBackground(Color.green);
+            selection_locked = true;
+            return true;
+        }
+        return false;
+    }
+    
     public void setClear_selection_btn() {
         if(selection_locked) {
             selection_locked = false;
@@ -101,6 +122,32 @@ public class Sudoku extends Game {
     }
 
     public void setGenerator_btn() {
-        
+        if(selectButton(generator_btn)) {
+
+        }
+    }
+
+    public void setSolver_btn() {
+        if(selectButton(solver_btn)) {
+
+        }
+    }
+
+    public void setEntry_sudoku_btn() {
+        if(selectButton(entry_sudoku_btn)) {
+
+        }
+    }
+
+    public void setCheck_btn() {
+        if(selectButton(check_btn)) {
+
+        }
+    }
+
+    public void setReset_btn() {
+        if(selectButton(reset_btn)) {
+
+        }
     }
 }
