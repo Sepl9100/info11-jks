@@ -101,7 +101,7 @@ public class MainMenu extends Game {
 
     @Override
     public void update_loop() {
-        this.setBackground(ColorChangeManager.get_color(tick/20%255));
+        this.setBackground(ColorChangeManager.get_color(tick/20%255));      // Hintergrund Farb Wechsel
 
     }
 
