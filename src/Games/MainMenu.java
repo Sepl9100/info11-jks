@@ -101,11 +101,7 @@ public class MainMenu extends Game {
 
     @Override
     public void update_loop() {
-        for (int y = 0; y < PANELHEIGHT; y++){
-            g.setColor(ColorChangeManager.get_color(tick*200/(y+200)%255));
-            g.fillRect(0, y, 2000, 1);
-        }
-        //this.setBackground(ColorChangeManager.get_color(tick/2%255));
+        this.setBackground(ColorChangeManager.get_color(tick/20%255));
 
     }
 

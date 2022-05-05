@@ -23,7 +23,7 @@ public class Tilecolors {
         } else if (colornumber == 6){
             return Color.decode("#2df7f1");     // cyan
         } else if (colornumber == 7){
-            return ColorChangeManager.get_color(tick/2%255);
+            return ColorChangeManager.get_color(tick/2%255);        // color changing
         }
 
 

@@ -15,17 +15,13 @@ public class KeyBind {
 
     public boolean update(){
         boolean run = false;
-        if (Keyboard.isKeyPressed(key) && !pressed){
+        if (Keyboard.isKeyPressed(key) && !pressed){        // wenn gerade gedrückt wird aber kurz davor nicht
             pressed = true;
             run = true;
         }
-        if (!Keyboard.isKeyPressed(this.key)){
+        if (!Keyboard.isKeyPressed(this.key)){      // wenn nicht mehr gedrückt
             pressed = false;
         }
         return run;
-    }
-
-    public void run(){
-        listener.actionPerformed(new ActionEvent(this, 0, "RUN"));
     }
 }

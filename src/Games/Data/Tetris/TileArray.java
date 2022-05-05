@@ -11,6 +11,8 @@ public class TileArray {
         array = new int[width][height];
 
     }
+
+
     public TileArray(int width, int height){
         this.width = width;
         this.height = height;
@@ -18,7 +20,7 @@ public class TileArray {
 
     }
 
-    public void place_matrix(Tile tile){
+    public void place_matrix(Tile tile){            // Tile in TileArray platzieren
         for (int y_index = 0; y_index < tile.arraysize; y_index++){
             for (int x_index = 0; x_index < tile.arraysize; x_index++){
                 int block = tile.array[x_index][y_index];
@@ -28,15 +30,15 @@ public class TileArray {
             }
         }
         int response = 0;
-        while (response != -1){
-            response = check_for_full_line();
+        while (response != -1){     // solang es eine volle Zeile gibt
+            response = check_for_full_line();   // Zeile finden
             if (response != -1){
-                move_array_down(response);
+                move_array_down(response);      // Array nach unten bewegen
             }
         }
     }
 
-    public int check_for_full_line() {
+    public int check_for_full_line() {      // Ganzes Array auf volle Zeilen überprüfen -> y koordinate zurückgeben
         int fullline = -1;
         for (int y_index = 0; y_index < height; y_index++) {
             boolean is_full = true;
@@ -50,7 +52,7 @@ public class TileArray {
         return fullline;
     }
 
-    public void move_array_down(int startheight){
+    public void move_array_down(int startheight){           // Array ab einer Höhe <startheight> 1 nach unten bewegen
         for (int y_index = startheight-1; y_index >= 1; y_index--) {
             for (int x_index = 0; x_index < width; x_index++) {
                 int block = array[x_index][y_index];
@@ -65,7 +67,7 @@ public class TileArray {
             for (int x_index = 0; x_index < tile.arraysize; x_index++) {
                 int block = tile.array[x_index][y_index];
                 if (block != 0){        // Kästchen des Blocks hat kollision
-                    if (tile.y + y_index >= 19){
+                    if (tile.y + y_index + y_move >= 20){
                         return true;
                     }
                     if (tile.x + x_index + x_move < 0){
