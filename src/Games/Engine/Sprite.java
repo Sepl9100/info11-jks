@@ -21,9 +21,9 @@ public class Sprite {
 
     public Sprite(Game game, int layer, BufferedImage buffered_image) {
         this.game = game;
-        game.spritelist.add_sprite(this, layer);
+        game.spritelist.add_sprite(this, layer);        // Zu Game Spritelist hinzufügen
         image = buffered_image;
-        if (image == null){
+        if (image == null){     // wenn kein Image angegeben
             is_image = false;
         }
     }
@@ -37,7 +37,7 @@ public class Sprite {
         if (is_image){
             g.drawImage(image, (int)x, (int)y,width, height, null);
         }
-        else{
+        else{       // wenn kein Bild angegeben -> farbigen Kasten zeichnen
             g.setColor(color);
             g.fillRect((int)x, (int)y,width,height);
         }
