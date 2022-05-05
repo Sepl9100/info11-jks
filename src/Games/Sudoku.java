@@ -112,7 +112,7 @@ public class Sudoku extends Game {
         }
         return false;
     }
-    
+
     public void setClear_selection_btn() {
         if(selection_locked) {
             selection_locked = false;
