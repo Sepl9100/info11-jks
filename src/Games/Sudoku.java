@@ -1,6 +1,7 @@
 package Games;
 
 import Games.Data.Sudoku.Grid;
+import Games.Data.Sudoku.Logic;
 import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.Game;
 import Games.Engine.Window;
@@ -11,10 +12,14 @@ import java.awt.*;
 public class Sudoku extends Game {
 
     private Grid grid;
+    private Logic logic;
     public JPanel grid_panel;
     private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
 
     private boolean selection_locked;
+
+    private int[][] quiz, quiz_solution;
+
 
     public Sudoku(Window window){
         super(window, "Sudoku");
@@ -30,6 +35,13 @@ public class Sudoku extends Game {
         grid_panel.setVisible(true);
 
         grid = new Grid(this, grid_panel);
+
+        logic = new Logic();
+        logic.generate_sudoku();
+
+        quiz = new int[9][9];
+        quiz_solution = new int[9][9];
+
         this.add(grid_panel);
 
 
@@ -103,6 +115,9 @@ public class Sudoku extends Game {
 
     }
 
+
+    // -----------------
+    // Button Actions
     public boolean selectButton(JButton button){
         if(!selection_locked) {
             selected_btn = button;
@@ -150,4 +165,10 @@ public class Sudoku extends Game {
 
         }
     }
+
+    // Button Actions Ende
+    // -----------------
+
+
+
 }

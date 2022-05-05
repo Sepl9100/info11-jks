@@ -23,7 +23,7 @@ public class MainMenu extends Game {
         gbc.gridy = 0;
         //Snake Button
         JButton b = new JButton();
-        b.setText("Open snake game");
+        b.setText("Snake (Konstantin)");
         b.setVisible(true);
         b.addActionListener(e -> {
                 exit();
@@ -34,7 +34,7 @@ public class MainMenu extends Game {
         gbc.gridx = 1;
         //Tetris Button
         JButton tetris = new JButton();
-        tetris.setText("Tetris Game");
+        tetris.setText("Tetris (Konstantin)");
         tetris.setVisible(true);
         tetris.addActionListener(e -> {
             exit();
@@ -46,7 +46,7 @@ public class MainMenu extends Game {
         gbc.gridx = 0;
         //Hanoi Button
         JButton hanoi = new JButton();
-        hanoi.setText("Hanoi Game");
+        hanoi.setText("Hanoi (Sebastian)");
         hanoi.setVisible(true);
         hanoi.addActionListener(e -> {
             exit();
@@ -57,7 +57,7 @@ public class MainMenu extends Game {
         gbc.gridx = 1;
         //Sudoku Button
         JButton sudoku = new JButton();
-        sudoku.setText("Sudoku Game");
+        sudoku.setText("Sudoku (Sebastian)");
         sudoku.setVisible(true);
         sudoku.addActionListener(e -> {
             exit();
@@ -69,7 +69,7 @@ public class MainMenu extends Game {
         gbc.gridy++;
         //maze Button
         JButton maze = new JButton();
-        maze.setText("Maze Game");
+        maze.setText("Maze (Jan)");
         maze.setVisible(true);
         maze.addActionListener(e -> {
             exit();
@@ -80,7 +80,7 @@ public class MainMenu extends Game {
         gbc.gridx++;
         //TicTacToe Button
         JButton tictactoe = new JButton();
-        tictactoe.setText("Tic-Tac-Toe Game");
+        tictactoe.setText("Tic-Tac-Toe (Jan)");
         tictactoe.addActionListener(e -> {
             exit();
             new TicTacToe(window);
