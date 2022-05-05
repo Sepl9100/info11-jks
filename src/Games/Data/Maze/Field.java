@@ -18,7 +18,7 @@ public class Field extends Dataelement {
    //public void setBorders()
    public int setNext(){
         while(true){
-            int next = random.nextInt(0,4);
+            int next = random.nextInt(4);
             if(!connections[next]){
                 connections[next] = true;
                 return next;
