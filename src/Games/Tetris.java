@@ -31,6 +31,7 @@ public class Tetris extends Game {
 
     private int tilesize = 30;
     private int left_offset = 390;
+    private int score = 0;
 
     public Tetris(Window window){
         super(window, "Tetris");
@@ -92,14 +93,14 @@ public class Tetris extends Game {
     }
 
     public void start_game(){
-        if (special_mode_cb.isSelected()){
+        if (special_mode_cb.isSelected()){      // Wenn spezialmodus
             special_mode = true;
             wide_mode.setSelected(true);        // im spezialmodus wird der breite modus aktiviert
         }
 
-        if (wide_mode.isSelected()){
+        if (wide_mode.isSelected()){        // Wenn breiter Modus an ist -> größeres Array
             array = new TileArray(31, 20);    // im breiten Modus ist das TileArray größer als der standard
-            left_offset = 75;
+            left_offset = 75;       // Abstand des Spielfelds von links verkleinern
         }
         else{
             array = new TileArray();
@@ -115,11 +116,11 @@ public class Tetris extends Game {
         for (int y_index = 0; y_index < tile.arraysize; y_index++){
             for (int x_index = 0; x_index < tile.arraysize; x_index++){
                 int block = tile.array[x_index][y_index];
-                if (block != 0){
-                    g.setColor(Tilecolors.get(block, tick));      // block is color value
-                    g.fillRect((tile.x+x_index)*tilesize + left_offset, (tile.y+y_index)*tilesize, tilesize, tilesize);
+                if (block != 0){        // wenn hier im array eine farbe ist
+                    g.setColor(Tilecolors.get(block, tick));      // Farbe durch Zahl im Array mit Klasse Tilecolors holen
+                    g.fillRect((tile.x+x_index)*tilesize + left_offset, (tile.y+y_index)*tilesize, tilesize, tilesize); // Block zeichnen
                     g.setColor(Color.black);
-                    g.drawRect((tile.x+x_index)*tilesize + left_offset, (tile.y+y_index)*tilesize, tilesize, tilesize);
+                    g.drawRect((tile.x+x_index)*tilesize + left_offset, (tile.y+y_index)*tilesize, tilesize, tilesize); // Schwarze Ränder zeichnen
                 }
             }
         }
@@ -130,11 +131,11 @@ public class Tetris extends Game {
         for (int y_index = 0; y_index < array.height; y_index++){
             for (int x_index = 0; x_index < array.width; x_index++){
                 int block = array.get_tile(x_index, y_index);
-                if (block != 0){
-                    g.setColor(Tilecolors.get(block, tick));      // block is color value
-                    g.fillRect((x_index)*tilesize + left_offset, (y_index)*tilesize, tilesize, tilesize);
+                if (block != 0){        // wenn hier im array eine farbe ist
+                    g.setColor(Tilecolors.get(block, tick));      // Farbe durch Zahl im Array mit Klasse Tilecolors holen
+                    g.fillRect((x_index)*tilesize + left_offset, (y_index)*tilesize, tilesize, tilesize);       // Block zeichnen
                     g.setColor(Color.black);
-                    g.drawRect((x_index)*tilesize + left_offset, (y_index)*tilesize, tilesize, tilesize);
+                    g.drawRect((x_index)*tilesize + left_offset, (y_index)*tilesize, tilesize, tilesize);       // Schwarze Ränder zeichnen
                 }
             }
         }
@@ -142,11 +143,13 @@ public class Tetris extends Game {
 
     @Override
     public void update_loop() {
+        /*
         for (int y = 0; y < PANELHEIGHT; y++){          // Hintergrund Effekt
             g.setColor(ColorChangeManager.get_color(tick*200/(y+200)%255));
             g.fillRect(0, y, 2000, 1);
             //this.setBackground(ColorChangeManager.get_color(tick/2%255));
         }
+         */
 
 
         if (started) {
@@ -158,38 +161,42 @@ public class Tetris extends Game {
             // spezialmodus aktionen
             if (special_mode){
                 if (tick % (random.nextInt(100)+4) == 0){
-                    activetile.rotateCCW();
-                    if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();
+                    activetile.rotateCCW();     // Block zufllig drehen
+                    if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();        // Bei Kollision zurück drehen
                 }
             }
 
             // automatische Bewegung
-            int tick_delay = 35;
-            if (Keyboard.isKeyPressed(KeyEvent.VK_S)){
+            int tick_delay = 20;    // standardmäßige Zeit für Bewegung nach unten
+            if (array.check_collision(activetile, 0, 1)){   // wenn der Block unten liegt dem
+                tick_delay = 50;                                         // Spieler etwas zeit zum links/rechts bewegen geben
+            }
+            if (Keyboard.isKeyPressed(KeyEvent.VK_S)){      // Verkürzung der zeit für die Bewegung nach unten (S Taste)
                 tick_delay = 3;
             }
-            if (tick % tick_delay == 0) {
-                if (array.check_collision(activetile, 0, 1)) {
-                    array.place_matrix(activetile);
+
+            if (tick % tick_delay == 0) {       // wenn momentan ein tick ist, der durch tick_delay teilbar ist
+                if (array.check_collision(activetile, 0, 1)) {      // Überprüfen ob unter Tetris block schon ein anderer ist
+                    array.place_matrix(activetile);     // wenn kein platz mehr -> Tetris block in TileArray setzen und neuen erstellen
                     activetile = new Tile(3, -1);
                 }
-                activetile.move(0, 1);
+                activetile.move(0, 1);      // Block nach unten bewegen
             }
 
             // Key input Bewegung
-            if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)) {
+            if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)) {     // A Taste gedrückt und links kein Tetris block
                 activetile.move(-1, 0);
             }
-            if (d_key_bind.update() && !array.check_collision(activetile, 1, 0)) {
+            if (d_key_bind.update() && !array.check_collision(activetile, 1, 0)) {      // D Taste gedrückt und rechts kein Tetris block
                 activetile.move(1, 0);
             }
-            if (q_key_bind.update()) {
-                activetile.rotateCW();
-                if (array.check_collision(activetile, 0, 0)) activetile.rotateCCW();
+            if (e_key_bind.update()) {          // Q Taste gedrückt
+                activetile.rotateCW();          // Im Uhrzeigersinn drehen
+                if (array.check_collision(activetile, 0, 0)) activetile.rotateCCW();        // Bei Kollision zurückdrehen
             }
-            if (e_key_bind.update()) {
-                activetile.rotateCCW();
-                if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();
+            if (q_key_bind.update()) {          // E Taste gedrückt
+                activetile.rotateCCW();         // Gegen den Uhrzeigersinn drehen
+                if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();         // Bei Kollision zurückdrehen
             }
 
 

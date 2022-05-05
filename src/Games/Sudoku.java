@@ -12,7 +12,9 @@ public class Sudoku extends Game {
 
     private Grid grid;
     public JPanel grid_panel;
-    private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn;
+    private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
+
+    private boolean selection_locked;
 
     public Sudoku(Window window){
         super(window, "Sudoku");
@@ -31,6 +33,7 @@ public class Sudoku extends Game {
         this.add(grid_panel);
 
 
+        // -----------------
         // Menü Buttons
         // Auswahl zurücksetzten
         clear_selection_btn = new JButton("Auswahl zurücksetzten");
@@ -62,7 +65,23 @@ public class Sudoku extends Game {
         reset_btn.setBounds(850, 220, 200, 25);
         reset_btn.setVisible(true);
         this.add(reset_btn);
+
+        // Number Buttons
+        JButton tmp_number_btn;
+        int tmp_number;
+        for(int n_y = 0; n_y < 3; n_y++) {
+            for(int n_x = 0; n_x < 3; n_x++) {
+                tmp_number = n_y*3+n_x+1;
+                tmp_number_btn = new JButton(""+tmp_number);
+                tmp_number_btn.setFont(this.font1);
+                tmp_number_btn.setBounds(865+n_x*60, 400+n_y*60, 50, 50);
+                tmp_number_btn.setVisible(true);
+                this.add(tmp_number_btn);
+            }
+        }
+
         // Menü Buttons Ende
+        // -----------------
 
 
         window.pack();
@@ -71,5 +90,17 @@ public class Sudoku extends Game {
     @Override
     public void update_loop() {
 
+    }
+
+    public void setClear_selection_btn() {
+        if(selection_locked) {
+            selection_locked = false;
+            selected_btn.setBackground(clear_selection_btn.getBackground());
+            selected_btn = null;
+        }
+    }
+
+    public void setGenerator_btn() {
+        
     }
 }
