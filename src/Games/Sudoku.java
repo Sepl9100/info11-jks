@@ -38,13 +38,13 @@ public class Sudoku extends Game {
         this.add(grid_panel);
 
         logic = new Logic();
+
         quiz = logic.generate_sudoku();
-
         logic.print_quiz(quiz);
-
+        System.out.println("----------");
         quiz_solution = logic.solve_sudoku(quiz);
-
-
+        logic.print_quiz(quiz_solution);
+        System.out.println("----------");
 
         // -----------------
         // Menü Buttons
