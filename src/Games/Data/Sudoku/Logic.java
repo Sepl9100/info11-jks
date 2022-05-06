@@ -30,8 +30,7 @@ public class Logic {
                     for(int check_nmb = 1; check_nmb < 10; check_nmb++) {
                         if(check_number(quiz, y, x, check_nmb)) {
                             quiz[y][x] = check_nmb;
-                            solve_sudoku(quiz);
-                            //if(solve_sudoku(quiz) != null) {return quiz;}
+                            if(solve_sudoku(quiz) != null) {return quiz;}
                             quiz[y][x] = 0;
                         }
                     }
@@ -39,7 +38,6 @@ public class Logic {
                 }
             }
         }
-        print_quiz(quiz);
         return quiz;
     }
 
