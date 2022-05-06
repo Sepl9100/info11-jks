@@ -14,19 +14,18 @@ public class Logic {
         int[][] tmp_quiz = new int[9][9];
         int[] nmb_list = new int[9];
 
+        // generate a diagonal line with random number from 1-9
         for(int nmb = 0; nmb < 9; nmb++) {nmb_list[nmb] = nmb;}
         nmb_list = shuffle(nmb_list);
+        for(int i = 0; i < 9; i++) {tmp_quiz[i][i] = nmb_list[i];}
 
-
-
-        for(int i = 0; i < 9; i++) {
-            tmp_quiz[i][i] = nmb_list[i];
-        }
 
         return tmp_quiz;
     }
 
-
+    public int[][] solve_sudoku(int[][] quiz) {
+        return quiz;
+    }
 
 
     public int[] shuffle(int[] array) {
