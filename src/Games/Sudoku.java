@@ -35,14 +35,15 @@ public class Sudoku extends Game {
         grid_panel.setVisible(true);
 
         grid = new Grid(this, grid_panel);
+        this.add(grid_panel);
 
         logic = new Logic();
-        logic.generate_sudoku();
+        quiz = logic.generate_sudoku();
 
-        quiz = new int[9][9];
-        quiz_solution = new int[9][9];
+        logic.print_quiz(quiz);
 
-        this.add(grid_panel);
+        quiz_solution = logic.solve_sudoku(quiz);
+
 
 
         // -----------------
