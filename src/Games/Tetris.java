@@ -23,15 +23,17 @@ public class Tetris extends Game {
     private final JPanel start_screen;
     private final JCheckBox wide_mode;
     private final JCheckBox special_mode_cb;
+    private final JLabel score_lbl;
 
     private Tile activetile;
     private boolean started = false;
+    private boolean game_over = false;
 
     private boolean special_mode;
 
     private int tilesize = 30;
     private int left_offset = 390;
-    private int score = 0;
+    public int score = 0;
 
     public Tetris(Window window){
         super(window, "Tetris");
@@ -89,7 +91,17 @@ public class Tetris extends Game {
         lbl.setFont(font1);
         start_screen.add(lbl, gbc);
 
+        score_lbl = new JLabel("Score: ");
+        score_lbl.setFont(font1);
+        score_lbl.setForeground(Color.white);
+        score_lbl.setBounds(10, 10, 100, 100);
+        this.add(score_lbl);
+
         window.pack();
+    }
+
+    public void open_game_over_screen(){
+
     }
 
     public void start_game(){
@@ -99,11 +111,11 @@ public class Tetris extends Game {
         }
 
         if (wide_mode.isSelected()){        // Wenn breiter Modus an ist -> größeres Array
-            array = new TileArray(31, 20);    // im breiten Modus ist das TileArray größer als der standard
+            array = new TileArray(this,31, 20);    // im breiten Modus ist das TileArray größer als der standard
             left_offset = 75;       // Abstand des Spielfelds von links verkleinern
         }
         else{
-            array = new TileArray();
+            array = new TileArray(this);
         }
         started = true;
 
@@ -143,63 +155,66 @@ public class Tetris extends Game {
 
     @Override
     public void update_loop() {
-        /*
-        for (int y = 0; y < PANELHEIGHT; y++){          // Hintergrund Effekt
-            g.setColor(ColorChangeManager.get_color(tick*200/(y+200)%255));
-            g.fillRect(0, y, 2000, 1);
-            //this.setBackground(ColorChangeManager.get_color(tick/2%255));
-        }
-         */
-
-
         if (started) {
+            score_lbl.setText("Score: " + score);
             g.setColor(Color.darkGray);
             g.fillRect(left_offset, 0, array.width * tilesize, array.height * tilesize);        // Spielfeld grau färben
-            display_tile(activetile);  // Aktuell fallendes Tile anzeigen
+            if (activetile != null) display_tile(activetile);  // Aktuell fallendes Tile anzeigen falls vorhanden
             display_array();            // Array aus gelandeten Tiles anzeigen
 
-            // spezialmodus aktionen
-            if (special_mode){
-                if (tick % (random.nextInt(100)+4) == 0){
-                    activetile.rotateCCW();     // Block zufllig drehen
-                    if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();        // Bei Kollision zurück drehen
+            if (activetile != null) {               // Wenn momentan ein Tetris block aktiv ist
+                // spezialmodus aktionen
+                if (special_mode) {
+                    if (tick % (random.nextInt(100) + 4) == 0) {
+                        activetile.rotateCCW();     // Block zufllig drehen
+                        if (array.check_collision(activetile, 0, 0))
+                            activetile.rotateCW();        // Bei Kollision zurück drehen
+                    }
                 }
-            }
 
-            // automatische Bewegung
-            int tick_delay = 20;    // standardmäßige Zeit für Bewegung nach unten
-            if (array.check_collision(activetile, 0, 1)){   // wenn der Block unten liegt dem
-                tick_delay = 50;                                         // Spieler etwas zeit zum links/rechts bewegen geben
-            }
-            if (Keyboard.isKeyPressed(KeyEvent.VK_S)){      // Verkürzung der zeit für die Bewegung nach unten (S Taste)
-                tick_delay = 3;
-            }
-
-            if (tick % tick_delay == 0) {       // wenn momentan ein tick ist, der durch tick_delay teilbar ist
-                if (array.check_collision(activetile, 0, 1)) {      // Überprüfen ob unter Tetris block schon ein anderer ist
-                    array.place_matrix(activetile);     // wenn kein platz mehr -> Tetris block in TileArray setzen und neuen erstellen
-                    activetile = new Tile(3, -1);
+                // automatische Bewegung
+                int tick_delay = 20;    // standardmäßige Zeit für Bewegung nach unten
+                if (array.check_collision(activetile, 0, 1)) {   // wenn der Block unten liegt dem
+                    tick_delay = 50;                                         // Spieler etwas zeit zum links/rechts bewegen geben
                 }
-                activetile.move(0, 1);      // Block nach unten bewegen
-            }
+                if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {      // Verkürzung der zeit für die Bewegung nach unten (S Taste)
+                    tick_delay = 3;
+                }
 
-            // Key input Bewegung, sheeesh
-            if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)) {     // A Taste gedrückt und links kein Tetris block
-                activetile.move(-1, 0);
-            }
-            if (d_key_bind.update() && !array.check_collision(activetile, 1, 0)) {      // D Taste gedrückt und rechts kein Tetris block
-                activetile.move(1, 0);
-            }
-            if (e_key_bind.update()) {          // Q Taste gedrückt
-                activetile.rotateCW();          // Im Uhrzeigersinn drehen
-                if (array.check_collision(activetile, 0, 0)) activetile.rotateCCW();        // Bei Kollision zurückdrehen
-            }
-            if (q_key_bind.update()) {          // E Taste gedrückt
-                activetile.rotateCCW();         // Gegen den Uhrzeigersinn drehen
-                if (array.check_collision(activetile, 0, 0)) activetile.rotateCW();         // Bei Kollision zurückdrehen
-            }
+                if (tick % tick_delay == 0) {       // wenn momentan ein tick ist, der durch tick_delay teilbar ist
+                    if (array.check_collision(activetile, 0, 1)) {      // Überprüfen ob unter Tetris block schon ein anderer ist
+                        if (array.place_matrix(activetile) == 0) {     // Block in array setzen; wenn nicht gameover ->  neuen Tetris block erstellen
+                            activetile = new Tile(3, -1);
 
+                        } else {                                    // wenn gameover
+                            System.out.println("GAMEOVER");
+                            game_over = true;
+                            activetile = null;              // keinen aktiven tetris block setzen
+                        }
+                    }
+                    if (activetile != null) activetile.move(0, 1);          // Block nach unten bewegen falls aktuell eines im spiel ist
 
+                }
+
+                // Key input Bewegung, sheeesh
+                if (a_key_bind.update() && !array.check_collision(activetile, -1, 0)) {     // A Taste gedrückt und links kein Tetris block
+                    activetile.move(-1, 0);
+                }
+                if (d_key_bind.update() && !array.check_collision(activetile, 1, 0)) {      // D Taste gedrückt und rechts kein Tetris block
+                    activetile.move(1, 0);
+                }
+                if (e_key_bind.update()) {          // Q Taste gedrückt
+                    activetile.rotateCW();          // Im Uhrzeigersinn drehen
+                    if (array.check_collision(activetile, 0, 0))
+                        activetile.rotateCCW();        // Bei Kollision zurückdrehen
+                }
+                if (q_key_bind.update()) {          // E Taste gedrückt
+                    activetile.rotateCCW();         // Gegen den Uhrzeigersinn drehen
+                    if (array.check_collision(activetile, 0, 0))
+                        activetile.rotateCW();         // Bei Kollision zurückdrehen
+                }
+
+            }
         }
     }
 }

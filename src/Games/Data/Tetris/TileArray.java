@@ -1,26 +1,32 @@
 package Games.Data.Tetris;
 
 import Games.Data.Tetris.Tiles.Tile;
+import Games.Engine.Game;
+import Games.Tetris;
 
 public class TileArray {
     private int[][] array;
     public int width = 10;
     public int height = 20;
 
-    public TileArray(){
+    private Tetris game;
+
+    public TileArray(Tetris game){
         array = new int[width][height];
+        this.game = game;
 
     }
 
 
-    public TileArray(int width, int height){
+    public TileArray(Tetris game, int width, int height){
+        this.game = game;
         this.width = width;
         this.height = height;
         array = new int[width][height];
 
     }
 
-    public void place_matrix(Tile tile){            // Tile in TileArray platzieren
+    public int place_matrix(Tile tile){            // Tile in TileArray platzieren
         for (int y_index = 0; y_index < tile.arraysize; y_index++){
             for (int x_index = 0; x_index < tile.arraysize; x_index++){
                 int block = tile.array[x_index][y_index];
@@ -30,12 +36,21 @@ public class TileArray {
             }
         }
         int response = 0;
+        int score_multiplier = 0;
+        int gained_score = 0;
         while (response != -1){     // solang es eine volle Zeile gibt
             response = check_for_full_line();   // Zeile finden
             if (response != -1){
+                score_multiplier += 1;
+                gained_score += 1;
                 move_array_down(response);      // Array nach unten bewegen
             }
         }
+        game.score += gained_score * score_multiplier;
+        if (tile.y < 1){
+            return 1;       // Game over
+        }
+        return 0;           // kein game over
     }
 
     public int check_for_full_line() {      // Ganzes Array auf volle Zeilen überprüfen -> y koordinate zurückgeben
