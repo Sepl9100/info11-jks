@@ -10,6 +10,10 @@ public class Logic {
 
     }
 
+
+    // Diese Methode generiert ein zufälliges Sudoku mit
+    // der gewünschten Menge an fehlenden Zahlen
+    // Missing Numbers 1-80!
     public int[][] generate_sudoku(int missing_numbers) {
         int[][] tmp_quiz = new int[9][9];
         int[] nmb_list = new int[9];
@@ -26,16 +30,15 @@ public class Logic {
         }
         tmp_quiz = solve_sudoku(tmp_quiz);
 
-        // Hier haben wir ein zufälliges, gelöstes Sudoku
+        // Hier haben wir ein vollständig gelöstes Sudoku
         // jetzt werden wie im Parameter angegeben,
         // x-viele Zahlen gelöscht
 
-        int[] nmb_del_list = new int[81];
-        for(int nmb = 0; nmb < 81; nmb++) {nmb_del_list[nmb] = nmb+1;}
+        int[] nmb_del_list = new int[80];
+        for(int nmb = 0; nmb < 80; nmb++) {nmb_del_list[nmb] = nmb+1;}
         nmb_del_list = shuffle(nmb_del_list);
-        for(int i = 0; i < missing_numbers; i++) {
-            System.out.println("x: "+nmb_del_list[i]/9+" y: "+nmb_del_list[i]%9);
-        }
+        for(int i = 0; i < missing_numbers; i++) {tmp_quiz[nmb_del_list[i]/9][nmb_del_list[i]%9] = 0;}
+
         return tmp_quiz;
     }
 
