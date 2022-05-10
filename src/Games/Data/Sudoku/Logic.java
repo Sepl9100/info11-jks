@@ -10,7 +10,7 @@ public class Logic {
 
     }
 
-    public int[][] generate_sudoku() {
+    public int[][] generate_sudoku(int missing_numbers) {
         int[][] tmp_quiz = new int[9][9];
         int[] nmb_list = new int[9];
 
@@ -18,8 +18,24 @@ public class Logic {
         for(int nmb = 0; nmb < 9; nmb++) {nmb_list[nmb] = nmb+1;}
         nmb_list = shuffle(nmb_list);
         for(int i = 0; i < 9; i++) {tmp_quiz[i][i] = nmb_list[i];}
+        nmb_list = shuffle(nmb_list);
+        for(int x = 1; x < 9; x++) {
+            if(check_number(tmp_quiz, 0, x, nmb_list[x])) {
+                tmp_quiz[0][x] = nmb_list[x];
+            }
+        }
+        tmp_quiz = solve_sudoku(tmp_quiz);
 
+        // Hier haben wir ein zufälliges, gelöstes Sudoku
+        // jetzt werden wie im Parameter angegeben,
+        // x-viele Zahlen gelöscht
 
+        int[] nmb_del_list = new int[81];
+        for(int nmb = 0; nmb < 81; nmb++) {nmb_del_list[nmb] = nmb+1;}
+        nmb_del_list = shuffle(nmb_del_list);
+        for(int i = 0; i < missing_numbers; i++) {
+            System.out.println("x: "+nmb_del_list[i]/9+" y: "+nmb_del_list[i]%9);
+        }
         return tmp_quiz;
     }
 

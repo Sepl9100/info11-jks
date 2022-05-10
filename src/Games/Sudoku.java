@@ -39,12 +39,9 @@ public class Sudoku extends Game {
 
         logic = new Logic();
 
-        quiz = logic.generate_sudoku();
+        quiz = logic.generate_sudoku(81);
         logic.print_quiz(quiz);
-        System.out.println("----------");
-        quiz_solution = logic.solve_sudoku(quiz);
-        logic.print_quiz(quiz_solution);
-        System.out.println("----------");
+
 
         // -----------------
         // Menü Buttons
