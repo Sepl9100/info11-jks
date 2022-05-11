@@ -100,8 +100,27 @@ public class Tetris extends Game {
         window.pack();
     }
 
-    public void open_game_over_screen(){
+    public void game_over_screen(){
+        JPanel screen = new JPanel();
+        int width = 200;
+        int height = 300;
+        screen.setLocation(PANELWIDTH/2-width/2, PANELHEIGHT/2-height/2);
+        screen.setSize(width, height);
+        this.add(screen);
+        JLabel label = new JLabel("Du hast Verloren!");
+        screen.add(label);
 
+        label = new JLabel("Dein Score: " + score);
+        screen.add(label);
+
+        JButton btn = new JButton("Neustarten");
+        screen.add(btn);
+        btn.addActionListener(e -> {
+            exit_to_empty();
+            new Tetris(this.window);
+        });
+
+        window.pack();
     }
 
     public void start_game(){
@@ -190,6 +209,7 @@ public class Tetris extends Game {
                             System.out.println("GAMEOVER");
                             game_over = true;
                             activetile = null;              // keinen aktiven tetris block setzen
+                            game_over_screen();
                         }
                     }
                     if (activetile != null) activetile.move(0, 1);          // Block nach unten bewegen falls aktuell eines im spiel ist
