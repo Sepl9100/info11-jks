@@ -2,29 +2,35 @@ package Games;
 
 import Games.Data.Sudoku.Grid;
 import Games.Data.Sudoku.Logic;
+import Games.Data.Sudoku.SudokuKeyBinds;
 import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.Game;
+import Games.Engine.KeyBind;
 import Games.Engine.Window;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Sudoku extends Game {
 
     private Grid grid;
     private Logic logic;
+    private SudokuKeyBinds keys;
     public JPanel grid_panel;
     private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
-
+    public Color btn_color;
     private boolean selection_locked;
 
-    private int[][] quiz, quiz_solution;
+    private int[][] quiz, player_quiz;
 
 
     public Sudoku(Window window){
         super(window, "Sudoku");
         this.setBackground(Color.gray);
         this.setLayout(null);
+
+        btn_color = this.back_btn.getBackground();
 
         // Button Raster
         grid_panel = new JPanel();
@@ -36,12 +42,15 @@ public class Sudoku extends Game {
 
         grid = new Grid(this, grid_panel);
         this.add(grid_panel);
+        // ----
+
+        keys = new SudokuKeyBinds(this);
 
         logic = new Logic();
 
-        quiz = logic.generate_sudoku(25);
+        quiz = logic.generate_sudoku(30);
         grid.init_quiz(quiz);
-        logic.print_quiz(quiz);
+        player_quiz = quiz;
 
 
         // -----------------
@@ -94,10 +103,12 @@ public class Sudoku extends Game {
         for(int n_y = 0; n_y < 3; n_y++) {
             for(int n_x = 0; n_x < 3; n_x++) {
                 tmp_number = n_y*3+n_x+1;
+                final int tmp_lmbd = tmp_number;
                 tmp_number_btn = new JButton(""+tmp_number);
                 tmp_number_btn.setFont(this.font1);
-                tmp_number_btn.setBounds(865+n_x*60, 400+n_y*60, 50, 50);
+                tmp_number_btn.setBounds(655+n_x*60, 220+n_y*60, 50, 50);
                 tmp_number_btn.setVisible(true);
+                tmp_number_btn.addActionListener(e -> grid.input_number(tmp_lmbd));
                 this.add(tmp_number_btn);
             }
         }

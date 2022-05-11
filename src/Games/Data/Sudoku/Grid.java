@@ -11,12 +11,12 @@ public class Grid {
 
     public SudokuButton[][] grid_buttons;
 
-    public Game game;
+    public Sudoku game;
     private JPanel panel;
     public SudokuButton selected_button;
 
 
-    public Grid(Game game, JPanel panel) {
+    public Grid(Sudoku game, JPanel panel) {
         this.game = game;
         this.panel = panel;
 
@@ -57,6 +57,10 @@ public class Grid {
                 }
             }
         }
+    }
+
+    public void input_number(int number) {
+        if (selected_button != null) {selected_button.setNumber(number);};
     }
 
 }
