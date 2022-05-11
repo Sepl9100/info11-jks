@@ -34,4 +34,16 @@ public class SudokuKeyBinds {
         this.game = game;
 
     }
+
+    public void update() {
+        if(key_1.update() || key_n1.update()) {game.grid.selected_button.setNumber(1);}
+        if(key_2.update() || key_n2.update()) {game.grid.selected_button.setNumber(2);}
+        if(key_3.update() || key_n3.update()) {game.grid.selected_button.setNumber(3);}
+        if(key_4.update() || key_n4.update()) {game.grid.selected_button.setNumber(4);}
+        if(key_5.update() || key_n5.update()) {game.grid.selected_button.setNumber(5);}
+        if(key_6.update() || key_n6.update()) {game.grid.selected_button.setNumber(6);}
+        if(key_7.update() || key_n7.update()) {game.grid.selected_button.setNumber(7);}
+        if(key_8.update() || key_n8.update()) {game.grid.selected_button.setNumber(8);}
+        if(key_9.update() || key_n9.update()) {game.grid.selected_button.setNumber(9);}
+    }
 }

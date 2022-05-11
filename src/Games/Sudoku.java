@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 
 public class Sudoku extends Game {
 
-    private Grid grid;
+    public Grid grid;
     private Logic logic;
     private SudokuKeyBinds keys;
     public JPanel grid_panel;
@@ -122,7 +122,7 @@ public class Sudoku extends Game {
 
     @Override
     public void update_loop() {
-
+        keys.update();
     }
 
 
