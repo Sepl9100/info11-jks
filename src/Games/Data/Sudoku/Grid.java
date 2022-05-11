@@ -38,7 +38,7 @@ public class Grid {
                 tmp_btn_x += 55;
                 if(x%3 == 0) {tmp_btn_x += 10;}
 
-                tmp_btn = new SudokuButton("", tmp_btn_x, tmp_btn_y, 50, 50, 0, x, y);
+                tmp_btn = new SudokuButton("", tmp_btn_x, tmp_btn_y, 50, 50, 0, x, y, this);
                 tmp_btn.button.setFont(game.font1);
                 tmp_btn.button.setVisible(true);
 
@@ -48,4 +48,16 @@ public class Grid {
             }
         }
     }
+
+    public void init_quiz(int[][] quiz) {
+        for(int y = 0; y < 9; y++) {
+            for(int x = 0; x < 9; x++) {
+                if(quiz[y][x] != 0) {
+                    grid_buttons[y][x].lock_number(quiz[y][x]);
+                }
+            }
+        }
+    }
+
+    public void select_button()
 }

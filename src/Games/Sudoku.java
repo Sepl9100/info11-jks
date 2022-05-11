@@ -39,7 +39,8 @@ public class Sudoku extends Game {
 
         logic = new Logic();
 
-        quiz = logic.generate_sudoku(9);
+        quiz = logic.generate_sudoku(25);
+        grid.init_quiz(quiz);
         logic.print_quiz(quiz);
 
 
