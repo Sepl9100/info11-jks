@@ -13,7 +13,7 @@ public class Grid {
 
     public Game game;
     private JPanel panel;
-    private SudokuButton selected_button;
+    public SudokuButton selected_button;
 
 
     public Grid(Game game, JPanel panel) {
@@ -59,5 +59,4 @@ public class Grid {
         }
     }
 
-    public void select_button()
 }
