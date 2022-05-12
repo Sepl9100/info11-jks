@@ -138,7 +138,11 @@ public class Tetris extends Game {
         }
         started = true;
 
-        activetile = new Tile(3, -1);   // Erstes falledes Tile erstellen
+        if (wide_mode.isSelected()){
+            activetile = new Tile(14, 0);   // Erstes falledes Tile erstellen
+        } else {
+            activetile = new Tile(3, -1);   // Erstes falledes Tile erstellen
+        }
         this.remove(start_screen);          // Startbildschirm beenden
     }
 
@@ -203,8 +207,11 @@ public class Tetris extends Game {
                 if (tick % tick_delay == 0) {       // wenn momentan ein tick ist, der durch tick_delay teilbar ist
                     if (array.check_collision(activetile, 0, 1)) {      // Überprüfen ob unter Tetris block schon ein anderer ist
                         if (array.place_matrix(activetile) == 0) {     // Block in array setzen; wenn nicht gameover ->  neuen Tetris block erstellen
-                            activetile = new Tile(3, -1);
-
+                            if (wide_mode.isSelected()){
+                                activetile = new Tile(14, 0);   // Erstes falledes Tile erstellen
+                            } else {
+                                activetile = new Tile(3, -1);   // Erstes falledes Tile erstellen
+                            }
                         } else {                                    // wenn gameover
                             System.out.println("GAMEOVER");
                             game_over = true;
