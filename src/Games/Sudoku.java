@@ -122,7 +122,7 @@ public class Sudoku extends Game {
     }
 
 
-    // --------------
+    // ----------------
     // Button Actions
     public boolean selectButton(JButton button){
         if(!selection_locked) {
