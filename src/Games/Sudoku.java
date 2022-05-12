@@ -145,7 +145,7 @@ public class Sudoku extends Game {
             selected_btn = null;
         }
     }
-
+    // hehe
     public void setGenerator_btn() {
         if(selectButton(generator_btn)) {
 
