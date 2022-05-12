@@ -47,11 +47,7 @@ public class Sudoku extends Game {
         keys = new SudokuKeyBinds(this);
 
         logic = new Logic();
-
-        quiz = logic.generate_sudoku(30);
-        grid.init_quiz(quiz);
-        player_quiz = quiz;
-
+        
 
         // -----------------
         // Menü Buttons
@@ -148,7 +144,9 @@ public class Sudoku extends Game {
     // hehe
     public void setGenerator_btn() {
         if(selectButton(generator_btn)) {
-
+            quiz = logic.generate_sudoku(30);
+            grid.init_quiz(quiz);
+            player_quiz = quiz;
         }
     }
 
