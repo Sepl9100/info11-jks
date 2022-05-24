@@ -122,7 +122,7 @@ public class Sudoku extends Game {
     }
 
 
-    // ----------
+    // ----------------
     // Button Actions
     public boolean selectButton(JButton button){
         if(!selection_locked) {
@@ -140,6 +140,8 @@ public class Sudoku extends Game {
             selected_btn.setBackground(clear_selection_btn.getBackground());
             selected_btn = null;
         }
+        grid.selected_button.deselectButton();
+        grid.selected_button = null;
     }
     public void setGenerator_btn() {
         if(selectButton(generator_btn)) {
