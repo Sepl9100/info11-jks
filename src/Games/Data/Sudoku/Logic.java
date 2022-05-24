@@ -13,7 +13,7 @@ public class Logic {
 
     // Diese Methode generiert ein zufälliges Sudoku mit
     // der gewünschten Menge an fehlenden Zahlen
-    // Missing Numbers 1-80!
+    // Missing Numbers 1-80 !
     public int[][] generate_sudoku(int missing_numbers) {
         int[][] tmp_quiz = new int[9][9];
         int[] nmb_list = new int[9];
