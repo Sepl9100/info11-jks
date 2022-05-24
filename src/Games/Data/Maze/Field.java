@@ -7,7 +7,7 @@ import java.util.*;
 public class Field extends Dataelement {
     private final int x_pos;//x-Position des Feldes
     private final int y_pos;//y-Position des Feldes
-    private final boolean[] connections;//Verbindungen zu anderen Feldern
+    public static boolean[] connections;//Verbindungen zu anderen Feldern
     private final Random random = new Random();
     public Field(int y_pos, int x_pos, int number){
         super(number);
@@ -16,16 +16,20 @@ public class Field extends Dataelement {
         connections = new boolean[4];//[Nord, Ost, Süd, West] true = verbindung, null = mauer, false = screen border
    }
    //public void setBorders()
-   public int setNext(){
-        while(true){
-            int next = random.nextInt(4);
-            if(!connections[next]){
-                connections[next] = true;
-                return next;
-            }
-        }
+   public void reset_connections(){
+       for (boolean connection : this.connections) {
+           connection = false;
+       }
    }
-
+    public int get_x_pos(){
+        return this.x_pos;
+    }
+    public boolean[] get_connections(){
+        return this.connections;
+    }
+    public int get_y_pos(){
+        return this.y_pos;
+    }
     @Override
     public boolean equals(Dataelement de) {
         return false;

@@ -1,6 +1,14 @@
+/*
+ ______   __     ______     ______   ______     ______     ______   ______     ______
+/\__  _\ /\ \   /\  ___\   /\__  _\ /\  __ \   /\  ___\   /\__  _\ /\  __ \   /\  ___\
+\/_/\ \/ \ \ \  \ \ \____  \/_/\ \/ \ \  __ \  \ \ \____  \/_/\ \/ \ \ \/\ \  \ \  __\
+   \ \_\  \ \_\  \ \_____\    \ \_\  \ \_\ \_\  \ \_____\    \ \_\  \ \_____\  \ \_____\
+    \/_/   \/_/   \/_____/     \/_/   \/_/\/_/   \/_____/     \/_/   \/_____/   \/_____/
+
+*/
 package Games;
 
-import Games.Data.Tetris.ColorChangeManager;
+//import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.Game;
 import Games.Engine.Window;
 
@@ -9,7 +17,7 @@ import java.awt.*;
 
 public class TicTacToe extends Game {
 
-    //JAN, BRING DAS SCHAWA ZUM FLOWEN!!!!
+    //JAN, BRING DAS SCHAWA ZUM FLOWEN!!!! ~Sebastian Reichl
     //private Random random;
     private int turns = 0;
     private final int[] gameTable = new int[9];
@@ -23,20 +31,20 @@ public class TicTacToe extends Game {
         //grundsätzliche Layout Definitionen
         this.setBackground(Color.gray);
         setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();//"Regeln" des Layouts beim Hinzufügen von Objekten
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(3,3,3,3);
-        gbc.ipadx = 125;
+        gbc.insets = new Insets(3,3,3,3);//Abstände zwischen den Rastern
+        gbc.ipadx = 125;//Padding zu den Rastern (vergrößerung zusätzlich zum Inhalt)
         gbc.ipady = 25;
 
         //Kopf der Spiele-GUI
         topText = new JLabel();
-        setTopText();
-        topText.setHorizontalAlignment(SwingConstants.CENTER);
+        set_top_text();
+        topText.setHorizontalAlignment(SwingConstants.CENTER);//Zentrierung vom Text
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth= 11;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth= 11;//füllt 11 Spalten aus
+        gbc.fill = GridBagConstraints.HORIZONTAL;//füllt volle Breite der Spalten aus
         this.add(topText, gbc);
 
         //Spielfeld mit den Buttons erstellen
@@ -47,13 +55,12 @@ public class TicTacToe extends Game {
         gameButtons = new JButton[9];
         for(int i = 0; i < 9; i++){
             gameButtons[i] = new JButton();
-            gameButtons[i].setFont(font3);
+            gameButtons[i].setFont(font3);//font3 aus der Game Klasse
             gameButtons[i].setVisible(true);
-            final int temp = i;
-            gameButtons[i].addActionListener(e -> buttonClick(temp));
-            gbc.gridx = i % 3 + 1;
-            gbc.gridy = i / 3 + 1;
-
+            final int tmp = i;
+            gameButtons[i].addActionListener(e -> button_click(tmp));//Java wollte tmp als final int haben
+            gbc.gridx = i % 3 + 1;//Spaltendefinierung
+            gbc.gridy = i / 3 + 1;//Zeilendefinierung
             this.add(gameButtons[i], gbc);
         }
 
@@ -65,43 +72,43 @@ public class TicTacToe extends Game {
         JButton reset = new JButton();
         reset.setVisible(true);
         reset.setText("Reset");
-        reset.addActionListener(e -> resetGame());
+        reset.addActionListener(e -> reset_game());
         this.add(reset, gbc);
-        //Spielfeld spielbereit machen
-        resetGame();
+
+        reset_game();//Spielfeld spielbereit machen
         window.pack();
     }
 
-    public void resetGame(){
+    public void reset_game(){
         for(int i = 0;i < 9; i++){
             gameTable[i] = 0;
             gameButtons[i].setText("  ");
-            setTopText();
+            set_top_text();
             gameActive = true;
         }
     }
 
-    public void buttonClick(int button){
+    public void button_click(int button){
         if(gameActive){
             if(gameTable[button]==0){
                 if(turns%2==0){//Spieler X am Zug
                     gameButtons[button].setText("x");
                     gameTable[button] = 1;
                     turns++;
-                    setTopText();
+                    set_top_text();
                 }else{//Spieler O am Zug
                         gameButtons[button].setText("o");
                         gameTable[button] = -1;
                         turns++;
-                        setTopText();
+                        set_top_text();
                     }
             }
         }
     }
 
-    public void setTopText(){
-        int test = checkWin();
-        if(test==0){
+    public void set_top_text(){
+        int test = check_win();
+        if(test==0){//==kein gewinner
             if(turns % 2 == 0){
                 topText.setText("Spieler 1 (X) ist dran!");
             }else{
@@ -117,8 +124,8 @@ public class TicTacToe extends Game {
         }
     }
 
-    private int checkWin(){
-        for(int i = 0; i<3; i++){
+    private int check_win(){
+        for(int i = 0; i<3; i++){//1 = Spieler 1; -1 = Spieler 2
             if(gameTable[3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i] == 3)return 1;//Waagrechte Reihen
             if(gameTable[3 * i] + gameTable[1 + 3 * i] + gameTable[2 + 3 * i] == -3)return -1;
 
@@ -130,7 +137,8 @@ public class TicTacToe extends Game {
 
         if(gameTable[2]+gameTable[4]+gameTable[6]==3)return 1;//Diagonale l->r
         if(gameTable[2]+gameTable[4]+gameTable[6]==-3)return -1;
-        else return 0;
+
+        else return 0;//noch kein Gewinner
     }
 
     @Override
