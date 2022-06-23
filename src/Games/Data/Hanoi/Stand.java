@@ -19,27 +19,30 @@ public class Stand {
     public boolean moving_ring = false;
 
     public Stand(Game game, int x, int y, int size, int number){
-        this.x = x;         // cords of the top left corner
-        this.y = y;         // from the bottom rectangle
+        this.x = x;         // x koordinate ecke unten links
+        this.y = y;         // y koordinate des unteren rechtecks
         this.size = size;
         this.game = game;
         this.number = number;
 
+        // unteres rechteck
         rec_bottom = new Sprite(this.game, 5, null);
         rec_bottom.set_pos(x, y);
         rec_bottom.resize(24*size, 2*size);
         rec_bottom.color = Color.white;
 
+        // oberes rechteck
         rec_top = new Sprite(this.game, 5, null);
         rec_top.set_pos(x+11*size, y-18*size);
         rec_top.resize(2*size, 18*size);
         rec_top.color = Color.white;
 
+        // Stand hat einen Stack in dem die Ringe gespeichert werden
         stack = new Stack();
 
     }
 
-    public void init_rings(int rings) {
+    public void init_rings(int rings) {                     // Ringe dem Stack hinzufügen
         for(int i = 0; i < rings; i++) {
             stack.insert(new Ring(game, x+(size*(i+1)), y-2*size*i-2*size, size, i+1));
         }
