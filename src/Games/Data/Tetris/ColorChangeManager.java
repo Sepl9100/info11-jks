@@ -4,10 +4,6 @@ import java.awt.*;
 
 public class ColorChangeManager {
 
-    public ColorChangeManager(){
-
-    }
-
     public static Color get_color(double value){
         double multiplicator = value/255;
         value = multiplicator*63;
