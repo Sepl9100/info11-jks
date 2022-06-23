@@ -1,6 +1,7 @@
 package Games.Data.Snake;
 
 import Games.Engine.Game;
+import Games.Engine.QueueTask;
 import Games.Snake;
 
 import java.awt.*;
@@ -35,8 +36,25 @@ public class SnakeHead extends SnakeGameSprite{
             if (next_body != null) {
                 next_body.follow_snake((int) tile_x, (int) tile_y);
             }
-            game.check_apple(tile_x + x, tile_y + y);
-            game.check_drug(tile_x + x, tile_y + y);
+            SnakeGameSprite apple = game.check_apple(tile_x + x, tile_y + y);
+            if (apple != null){
+                this.add_body();
+                game.score += 1;
+                apple.delete();
+                game.apples.remove_sprite(apple);
+                game.place_apple();
+            }
+
+            SnakeGameSprite drug = game.check_drug(tile_x + x, tile_y + y);
+            if (drug != null){
+                this.add_body();
+                game.score += 10;
+                drug.delete();
+                game.drugs.remove_sprite(drug);
+                game.place_drug();
+                this.on_drugs = true;
+                new QueueTask(game, 200, e -> this.on_drugs = false); // Task erstellen -> Spieler nach 200 ticks wieder langsam machen
+            }
             super.move(x, y);
 
         }
