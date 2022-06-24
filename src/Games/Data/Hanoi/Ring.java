@@ -7,7 +7,7 @@ import Games.Engine.Kompositum.Dataelement;
 import java.awt.*;
 
 public class Ring extends Dataelement {
-    // A Ring is dumb! He does NOT know anything about the game. controlled by stand.
+    // Ringe sind dumm, sie wissen nichts über das Spiel und werden vom Stand gesteuert
     // Size Number. 1-6. 6 = smallest
 
     public int x, y, size, number;
@@ -23,10 +23,12 @@ public class Ring extends Dataelement {
         this.number = number;
         this.size = size;
 
+        // Ring Entity erstellen
         ring_entity = new Entity(game, 6, null);
         ring_entity.place(x, y);
         ring_entity.sprite.resize(24*size-number*size*2,2*size);
 
+        // Farbe in Abhängigkeit von der nummer ändern
         if(number == 1) {ring_entity.sprite.color = Color.green;}
         else if(number == 2) {ring_entity.sprite.color = Color.red;}
         else if(number == 3) {ring_entity.sprite.color = Color.blue;}
@@ -44,7 +46,7 @@ public class Ring extends Dataelement {
         return this.number;
     }
 
-    public void move_to(int xdest, int ydest) {
+    public void move_to(int xdest, int ydest) {                     // Ring bewegen
         this.x = xdest;
         this.y = ydest;
         this.ring_entity.move_to(xdest, ydest, 1, 40);

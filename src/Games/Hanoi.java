@@ -20,8 +20,11 @@ public class Hanoi extends Game {
     private int ring_quantity;
 
     public Hanoi(Window window) {
-        super(window, "Hanoi");
-        this.setBackground(Color.black);
+        super(window, "Hanoi");             // Konstruktor der Oberklasse Window
+        this.setBackground(Color.black);          // Hintergrund auf schwarz setzen
+
+        // -----------------------------
+        // Grafikobjekte
 
         // Regeleinblendung
         rule_screen = new JPanel();
@@ -104,46 +107,60 @@ public class Hanoi extends Game {
         info_label.setSize(info_label.getPreferredSize());
         info_label.setLocation(160, 10);
         this.add(info_label);
-        
-        // Stand objects
+
+
+        // ENDE Grafikobjekte
+        // -----------------------------
+
+        // Stand objekte = ringhalter/ringständer
         stand1 = new Stand(this, 40, 450,13, 1);
         stand2 = new Stand(this, stand1.x + stand1.rec_bottom.width+40, 450, 13,2);
         stand3 = new Stand(this, stand2.x + stand2.rec_bottom.width+40, 450, 13, 3);
 
-        ring_quantity = 6;
-        stand1.init_rings(ring_quantity);
+        ring_quantity = 6;                  //int: anzahl an ringen
+        stand1.init_rings(ring_quantity);   //setze anzahl an ringen auf den ersten stand
 
-        dest_select = false;
-        solved = false;
-        illegal_move = false;
-        select_stand = stand1;
+        dest_select = false;                //bool: ziel stand ausgewählt
+        solved = false;                     //bool: Sudoku gelöst
+        illegal_move = false;               //bool: ungültiger Spielzug
+        select_stand = stand1;              //stand: ausgewählter stand
 
+        // notwendiger Swing Code
         setLayout(null);
         window.pack();
     }
 
     @Override
     public void update_loop() {
-        if(tick%10 == 0) {      // every 10 ticks.
+        if(tick%10 == 0) {      // Nur jedes 10.mal ausführen um Ressourcen zu sparen
+            // bei jeglicher Bewegung -> "Auswahl blockiert" anzeigen
             if (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
                 info_label.setText("Auswahl blockiert");
                 info_label.setForeground(Color.red);
                 info_label.setSize(info_label.getPreferredSize());
-            } else if (dest_select) {
+            }
+            // bei erfolgter Auswahl des start stands -> "Bitte Ziel wählen" anzeigen
+            else if (dest_select) {
                 info_label.setText("Start: Stand" + select_stand.number + " - Bitte Ziel wählen");
                 info_label.setForeground(Color.white);
                 info_label.setSize(info_label.getPreferredSize());
-            } else {
+            }
+            // ist kein start stand ausgewählt -> "Bitte Start wählen" anzeigen
+            else {
                 info_label.setText("Bitte Start wählen");
                 info_label.setForeground(Color.white);
                 info_label.setSize(info_label.getPreferredSize());
             }
+
+            // sind alle Ringe am dritten Stand -> Gelöst
             if(stand3.stack.count_nodes() == ring_quantity) {
                 info_label.setText("Gelöst! Reset zum Neustarten ->");
                 info_label.setForeground(Color.green);
                 info_label.setSize(info_label.getPreferredSize());
                 solved = true;
             }
+
+            // bei illegaler aktion -> illegale Aktion anzeigen
             if(illegal_move){
                 info_label.setText("Illegale Aktion");
                 info_label.setForeground(Color.red);
@@ -153,23 +170,37 @@ public class Hanoi extends Game {
     }
 
     public void button_click(Stand stand) {
-        illegal_move = false;
+        illegal_move = false;                                   // Grundlegend keine illegale Aktion
+        // Bei jeglicher Bewegung Auswahl blockieren
         if(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
             dest_select = false;
-        } else {
-            if (dest_select) {
-                Ring select = select_stand.get_top_ring(false);
-                if(select == null){illegal_move = true;}
-                else{
-                    Ring select_ring = select_stand.get_top_ring(false);
-                    Ring dest_ring = stand.get_top_ring(false);
+        }
 
+        // Keine Bewegung -> Auswahl möglich
+        else {
+            // Auswahl des Ziel Stands
+            if (dest_select) {
+                // Obersten Ring des Start stands nehmen, aber nicht aus dem Stack entfernen
+                Ring select = select_stand.get_top_ring(false);
+                // falls kein ring auf dem start stand ist -> illegale Aktion
+                if(select == null){illegal_move = true;}
+
+                else{
+                    // Obersten Ring des Ziel stands nehmen, aber nicht aus dem Stack entfernen
+                    Ring dest_ring = stand.get_top_ring(false);
+                    // falls kein ring auf Ziel stand -> nichts
                     if(dest_ring == null) {}
-                    else if(select_ring.number < dest_ring.number){illegal_move = true; dest_select = false; return;}
+
+                    // Falls Ring auf dem Zielstand kleiner ist als der neue -> illegale Aktion
+                    else if(select.number < dest_ring.number) {illegal_move = true; dest_select = false; return;}
+
+                    // Obersten Ring des Start Stands entfernen und dem Ziel Stand hinzufügen
                     stand.add_ring(select_stand.get_top_ring(true));
                 }
-                dest_select = false;
-            } else {
+                dest_select = false;    // Ziel auswahl false, da Aktion abgeschlossen
+            }
+            // Auswahl des Start Stands
+            else {
                 select_stand = stand;
                 dest_select = true;
             }
@@ -177,34 +208,50 @@ public class Hanoi extends Game {
     }
 
     public void solve() {
+        // Methode funktioniert nur, wenn sich nichts bewegt
         if(!(stand1.moving_ring || stand2.moving_ring || stand3.moving_ring)) {
+            // sollte der Grundzustand nicht vorhanden sein -> Grundzustand herstellen
             if(stand2.stack.count_nodes() > 0 || stand3.stack.count_nodes() > 0) {reset();}
+            // Neuen Thread mit Lösungalgorithmus starten
             new Thread(() -> {solve_thread(stand1.stack.count_nodes(), stand1, stand2, stand3);}).start();
         }
     }
 
     public void solve_thread(int n, Stand start, Stand helper, Stand dest) {
+        // Lösungsalgorithmus. pass() = 1ms Pause um nicht schneller zu sein als der Grafikthread
+
+        // Abbruchbedingung
         if(n == 0) {return;}
         else {
             pass();
+
+            // Solange eine Bewegung läuft: warten
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+
             solve_thread(n-1, start, dest, helper);
             pass();
 
-
+            // Solange eine Bewegung läuft: warten
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+
+            // Ring bewegen
             dest.add_ring(start.get_top_ring(true));
             pass();
 
+            // Solange eine Bewegung läuft: warten
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+
             solve_thread(n-1, helper, start, dest);
         }
     }
 
     public void reset() {
+        // alle ringe löschen
         stand1.clear();
         stand2.clear();
         stand3.clear();
+
+        // ringe am ersten stand initialisieren
         stand1.init_rings(ring_quantity);
     }
 }

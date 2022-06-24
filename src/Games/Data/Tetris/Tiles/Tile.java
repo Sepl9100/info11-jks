@@ -20,7 +20,7 @@ public class Tile {
         give_color();
     }
 
-    public void rotateCW(){
+    public void rotateCW(){     // im uhrzeigersinn
         int[][] newarray = new int[arraysize][arraysize];
         for (int y = 0; y < array.length; y++){
             for (int x = 0; x < array.length; x++){
@@ -31,7 +31,7 @@ public class Tile {
         array = newarray;
     }
 
-    public void rotateCCW(){
+    public void rotateCCW(){    // gegen uhrzeigersinn
         int[][] newarray = new int[arraysize][arraysize];
         for (int y = 0; y < array.length; y++){
             for (int x = 0; x < array.length; x++){
