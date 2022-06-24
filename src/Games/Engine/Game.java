@@ -148,8 +148,12 @@ public abstract class Game extends JPanel {
     abstract public void update_loop();
 
     public BufferedImage load_image(String filename) {
+        System.out.println("Loading image " + filename);
         try {
             InputStream in = getClass().getResourceAsStream(filename);
+            if (in == null){
+                System.out.println("ERROR loading image " + filename);
+            }
             return ImageIO.read(in);
         } catch (IOException e) {
             System.out.println("Error loading image.");
