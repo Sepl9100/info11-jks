@@ -20,7 +20,7 @@ public class Snake extends Game {
     private char direction = 'D';
     private char last_direction = 'D';
     private final Random random;
-    private final int border_x = 54;
+    private final int border_x = 45;
     private final int border_y = 29;
 
     private int tickdelay = 15;
@@ -30,6 +30,7 @@ public class Snake extends Game {
     private boolean started = false;
     private final JPanel start_screen;
     private final JCheckBox mode_many_apples;
+    private JLabel score_label;
 
     private BufferedImage apple_texture;
     private BufferedImage snake_body;
@@ -93,6 +94,22 @@ public class Snake extends Game {
         for (int i = 0; i < 5; i++){
             place_drug();
         }
+
+
+        JPanel score_screen = new JPanel();     // Fenster auf der rechten Seite für Score
+        score_screen.setLocation(920, 0);
+        score_screen.setSize(200, 1000);
+
+        JLabel score_text = new JLabel("Score:");
+        score_text.setFont(font2);
+        score_label = new JLabel("0");
+        score_label.setFont(font2);
+
+        score_screen.add(score_text);
+        score_screen.add(score_label);
+        this.add(score_screen);
+
+        window.pack();
     }
 
     public void place_apple(){
@@ -162,6 +179,8 @@ public class Snake extends Game {
     public void update_loop() {
         //this.setBackground(ColorChangeManager.get_color(tick/2%255));
         if (started) {
+
+            this.score_label.setText(String.valueOf(score));
 
             // Snake auf andere seite am rand plazieren
             if (player.tile_x < 0) {
