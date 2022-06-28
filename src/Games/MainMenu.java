@@ -27,7 +27,7 @@ public class MainMenu extends Game {
         b.setVisible(true);
         b.addActionListener(e -> {
                 exit();
-        new Snake(window);
+            new Snake(window);
         });
         this.add(b, gbc);
 
