@@ -22,7 +22,7 @@ public class Sudoku extends Game {
     public Color btn_color;
     private boolean selection_locked;
 
-    private int[][] quiz, player_quiz;
+    private int[][] quiz;
 
 
     public Sudoku(Window window){
@@ -114,6 +114,10 @@ public class Sudoku extends Game {
 
 
         window.pack();
+
+        grid.resetButtons();
+        quiz = logic.generate_sudoku(80);
+        setReset_btn();
     }
 
     @Override
@@ -144,11 +148,9 @@ public class Sudoku extends Game {
         grid.selected_button = null;
     }
     public void setGenerator_btn() {
-        if(selectButton(generator_btn)) {
-            quiz = logic.generate_sudoku(30);
-            grid.init_quiz(quiz);
-            player_quiz = quiz;
-        }
+        setReset_btn();
+        quiz = logic.generate_sudoku(30);
+        grid.init_quiz(quiz);
     }
 
     public void setSolver_btn() {
@@ -170,14 +172,16 @@ public class Sudoku extends Game {
     }
 
     public void setReset_btn() {
-        if(selectButton(reset_btn)) {
-
+        for(int y = 0; y < 9; y++) {
+            for(int x = 0; x < 9; x++){
+                quiz[y][x] = 0;
+            }
         }
+        grid.resetButtons();
     }
 
     // Button Actions Ende
     // -----------------
-
 
 
 }
