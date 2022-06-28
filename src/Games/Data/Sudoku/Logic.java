@@ -29,6 +29,9 @@ public class Logic {
             }
         }
         tmp_quiz = solve_sudoku(tmp_quiz);
+        if(tmp_quiz == null){
+            tmp_quiz = generate_sudoku(missing_numbers);
+        }
 
         // Hier haben wir ein vollständig gelöstes Sudoku
         // jetzt werden wie im Parameter angegeben,
