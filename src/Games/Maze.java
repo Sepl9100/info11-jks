@@ -36,7 +36,7 @@ public class Maze extends Game {
         gen_Stack = new Stack();
         m_visited = new boolean[maze_Height][maze_Width]; //Alle besuchten Felder werden hier eingetragen
         init_maze();
-        maze_gen();
+        //maze_gen();
         window.pack();
     }
     public void init_maze(){//Macht das Feld bereit
@@ -51,7 +51,6 @@ public class Maze extends Game {
             for(int x = 0; x < maze_Width; x++){
                 maze[y][x].reset_connections();//Felder werden zurückgesetzt
                 m_visited[y][x] = false;//Felder werden wieder unbesucht
-
             }
         }
     }
@@ -102,13 +101,21 @@ public class Maze extends Game {
     }
 
     private int get_next_dir(Field current_pos){//gibt die nächste Richtung zurück, in die das Labyrinth geht
-        while(true){
-            int tmp_next_dir = random.nextInt(4);//Generiert eine zufällige Richtung
-            if(!current_pos.connections[tmp_next_dir]){//Überprüft die Richtung, damit diese noch nicht besetzt ist
-                return tmp_next_dir;//gibt das überprüfte Ergenbis zurück
-            }
-        }
+        int[] possible_next = new int[5];
+        //possible_next = get_possible_next(current_pos);
+
+        return 1;
     }
+
+    private int[] get_possible_next(Field current_pos){
+        int connection_count = 0;
+        //[Number_of_Nexts, first_Next, second_Next, third_Next, fourth_Next]
+        int[] tmp = new int[2];
+        tmp[0] = 0;
+        tmp[1] =0;
+        return tmp;
+    }
+
 
     @Override
     public void update_loop() {
