@@ -24,7 +24,6 @@ public abstract class Game extends JPanel {
     public static int PANELHEIGHT = 600;
 
     protected int tick;
-    private long last_tick_time;
     protected int fps = 90;
     protected double accurate_fps;
     protected int target_fps = fps;
@@ -51,13 +50,11 @@ public abstract class Game extends JPanel {
         this.name = name;
 
         task_queue = new TaskQueue();
-
         spritelist = new SpriteList();
 
         font1 = new Font("SegoeUI", Font.PLAIN, 16);
         font2 = new Font("SegoeUI", Font.BOLD, 32);
         font3 = new Font(Font.DIALOG, Font.PLAIN, 50);
-
 
         window.update_title(name); // displays game name on titlebar
 
@@ -65,35 +62,28 @@ public abstract class Game extends JPanel {
         this.setBackground(Color.black);
         this.setPreferredSize(new Dimension(PANELWIDTH, PANELHEIGHT));
 
-
         if (!name.equals("Hauptmenü")) {
             back_btn = new JButton();
             back_btn.setText("<");
             back_btn.setVisible(true);
 
-            back_btn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    exit();
-                }
-            });
+            back_btn.addActionListener(e -> exit());
             this.setLayout(new FlowLayout(FlowLayout.LEFT));
             this.add(back_btn, BorderLayout.LINE_START);
         }
-
-
         window.pack();
         window.setLocationRelativeTo(null);
     }
 
     public void render(Graphics g){
-        // run queue tasks
+        // kill zombie tasks
         for (int i = 0; i <= task_queue.filled_until+2; i++){
             QueueTask task = task_queue.list[i];
             if (task != null && task.isDead) {
                 task.kill();
             }
         }
+        // update all alive tasks
         for (int i = 0; i <= task_queue.filled_until+1; i++){
             QueueTask task = task_queue.list[i];
             if (task != null && !task.isDead) {
@@ -101,7 +91,7 @@ public abstract class Game extends JPanel {
             }
         }
 
-
+        // FPS berechnen
         Date date = new Date();
         if (tick % 10 == 0) {                          // Measure FPS every 100th tick
             long difference = date.getTime() - last_fps_check_time;
@@ -124,16 +114,13 @@ public abstract class Game extends JPanel {
         }
         try {
             if (frame_delay > 0){
-
                 Thread.sleep((long)frame_delay);
             }
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-
-
+        // Sprites zeichnen
         if (spritelist != null) {
             for (Sprite[] layer : spritelist.list) {
                 for (Sprite element : layer) {
@@ -148,8 +135,12 @@ public abstract class Game extends JPanel {
     abstract public void update_loop();
 
     public BufferedImage load_image(String filename) {
+        System.out.println("Loading image " + filename);
         try {
             InputStream in = getClass().getResourceAsStream(filename);
+            if (in == null){
+                System.out.println("ERROR loading image " + filename);
+            }
             return ImageIO.read(in);
         } catch (IOException e) {
             System.out.println("Error loading image.");
@@ -165,10 +156,12 @@ public abstract class Game extends JPanel {
         }
         this.update_loop();
         this.render(g);
-        if (debug) {
+        if (debug) {    // Debug info
             g.setColor(Color.white);
             g.drawString(Double.toString(fps) + " FPS ", 100, 20);
-            g.drawString(Double.toString(frame_delay) + " FRAME DELAY (MS)", 100, 30);
+            g.drawString(Double.toString(frame_delay) + " FRAME DELAY (MS)", 100, 40);
+            g.drawString("SpriteListLenght: " + String.valueOf(spritelist.filled_until), 100, 60);
+            g.drawString("TaskListLenght: " + String.valueOf(task_queue.filled_until), 100, 80);
         }
         this.repaint();
         this.tick++;

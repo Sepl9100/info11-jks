@@ -132,7 +132,7 @@ public class Hanoi extends Game {
 
     @Override
     public void update_loop() {
-        if(tick%10 == 0) {      // Nur jedes 10 mal ausführen um Ressourcen zu sparen
+        if(tick%10 == 0) {      // Nur jedes 10.mal ausführen um Ressourcen zu sparen
             // bei jeglicher Bewegung -> "Auswahl blockiert" anzeigen
             if (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {
                 info_label.setText("Auswahl blockiert");
@@ -218,27 +218,40 @@ public class Hanoi extends Game {
     }
 
     public void solve_thread(int n, Stand start, Stand helper, Stand dest) {
+        // Lösungsalgorithmus. pass() = 1ms Pause um nicht schneller zu sein als der Grafikthread
+
+        // Abbruchbedingung
         if(n == 0) {return;}
         else {
             pass();
+
+            // Solange eine Bewegung läuft: warten
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+
             solve_thread(n-1, start, dest, helper);
             pass();
 
-
+            // Solange eine Bewegung läuft: warten
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+
+            // Ring bewegen
             dest.add_ring(start.get_top_ring(true));
             pass();
 
+            // Solange eine Bewegung läuft: warten
             while (stand1.moving_ring || stand2.moving_ring || stand3.moving_ring) {pass();};
+
             solve_thread(n-1, helper, start, dest);
         }
     }
 
     public void reset() {
+        // alle ringe löschen
         stand1.clear();
         stand2.clear();
         stand3.clear();
+
+        // ringe am ersten stand initialisieren
         stand1.init_rings(ring_quantity);
     }
 }

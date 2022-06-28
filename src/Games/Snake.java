@@ -14,8 +14,8 @@ import java.util.Random;
 public class Snake extends Game {
 
     private SnakeHead player;
-    private final SnakeSpriteList apples;
-    private final SnakeSpriteList drugs;
+    public final SnakeSpriteList apples;
+    public final SnakeSpriteList drugs;
     public int tilesize = 20;
     private char direction = 'D';
     private char last_direction = 'D';
@@ -43,15 +43,17 @@ public class Snake extends Game {
 
         random = new Random();
 
-
+        // Texturen laden
         apple_texture = load_image("/Games/Data/Snake/images/apple.png");
         snake_body = load_image("/Games/Data/Snake/images/snake_body.png");
         snake_head = load_image("/Games/Data/Snake/images/snake_head.png");
         pill = load_image("/Games/Data/Snake/images/pill.png");
 
+        // Arrays für sprites erstellen
         apples = new SnakeSpriteList();
         drugs = new SnakeSpriteList();
 
+        // Startbildschirm
         start_screen = new JPanel();
         int width = 400;
         int height = 500;
@@ -75,19 +77,19 @@ public class Snake extends Game {
 
     public void start_game(){
         started = true;
-        this.remove(start_screen);
+        this.remove(start_screen); // Startbildschirm entfernen
 
         player = new SnakeHead(this, snake_head, snake_body);
         player.set_pos(3, 3);
         int apple_amount = 15;
-        if (mode_many_apples.isSelected()) apple_amount = 400;      // Viele Äpfel Modus
+        if (mode_many_apples.isSelected()) apple_amount = 400;      //wenn Viele Äpfel Modus apfelmenge auf 400 setzen
 
         // Anfänglich apple_amount viele Äpfel platzieren
         for (int i = 0; i < apple_amount; i++){
             place_apple();
         }
 
-        // Anfänglich Pillen platzieren
+        // Anfänglich Doping platzieren
         for (int i = 0; i < 5; i++){
             place_drug();
         }
@@ -107,37 +109,29 @@ public class Snake extends Game {
         Drug drug = new Drug(this, pill);
         drug.color = Color.blue;
         drug.set_pos(x, y);
-        drugs.add_sprite(drug);     // Zur liste hinzufügen
+        drugs.add_sprite(drug);
     }
 
-    public void check_apple(int tilex, int tiley){
+    public SnakeGameSprite check_apple(int tilex, int tiley){ // an einer koordinate x, y nach apfel prüfen
         for (SnakeGameSprite apple : apples.list){
             if (apple != null) {
                 if (apple.tile_x == tilex && apple.tile_y == tiley) {
-                    player.add_body();
-                    score += 1;
-                    apple.delete();
-                    apples.remove_sprite(apple);
-                    place_apple();
+                    return apple;
                 }
             }
         }
+        return null;
     }
 
-    public void check_drug(int tilex, int tiley){
+    public SnakeGameSprite check_drug(int tilex, int tiley){
         for (SnakeGameSprite drug : drugs.list){
             if (drug != null) {
                 if (drug.tile_x == tilex && drug.tile_y == tiley) {
-                    player.add_body();
-                    score += 10;
-                    drug.delete();
-                    drugs.remove_sprite(drug);
-                    place_drug();
-                    player.on_drugs = true;
-                    new QueueTask(this, 200, e -> player.on_drugs = false);
+                    return drug;
                 }
             }
         }
+        return null;
     }
 
     public void game_over_screen(){
@@ -168,6 +162,7 @@ public class Snake extends Game {
     public void update_loop() {
         //this.setBackground(ColorChangeManager.get_color(tick/2%255));
         if (started) {
+
             // Snake auf andere seite am rand plazieren
             if (player.tile_x < 0) {
                 player.set_pos(border_x, player.tile_y);

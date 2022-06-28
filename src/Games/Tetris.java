@@ -213,7 +213,6 @@ public class Tetris extends Game {
                                 next_tile = new Tile(14, 5);
                             }
                         } else {                                    // wenn gameover
-                            System.out.println("GAMEOVER");
                             game_over = true;
                             activetile = null;              // keinen aktiven tetris block setzen
                             game_over_screen();
