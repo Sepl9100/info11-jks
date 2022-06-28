@@ -160,7 +160,7 @@ public class Sudoku extends Game {
             setReset_btn();
             quiz = logic.generate_sudoku(missing_numbers);
             grid.init_quiz(quiz);
-            grid.unlockButtons();
+            grid.unlockButtons(false);
         }
         else {
             JOptionPane.showMessageDialog(this, "Ungültige Eingabe",
@@ -175,6 +175,9 @@ public class Sudoku extends Game {
 
     public void setEntry_sudoku_btn() {
         if(selectButton(entry_sudoku_btn)) {
+            grid.unlockButtons(true);
+        }
+        else {
 
         }
     }

@@ -68,20 +68,33 @@ public class Grid {
         for(int y = 0; y < 9; y++){
             for(int x = 0; x < 9; x++){
                 tmp_btn = grid_buttons[y][x];
-                tmp_btn.locked = true;
-                tmp_btn.setNumber(0);
+                tmp_btn.lock_number(0);
                 tmp_btn.button.setText("");
-                tmp_btn.button.setBackground(Color.white);
             }
         }
     }
 
-    public void unlockButtons() {
+    public void lockButtons(boolean all) {
         SudokuButton tmp_btn;
         for(int y = 0; y < 9; y++){
             for(int x = 0; x < 9; x++){
                 tmp_btn = grid_buttons[y][x];
-                if(tmp_btn.number == 0){
+                if(tmp_btn.number != 0) {tmp_btn.lock_number(tmp_btn.number);}
+                else if(all) {
+                    tmp_btn.lock_number(tmp_btn.number);
+                    tmp_btn.button.setText("");
+                }
+            }
+        }
+
+    }
+
+    public void unlockButtons(boolean all) {
+        SudokuButton tmp_btn;
+        for(int y = 0; y < 9; y++){
+            for(int x = 0; x < 9; x++){
+                tmp_btn = grid_buttons[y][x];
+                if(tmp_btn.number == 0 || all){
                     tmp_btn.locked = false;
                     tmp_btn.button.setBackground(game.btn_color);
                 }
