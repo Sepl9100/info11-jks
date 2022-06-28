@@ -59,8 +59,12 @@ public class Grid {
         }
     }
 
-    public void input_number(int number) {
-        if (selected_button != null) {selected_button.setNumber(number);};
+    public boolean input_number(int number) {
+        if (selected_button != null) {
+            selected_button.setNumber(number);
+            return true;
+        }
+        else return false;
     }
 
     public void resetButtons() {

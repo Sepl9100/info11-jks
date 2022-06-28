@@ -104,7 +104,7 @@ public class Sudoku extends Game {
                 tmp_number_btn.setFont(this.font1);
                 tmp_number_btn.setBounds(655+n_x*60, 220+n_y*60, 50, 50);
                 tmp_number_btn.setVisible(true);
-                tmp_number_btn.addActionListener(e -> grid.input_number(tmp_lmbd));
+                tmp_number_btn.addActionListener(e -> input_number(tmp_lmbd));
                 this.add(tmp_number_btn);
             }
         }
@@ -197,6 +197,12 @@ public class Sudoku extends Game {
 
     // Button Actions Ende
     // -----------------
+
+    public void input_number(int number) {
+        if(grid.input_number(number)){
+            quiz[grid.selected_button.y_pos][grid.selected_button.x_pos] = number;
+        }
+    }
 
 
 }
