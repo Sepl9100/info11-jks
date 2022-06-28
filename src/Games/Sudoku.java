@@ -20,7 +20,7 @@ public class Sudoku extends Game {
     public JPanel grid_panel;
     private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
     public Color btn_color;
-    private boolean selection_locked;
+    private boolean selection_locked, pause_loop;
 
     private int[][] quiz;
 
@@ -122,7 +122,9 @@ public class Sudoku extends Game {
 
     @Override
     public void update_loop() {
-        keys.update();
+        if(!pause_loop){
+            keys.update();
+        }
     }
 
 
@@ -148,15 +150,27 @@ public class Sudoku extends Game {
         grid.selected_button = null;
     }
     public void setGenerator_btn() {
-        setReset_btn();
-        quiz = logic.generate_sudoku(30);
-        grid.init_quiz(quiz);
+        pause_loop = true;
+        String missing_numbers_input = JOptionPane.showInputDialog(this, "Fehlende Zahlen (1-80)", null);
+        int missing_numbers;
+        try {missing_numbers = Integer.parseInt(missing_numbers_input);}
+        catch (NumberFormatException e){missing_numbers = 0;}
+
+        if(missing_numbers > 0 && missing_numbers < 81) {
+            setReset_btn();
+            quiz = logic.generate_sudoku(missing_numbers);
+            grid.init_quiz(quiz);
+            grid.unlockButtons();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Ungültige Eingabe",
+                    "Eingabefehler", JOptionPane.WARNING_MESSAGE);
+        }
+        pause_loop = false;
     }
 
     public void setSolver_btn() {
-        if(selectButton(solver_btn)) {
 
-        }
     }
 
     public void setEntry_sudoku_btn() {
@@ -166,9 +180,7 @@ public class Sudoku extends Game {
     }
 
     public void setCheck_btn() {
-        if(selectButton(check_btn)) {
 
-        }
     }
 
     public void setReset_btn() {
