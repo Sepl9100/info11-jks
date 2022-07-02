@@ -108,6 +108,7 @@ public class Sudoku extends Game {
                 this.add(tmp_number_btn);
             }
         }
+        
 
         // Menü Buttons Ende
         // -----------------
