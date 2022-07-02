@@ -20,7 +20,7 @@ public class Sudoku extends Game {
     public JPanel grid_panel;
     private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
     public Color btn_color;
-    private boolean selection_locked, pause_loop;
+    private boolean quiz_input, pause_loop;
 
     private int[][] quiz;
 
@@ -113,11 +113,14 @@ public class Sudoku extends Game {
         // -----------------
 
 
-        window.pack();
+        quiz_input = true;
 
         grid.resetButtons();
         quiz = logic.generate_sudoku(80);
         setReset_btn();
+
+        // -----------------
+        window.pack();
     }
 
     @Override
@@ -130,24 +133,9 @@ public class Sudoku extends Game {
 
     // ----------------
     // Button Actions
-    public boolean selectButton(JButton button){
-        if(!selection_locked) {
-            selected_btn = button;
-            selected_btn.setBackground(Color.green);
-            selection_locked = true;
-            return true;
-        }
-        return false;
-    }
 
     public void setClear_selection_btn() {
-        if(selection_locked) {
-            selection_locked = false;
-            selected_btn.setBackground(clear_selection_btn.getBackground());
-            selected_btn = null;
-        }
-        grid.selected_button.deselectButton();
-        grid.selected_button = null;
+        grid.deselectButton();
     }
     public void setGenerator_btn() {
         pause_loop = true;
@@ -174,11 +162,16 @@ public class Sudoku extends Game {
     }
 
     public void setEntry_sudoku_btn() {
-        if(selectButton(entry_sudoku_btn)) {
+        if(quiz_input) {
             grid.unlockButtons(true);
+            entry_sudoku_btn.setBackground(Color.green);
+            quiz_input = false;
         }
         else {
-
+            setClear_selection_btn();
+            grid.lockButtons(false);
+            entry_sudoku_btn.setBackground(btn_color);
+            quiz_input = true;
         }
     }
 
