@@ -18,7 +18,8 @@ public class Sudoku extends Game {
     private Logic logic;
     private SudokuKeyBinds keys;
     public JPanel grid_panel;
-    private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
+    private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn;
+    private JLabel info_label;
     public Color btn_color;
     private boolean quiz_input, pause_loop;
 
@@ -42,7 +43,7 @@ public class Sudoku extends Game {
 
         grid = new Grid(this, grid_panel);
         this.add(grid_panel);
-        // ----
+        // ------------------
 
         keys = new SudokuKeyBinds(this);
 
@@ -53,7 +54,7 @@ public class Sudoku extends Game {
         // Menü Buttons
         // Auswahl zurücksetzten
         clear_selection_btn = new JButton("Auswahl zurücksetzten");
-        clear_selection_btn.setBounds(640, 20, 200, 25);
+        clear_selection_btn.setBounds(655, 550, 170, 25);
         clear_selection_btn.setVisible(true);
         clear_selection_btn.addActionListener(e -> setClear_selection_btn());
         this.add(clear_selection_btn);
@@ -108,7 +109,20 @@ public class Sudoku extends Game {
                 this.add(tmp_number_btn);
             }
         }
-        
+
+        tmp_number_btn = new JButton("0");
+        tmp_number_btn.setFont(this.font1);
+        tmp_number_btn.setBounds(655, 400, 170, 50);
+        tmp_number_btn.setVisible(true);
+        tmp_number_btn.addActionListener(e -> input_number(0));
+        this.add(tmp_number_btn);
+
+        info_label = new JLabel("<html>Tastatureingabe der Zahlen ist möglich. " +
+                "Die 0 steht für ein leeres Feld. Dies kann bei der Eintragung eines" +
+                " Sudokus benutzt werden.</html>");
+        info_label.setFont(this.font1);
+        info_label.setBounds(655, 380, 260, 250);
+        this.add(info_label);
 
         // Menü Buttons Ende
         // -----------------
@@ -159,7 +173,16 @@ public class Sudoku extends Game {
     }
 
     public void setSolver_btn() {
-
+        int[][] result;
+        result = logic.solve_sudoku(quiz);
+        if(result == null) {
+            JOptionPane.showMessageDialog(this, "Unlösbares Sudoku",
+                    "Sudoku Fehler", JOptionPane.WARNING_MESSAGE);
+        }
+        else {
+            quiz = result;
+            grid.init_quiz(quiz);
+        }
     }
 
     public void setEntry_sudoku_btn() {
@@ -177,7 +200,13 @@ public class Sudoku extends Game {
     }
 
     public void setCheck_btn() {
-
+        if(logic.check_sudoku(quiz)) {
+            JOptionPane.showMessageDialog(this, "Sehr gut! Das ist ein richtiges Sudoku!",
+                    "Sudoku überprüft", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Das eingetragene Sudoku ist leider falsch.",
+                    "Sudoku überprüft", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void setReset_btn() {

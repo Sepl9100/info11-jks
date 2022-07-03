@@ -1,5 +1,6 @@
 package Games.Data.Sudoku;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Logic {
@@ -86,6 +87,23 @@ public class Logic {
         return true;
     }
 
+    public boolean check_sudoku(int[][] quiz) {
+        int tmp_number;
+
+        for(int y = 0; y < 9; y++) {
+            for(int x = 0; x < 9; x++) {
+
+                tmp_number = quiz[y][x];
+                quiz[y][x] = 0;
+                if(!check_number(quiz, y, x, tmp_number)) {
+                    quiz[y][x] = tmp_number;
+                    return false;   // ungültiges sudoku
+                }
+                quiz[y][x] = tmp_number;
+            }
+        }
+        return true;    // gültiges sudoku
+    }
 
     public int[] shuffle(int[] array) {
         if (random == null) {random = new Random();}
@@ -105,5 +123,6 @@ public class Logic {
                 System.out.print(""+quiz[y][x]+" ");
             }
         }
+        System.out.println("");
     }
 }
