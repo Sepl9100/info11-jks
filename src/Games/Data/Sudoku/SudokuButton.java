@@ -34,7 +34,8 @@ public class SudokuButton {
 
     public void setNumber(int number) {
         this.number = number;
-        text = ""+number;
+        text = "";
+        if(number != 0) {text+=number;}
         button.setText(text);
     }
 

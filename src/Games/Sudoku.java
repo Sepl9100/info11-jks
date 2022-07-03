@@ -18,9 +18,10 @@ public class Sudoku extends Game {
     private Logic logic;
     private SudokuKeyBinds keys;
     public JPanel grid_panel;
-    private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn, selected_btn;
+    private JButton generator_btn, solver_btn, entry_sudoku_btn, check_btn, reset_btn, clear_selection_btn;
+    private JLabel info_label;
     public Color btn_color;
-    private boolean selection_locked;
+    private boolean quiz_input, pause_loop;
 
     private int[][] quiz;
 
@@ -42,7 +43,7 @@ public class Sudoku extends Game {
 
         grid = new Grid(this, grid_panel);
         this.add(grid_panel);
-        // ----
+        // ------------------
 
         keys = new SudokuKeyBinds(this);
 
@@ -53,7 +54,7 @@ public class Sudoku extends Game {
         // Menü Buttons
         // Auswahl zurücksetzten
         clear_selection_btn = new JButton("Auswahl zurücksetzten");
-        clear_selection_btn.setBounds(640, 20, 200, 25);
+        clear_selection_btn.setBounds(655, 550, 170, 25);
         clear_selection_btn.setVisible(true);
         clear_selection_btn.addActionListener(e -> setClear_selection_btn());
         this.add(clear_selection_btn);
@@ -104,70 +105,107 @@ public class Sudoku extends Game {
                 tmp_number_btn.setFont(this.font1);
                 tmp_number_btn.setBounds(655+n_x*60, 220+n_y*60, 50, 50);
                 tmp_number_btn.setVisible(true);
-                tmp_number_btn.addActionListener(e -> grid.input_number(tmp_lmbd));
+                tmp_number_btn.addActionListener(e -> input_number(tmp_lmbd));
                 this.add(tmp_number_btn);
             }
         }
+
+        tmp_number_btn = new JButton("0");
+        tmp_number_btn.setFont(this.font1);
+        tmp_number_btn.setBounds(655, 400, 170, 50);
+        tmp_number_btn.setVisible(true);
+        tmp_number_btn.addActionListener(e -> input_number(0));
+        this.add(tmp_number_btn);
+
+        info_label = new JLabel("<html>Tastatureingabe der Zahlen ist möglich. " +
+                "Die 0 steht für ein leeres Feld. Dies kann bei der Eintragung eines" +
+                " Sudokus benutzt werden.</html>");
+        info_label.setFont(this.font1);
+        info_label.setBounds(655, 380, 260, 250);
+        this.add(info_label);
 
         // Menü Buttons Ende
         // -----------------
 
 
-        window.pack();
+        quiz_input = true;
 
         grid.resetButtons();
         quiz = logic.generate_sudoku(80);
         setReset_btn();
+
+        // -----------------
+        window.pack();
     }
 
     @Override
     public void update_loop() {
-        keys.update();
+        if(!pause_loop){
+            keys.update();
+        }
     }
 
 
     // ----------------
     // Button Actions
-    public boolean selectButton(JButton button){
-        if(!selection_locked) {
-            selected_btn = button;
-            selected_btn.setBackground(Color.green);
-            selection_locked = true;
-            return true;
-        }
-        return false;
-    }
 
     public void setClear_selection_btn() {
-        if(selection_locked) {
-            selection_locked = false;
-            selected_btn.setBackground(clear_selection_btn.getBackground());
-            selected_btn = null;
-        }
-        grid.selected_button.deselectButton();
-        grid.selected_button = null;
+        grid.deselectButton();
     }
     public void setGenerator_btn() {
-        setReset_btn();
-        quiz = logic.generate_sudoku(30);
-        grid.init_quiz(quiz);
+        pause_loop = true;
+        String missing_numbers_input = JOptionPane.showInputDialog(this, "Fehlende Zahlen (1-80)", null);
+        int missing_numbers;
+        try {missing_numbers = Integer.parseInt(missing_numbers_input);}
+        catch (NumberFormatException e){missing_numbers = 0;}
+
+        if(missing_numbers > 0 && missing_numbers < 81) {
+            setReset_btn();
+            quiz = logic.generate_sudoku(missing_numbers);
+            grid.init_quiz(quiz);
+            grid.unlockButtons(false);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Ungültige Eingabe",
+                    "Eingabefehler", JOptionPane.WARNING_MESSAGE);
+        }
+        pause_loop = false;
     }
 
     public void setSolver_btn() {
-        if(selectButton(solver_btn)) {
-
+        int[][] result;
+        result = logic.solve_sudoku(quiz);
+        if(result == null) {
+            JOptionPane.showMessageDialog(this, "Unlösbares Sudoku",
+                    "Sudoku Fehler", JOptionPane.WARNING_MESSAGE);
+        }
+        else {
+            quiz = result;
+            grid.init_quiz(quiz);
         }
     }
 
     public void setEntry_sudoku_btn() {
-        if(selectButton(entry_sudoku_btn)) {
-
+        if(quiz_input) {
+            grid.unlockButtons(true);
+            entry_sudoku_btn.setBackground(Color.green);
+            quiz_input = false;
+        }
+        else {
+            setClear_selection_btn();
+            grid.lockButtons(false);
+            entry_sudoku_btn.setBackground(btn_color);
+            quiz_input = true;
         }
     }
 
     public void setCheck_btn() {
-        if(selectButton(check_btn)) {
-
+        if(logic.check_sudoku(quiz)) {
+            JOptionPane.showMessageDialog(this, "Sehr gut! Das ist ein richtiges Sudoku!",
+                    "Sudoku überprüft", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Das eingetragene Sudoku ist leider falsch.",
+                    "Sudoku überprüft", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -182,6 +220,12 @@ public class Sudoku extends Game {
 
     // Button Actions Ende
     // -----------------
+
+    public void input_number(int number) {
+        if(grid.input_number(number)){
+            quiz[grid.selected_button.y_pos][grid.selected_button.x_pos] = number;
+        }
+    }
 
 
 }

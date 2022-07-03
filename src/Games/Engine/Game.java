@@ -141,6 +141,7 @@ public abstract class Game extends JPanel {
             if (in == null){
                 System.out.println("ERROR loading image " + filename);
             }
+            assert in != null;
             return ImageIO.read(in);
         } catch (IOException e) {
             System.out.println("Error loading image.");

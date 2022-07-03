@@ -59,8 +59,12 @@ public class Grid {
         }
     }
 
-    public void input_number(int number) {
-        if (selected_button != null) {selected_button.setNumber(number);};
+    public boolean input_number(int number) {
+        if (selected_button != null) {
+            selected_button.setNumber(number);
+            return true;
+        }
+        else return false;
     }
 
     public void resetButtons() {
@@ -68,14 +72,39 @@ public class Grid {
         for(int y = 0; y < 9; y++){
             for(int x = 0; x < 9; x++){
                 tmp_btn = grid_buttons[y][x];
-                tmp_btn.locked = true;
-                tmp_btn.button.setText("");
-                tmp_btn.button.setBackground(Color.white);
+                tmp_btn.lock_number(0);
             }
         }
     }
 
-    public void unlockButtons() {
+    public void lockButtons(boolean all) {
+        SudokuButton tmp_btn;
+        for(int y = 0; y < 9; y++){
+            for(int x = 0; x < 9; x++){
+                tmp_btn = grid_buttons[y][x];
+                if(all) {tmp_btn.lock_number(tmp_btn.number);}
+                else if(tmp_btn.number != 0) {tmp_btn.lock_number(tmp_btn.number);}
+            }
+        }
+    }
 
+    public void unlockButtons(boolean all) {
+        SudokuButton tmp_btn;
+        for(int y = 0; y < 9; y++){
+            for(int x = 0; x < 9; x++){
+                tmp_btn = grid_buttons[y][x];
+                if(tmp_btn.number == 0 || all){
+                    tmp_btn.locked = false;
+                    tmp_btn.button.setBackground(game.btn_color);
+                }
+            }
+        }
+    }
+
+    public void deselectButton() {
+        if(selected_button != null) {
+            selected_button.deselectButton();
+            selected_button = null;
+        }
     }
 }

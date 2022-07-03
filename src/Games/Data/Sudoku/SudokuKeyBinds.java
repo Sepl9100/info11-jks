@@ -19,6 +19,7 @@ public class SudokuKeyBinds {
     private final KeyBind key_7 = new KeyBind(KeyEvent.VK_7);
     private final KeyBind key_8 = new KeyBind(KeyEvent.VK_8);
     private final KeyBind key_9 = new KeyBind(KeyEvent.VK_9);
+    private final KeyBind key_0 = new KeyBind(KeyEvent.VK_0);
 
     private final KeyBind key_n1 = new KeyBind(KeyEvent.VK_NUMPAD1);
     private final KeyBind key_n2 = new KeyBind(KeyEvent.VK_NUMPAD2);
@@ -29,6 +30,7 @@ public class SudokuKeyBinds {
     private final KeyBind key_n7 = new KeyBind(KeyEvent.VK_NUMPAD7);
     private final KeyBind key_n8 = new KeyBind(KeyEvent.VK_NUMPAD8);
     private final KeyBind key_n9 = new KeyBind(KeyEvent.VK_NUMPAD9);
+    private final KeyBind key_n0 = new KeyBind(KeyEvent.VK_NUMPAD0);
 
     public SudokuKeyBinds(Sudoku game) {
         this.game = game;
@@ -36,14 +38,15 @@ public class SudokuKeyBinds {
     }
 
     public void update() {
-        if(key_1.update() || key_n1.update()) {game.grid.selected_button.setNumber(1);}
-        if(key_2.update() || key_n2.update()) {game.grid.selected_button.setNumber(2);}
-        if(key_3.update() || key_n3.update()) {game.grid.selected_button.setNumber(3);}
-        if(key_4.update() || key_n4.update()) {game.grid.selected_button.setNumber(4);}
-        if(key_5.update() || key_n5.update()) {game.grid.selected_button.setNumber(5);}
-        if(key_6.update() || key_n6.update()) {game.grid.selected_button.setNumber(6);}
-        if(key_7.update() || key_n7.update()) {game.grid.selected_button.setNumber(7);}
-        if(key_8.update() || key_n8.update()) {game.grid.selected_button.setNumber(8);}
-        if(key_9.update() || key_n9.update()) {game.grid.selected_button.setNumber(9);}
+        if(key_1.update() || key_n1.update()) {game.input_number(1);}
+        if(key_2.update() || key_n2.update()) {game.input_number(2);}
+        if(key_3.update() || key_n3.update()) {game.input_number(3);}
+        if(key_4.update() || key_n4.update()) {game.input_number(4);}
+        if(key_5.update() || key_n5.update()) {game.input_number(5);}
+        if(key_6.update() || key_n6.update()) {game.input_number(6);}
+        if(key_7.update() || key_n7.update()) {game.input_number(7);}
+        if(key_8.update() || key_n8.update()) {game.input_number(8);}
+        if(key_9.update() || key_n9.update()) {game.input_number(9);}
+        if(key_0.update() || key_n0.update()) {game.input_number(0);}
     }
 }
