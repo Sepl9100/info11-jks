@@ -22,14 +22,14 @@ public class MainMenu extends Game {
         gbc.gridx = 0;
         gbc.gridy = 0;
         //Snake Button
-        JButton b = new JButton();
-        b.setText("Snake (Konstantin)");
-        b.setVisible(true);
-        b.addActionListener(e -> {
+        JButton snake = new JButton();
+        snake.setText("Snake (Konstantin)");
+        snake.setVisible(true);
+        snake.addActionListener(e -> {
                 exit();
             new Snake(window);
         });
-        this.add(b, gbc);
+        this.add(snake, gbc);
 
         gbc.gridx = 1;
         //Tetris Button
