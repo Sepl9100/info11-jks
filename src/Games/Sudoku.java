@@ -173,8 +173,11 @@ public class Sudoku extends Game {
     }
 
     public void setSolver_btn() {
-        int[][] result;
-        result = logic.solve_sudoku(quiz);
+        int[][] result = null;
+        if(logic.check_solvability(quiz)) {
+            result = logic.solve_sudoku(quiz);
+        }
+
         if(result == null) {
             JOptionPane.showMessageDialog(this, "Unlösbares Sudoku",
                     "Sudoku Fehler", JOptionPane.WARNING_MESSAGE);
