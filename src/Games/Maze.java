@@ -13,8 +13,10 @@ import Games.Data.Maze.Field;
 import Games.Engine.Game;
 import Games.Engine.Kompositum.Stack;
 import Games.Engine.Sprite;
+import Games.Engine.SpriteList;
 import Games.Engine.Window;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -33,6 +35,15 @@ public class Maze extends Game {
         maze = new Field[maze_Height][maze_Width];//Liste aller Felder
         gen_Stack = new Stack();
         maze_visited = new boolean[maze_Height][maze_Width];//Alle besuchten Felder werden hier eingetragen
+
+    JButton regen = new JButton();
+	regen.setVisible(true);
+	regen.setText("Regen");
+	regen.addActionListener(e -> {
+		regen_maze();
+	});
+	this.add(regen);
+
         init_maze();
         maze_gen();
         window.pack();
@@ -44,7 +55,7 @@ public class Maze extends Game {
             }
         }
     }
-    public void reset_maze(){//Macht das Feld erneut bereit
+    public void regen_maze(){//Macht das Feld erneut bereit
         for(int y = 0; y < maze_Height; y++){
             for(int x = 0; x < maze_Width; x++){
                 maze[y][x].reset_connections();//Felder werden zurückgesetzt
@@ -52,6 +63,9 @@ public class Maze extends Game {
                 maze_visited[y][x] = false;//Felder werden wieder unbesucht
             }
         }
+	this.spritelist = null;
+    this.spritelist = new SpriteList();
+	maze_gen();
     }
 
     public void maze_gen(){
