@@ -105,6 +105,20 @@ public class Logic {
         return true;    // gültiges sudoku
     }
 
+    public boolean check_solvability(int[][] quiz) {
+        int[][] tmp_quiz;
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                tmp_quiz = quiz;
+                tmp_quiz[i][j] = 0;
+                if(!check_number(tmp_quiz, i, j, quiz[i][j])) {
+                    return false;   // not solvable
+                }
+            }
+        }
+        return true;    // solvable
+    }
+
     public int[] shuffle(int[] array) {
         if (random == null) {random = new Random();}
         for (int i = array.length; i > 1; i--) {
