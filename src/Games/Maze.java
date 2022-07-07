@@ -64,8 +64,8 @@ public class Maze extends Game {
                 maze_visited[y][x] = false;     //Felder werden wieder unbesucht
             }
         }
-	this.spritelist = null;
-    this.spritelist = new SpriteList();
+        this.gen_Stack.insert(maze[random.nextInt(maze_Height)][random.nextInt(maze_Width)]);
+        this.spritelist = new SpriteList();
 	//maze_gen();
     }
 
