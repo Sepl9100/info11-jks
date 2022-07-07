@@ -65,6 +65,9 @@ public class Logic {
     }
 
     public boolean check_number(int[][] quiz, int y, int x, int check_number) {
+        if(check_number == 0){
+            return true;
+        }
         // Überprüfung ob die Zahl in der Zeile schon vorkommt
         for(int i = 0; i < 9; i++) {
             if(quiz[y][i] == check_number) {return false;}
