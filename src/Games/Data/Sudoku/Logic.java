@@ -110,7 +110,7 @@ public class Logic {
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 if(quiz[i][j] != 0) {
-                    tmp_quiz = quiz;
+                    tmp_quiz = copy_quiz(quiz);
                     tmp_quiz[i][j] = 0;
                     if (!check_number(tmp_quiz, i, j, quiz[i][j])) {
                         return false;   // not solvable
@@ -130,6 +130,16 @@ public class Logic {
             array[rnd] = tmp;
         }
         return array;
+    }
+
+    public int[][] copy_quiz(int[][] quiz) {
+        int[][] result = new int[9][9];
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                result[i][j] = quiz[i][j];
+            }
+        }
+        return result;
     }
 
     public void print_quiz(int[][] quiz) {
