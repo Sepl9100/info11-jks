@@ -36,16 +36,17 @@ public class Maze extends Game {
         gen_Stack = new Stack();
         maze_visited = new boolean[maze_Height][maze_Width];//Alle besuchten Felder werden hier eingetragen
 
-    JButton regen = new JButton();
-	regen.setVisible(true);
-	regen.setText("Regen");
-	regen.addActionListener(e -> {
-		regen_maze();
-	});
-	this.add(regen);
+        JButton regen = new JButton();
+        regen.setVisible(true);
+        regen.setText("Regen");
+        regen.addActionListener(e -> {
+            regen_maze();
+        });
+        this.add(regen);
 
         init_maze();
-        maze_gen();
+        //maze_gen();
+        gen_Stack.insert(maze[0][0]);
         window.pack();
     }
     public void init_maze(){//Macht das Feld zum ersten Mal bereit
@@ -55,40 +56,56 @@ public class Maze extends Game {
             }
         }
     }
-    public void regen_maze(){//Macht das Feld erneut bereit
+    public void regen_maze(){     //Macht das Feld erneut bereit
         for(int y = 0; y < maze_Height; y++){
             for(int x = 0; x < maze_Width; x++){
-                maze[y][x].reset_connections();//Felder werden zurückgesetzt
+                maze[y][x].reset_connections();     //Felder werden zurückgesetzt
                 maze[y][x].setIs_drawn(false);
-                maze_visited[y][x] = false;//Felder werden wieder unbesucht
+                maze_visited[y][x] = false;     //Felder werden wieder unbesucht
             }
         }
 	this.spritelist = null;
     this.spritelist = new SpriteList();
-	maze_gen();
+	//maze_gen();
     }
 
     public void maze_gen(){
-        gen_Stack.insert(maze[0][0]);//Startposition des Labyrinths ist (0, 0)
-        Field tmp_data;//Aktuelles Field wird hier reingeladen
-        while(gen_Stack.count_nodes() != 0){// solange im Stack noch Elemente sind, wird weitergemacht
-            tmp_data = (Field) gen_Stack.get_first().get_content();//das aktuelle Feld wird zugänglich gemacht
+        gen_Stack.insert(maze[0][0]);     //Startposition des Labyrinths ist (0, 0)
+        Field tmp_data;     //Aktuelles Field wird hier reingeladen
+        while(gen_Stack.count_nodes() != 0){     // solange im Stack noch Elemente sind, wird weitergemacht
+            tmp_data = (Field) gen_Stack.get_first().get_content();     //das aktuelle Feld wird zugänglich gemacht
             int[] next_pos = get_next_pos(tmp_data);
-            if (next_pos == null) {//wenn momentaner Weg hier endet
-                this.add_maze_path(tmp_data, 5); //Fügt das Feld im Fenster hinzu; direction = 5 => ohne Folgefeld
-                tmp_data.setIs_drawn(true);
+            if (next_pos == null) {     //wenn momentaner Weg hier endet
+                this.add_maze_path(tmp_data, 5);      //Fügt das Feld im Fenster hinzu; direction = 5 => ohne Folgefeld
                 gen_Stack.remove();
-                continue;//geht zum nächsten Schleifendurchgang
+                continue;     //geht zum nächsten Schleifendurchgang
             }
             this.add_maze_path(tmp_data,next_pos[2]);
-            tmp_data.setIs_drawn(true);
-            Field next_Field = maze[next_pos[0]][next_pos[1]];//Macht das nächste Feld greifbar
-            gen_Stack.insert(next_Field);//Fügt das nächste Feld im gen_Stack hinzu
-            //next_Field.set_connection_True(next_pos[2]);//Braucht man für spätere Pläne...=> irrelevant
-            maze_visited[next_pos[0]][next_pos[1]] = true;//Das nächste Feld wird als besucht markiert
+            Field next_Field = maze[next_pos[0]][next_pos[1]];     //Macht das nächste Feld greifbar
+            gen_Stack.insert(next_Field);     //Fügt das nächste Feld im gen_Stack hinzu
+            //next_Field.set_connection_True(next_pos[2]);     //Braucht man für spätere Pläne...=> irrelevant
+            maze_visited[next_pos[0]][next_pos[1]] = true;     //Das nächste Feld wird als besucht markiert
 
         }
 
+    }
+
+    public void maze_step(){
+        if(gen_Stack.count_nodes() != 0){
+            Field tmp_data = (Field) gen_Stack.get_first().get_content();     //das aktuelle Feld wird zugänglich gemacht
+            int[] next_pos = get_next_pos(tmp_data);
+            if (next_pos == null) {     //wenn momentaner Weg hier endet
+                this.add_maze_path(tmp_data, 5);      //Fügt das Feld im Fenster hinzu; direction = 5 => ohne Folgefeld
+                gen_Stack.remove();
+                //continue;     //geht zum nächsten Schleifendurchgang
+            }else {
+                this.add_maze_path(tmp_data, next_pos[2]);
+                Field next_Field = maze[next_pos[0]][next_pos[1]];     //Macht das nächste Feld greifbar
+                gen_Stack.insert(next_Field);     //Fügt das nächste Feld im gen_Stack hinzu
+                //next_Field.set_connection_True(next_pos[2]);     //Braucht man für spätere Pläne...=> irrelevant
+                maze_visited[next_pos[0]][next_pos[1]] = true;     //Das nächste Feld wird als besucht markiert
+            }
+        }
     }
 
     public int[] get_next_pos(Field current_field){//gibt die Koordinaten für das nächste Feld für das jetzige Feld zurück(bei der Generierung
@@ -139,7 +156,7 @@ public class Maze extends Game {
         pos[0] = current_field.get_y_pos();
         pos[1] = current_field.get_x_pos();
         try {
-            if(!(maze_visited[pos[0]+1][pos[1]])) {
+            if(!(maze_visited[pos[0]+1][pos[1]])) {// wenn das Feld noch nicht besucht ist
                 possible_connections[connection_count] = 0;//an der Stelle connection_count wird die Richtung 0 == Nord eingesetzt
                 connection_count++;
             }}catch(ArrayIndexOutOfBoundsException e){}
@@ -189,11 +206,13 @@ public class Maze extends Game {
                 path.resize(path_length, center_block_width);
             }
         }
+        current_Field.setIs_drawn(true);
     }
 
     @Override
     public void update_loop() {
-
+        maze_step();
     }
 }
+
 
