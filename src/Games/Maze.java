@@ -10,6 +10,7 @@
 package Games;
 
 import Games.Data.Maze.Field;
+import Games.Data.Tetris.ColorChangeManager;
 import Games.Engine.Game;
 import Games.Engine.Kompositum.Stack;
 import Games.Engine.Sprite;
@@ -28,6 +29,7 @@ public class Maze extends Game {
     private final Field[][] maze;
     private final boolean[][] maze_visited;
     private final Random random = new Random();
+    private int step = 0;
 
     public Maze(Window window){
         super(window, "Maze");
@@ -73,21 +75,8 @@ public class Maze extends Game {
         gen_Stack.insert(maze[0][0]);     //Startposition des Labyrinths ist (0, 0)
         Field tmp_data;     //Aktuelles Field wird hier reingeladen
         while(gen_Stack.count_nodes() != 0){     // solange im Stack noch Elemente sind, wird weitergemacht
-            tmp_data = (Field) gen_Stack.get_first().get_content();     //das aktuelle Feld wird zugänglich gemacht
-            int[] next_pos = get_next_pos(tmp_data);
-            if (next_pos == null) {     //wenn momentaner Weg hier endet
-                this.add_maze_path(tmp_data, 5);      //Fügt das Feld im Fenster hinzu; direction = 5 => ohne Folgefeld
-                gen_Stack.remove();
-                continue;     //geht zum nächsten Schleifendurchgang
-            }
-            this.add_maze_path(tmp_data,next_pos[2]);
-            Field next_Field = maze[next_pos[0]][next_pos[1]];     //Macht das nächste Feld greifbar
-            gen_Stack.insert(next_Field);     //Fügt das nächste Feld im gen_Stack hinzu
-            //next_Field.set_connection_True(next_pos[2]);     //Braucht man für spätere Pläne...=> irrelevant
-            maze_visited[next_pos[0]][next_pos[1]] = true;     //Das nächste Feld wird als besucht markiert
-
+            maze_step();
         }
-
     }
 
     public void maze_step(){
@@ -184,13 +173,16 @@ public class Maze extends Game {
         int topy = current_Field.get_y_pos() * this.cell_width;//    -"-      y-Koordinate    -"-
         //cell_width wird mit relativer Breite des Pfades multipliziert, breite der Zentralen Quadrate
         int center_block_width = 14;
+        step++;
         if(!current_Field.get_is_drawn()){
            Sprite sprite = new Sprite(this,1,null);
+           sprite.color = Color.BLUE;
            sprite.resize(center_block_width, center_block_width);
            sprite.set_pos(topx + 3,topy + 3);
         }
         if(direction<5) {
             Sprite path = new Sprite(this, 1, null);
+            path.color = Color.BLUE;
             int path_length = cell_width - center_block_width;
             if (direction == 2) {//Wenns nach oben geht
                 path.set_pos(topx + 3, topy - 3);
@@ -211,7 +203,9 @@ public class Maze extends Game {
 
     @Override
     public void update_loop() {
-        maze_step();
+        if (gen_Stack.count_nodes() != 0) {
+            maze_step();
+        }
     }
 }
 
