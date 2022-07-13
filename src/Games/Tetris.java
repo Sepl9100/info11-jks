@@ -239,14 +239,18 @@ public class Tetris extends Game {
                     activetile.move(1, 0);
                 }
                 if (e_key_bind.update()) {          // Q Taste gedrückt
-                    activetile.rotateCW();          // Im Uhrzeigersinn drehen
-                    if (array.check_collision(activetile, 0, 0))
-                        activetile.rotateCCW();        // Bei Kollision zurückdrehen
+                    if (activetile.y < 21) {
+                        activetile.rotateCW();          // Im Uhrzeigersinn drehen
+                        if (array.check_collision(activetile, 0, 0))
+                            activetile.rotateCCW();        // Bei Kollision zurückdrehen
+                    }
                 }
                 if (q_key_bind.update()) {          // E Taste gedrückt
-                    activetile.rotateCCW();         // Gegen den Uhrzeigersinn drehen
-                    if (array.check_collision(activetile, 0, 0))
-                        activetile.rotateCW();         // Bei Kollision zurückdrehen
+                    if (activetile.y < 21) {
+                        activetile.rotateCCW();         // Gegen den Uhrzeigersinn drehen
+                        if (array.check_collision(activetile, 0, 0))
+                            activetile.rotateCW();         // Bei Kollision zurückdrehen
+                    }
                 }
 
             }
